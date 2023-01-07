@@ -1,0 +1,73 @@
+<div
+  id="MainQuickSearch"
+  class="quick-search"
+  data-quick-search
+  aria-hidden="true"
+>
+  <div class="quick-search__overlay" data-overlay></div>
+
+  <div class="quick-search__container">
+    <button
+      type="button"
+      class="quick-search__close"
+      aria-label="{{ 'general.accessibility.close_modal' | t }}"
+      data-close-icon
+    >
+      {% render 'icon-button' with small: true, icon: 'close' %}
+    </button>
+
+    <form
+      action="{{ routes.search_url }}"
+      class="quick-search__form"
+      autocomplete="off"
+      data-quick-search-form
+      data-scroll-lock-ignore
+    >
+      <div class="quick-search__bar">
+        <div class="quick-search__bar-inner">
+          <label for="search" class="visually-hidden" aria-label="{{ 'search.placeholder' | t }}"></label>
+          <div class="quick-search__actions">
+            <button class="quick-search__submit" type="submit" aria-label="{{ 'search.search' | t }}">
+              {% render 'icon' with icon: 'search' %}
+            </button>
+          </div>
+          <input
+            class="quick-search__input"
+            id="search"
+            type="text"
+            name="q"
+            placeholder="{{ 'search.placeholder' | t }}"
+            data-input
+          >
+          <input type="hidden" name="options[prefix]" value="last">
+          <input
+            type="hidden"
+            name="type"
+            value="product{% if settings.search_show_articles %},article{% endif %}{% if settings.search_show_pages %},page{% endif %}"
+          >
+          <div class="quick-search__actions">
+            <button class="quick-search__clear fs-body-50" type="button" data-clear>
+              {{ 'search.clear_search' | t }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-search__results-wrapper">
+        <div class="quick-search__results" data-results></div>
+      </div>
+
+      {%- if settings.quick_search_suggested_links != blank -%}
+        <div class="quick-search__suggested-wrapper">
+          <div class="quick-search__suggested">
+            {% render 'search-suggested-links' %}
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="quick-search__footer">
+        <button type="submit" class="btn btn--primary btn--full">{{ 'search.view_all' | t }}</button>
+      </div>
+    </form>
+  </div>
+</div>

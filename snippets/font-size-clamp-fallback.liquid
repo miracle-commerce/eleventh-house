@@ -1,0 +1,19 @@
+{% comment %}
+  Use this to create a fallback for browsers that don't support clamp().  See options in font-size-clamp.liquid
+{% endcomment %}
+
+{%- liquid
+  assign multiplier = multiplier | times: 1.0
+  assign pixels_per_rem = 16 | times: 1.0
+  assign mobile_scale = mobile_scale | times: 0.01
+
+  assign minimum_font_size = desktop_size | times: 1.0 | times: multiplier | times: mobile_scale | divided_by: pixels_per_rem
+  assign maximum_font_size = desktop_size | times: 1.0 | times: multiplier | divided_by: pixels_per_rem
+
+  assign slope_font_size_value = maximum_font_size | minus: minimum_font_size
+  assign half_slope = slope_font_size_value | divided_by: 2
+
+  assign mid_font_size = minimum_font_size | plus: half_slope
+-%}
+
+{{ mid_font_size }}rem

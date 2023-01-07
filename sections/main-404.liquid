@@ -1,0 +1,17 @@
+<div class="a404 page">
+  <div class="a404__inner page__inner">
+    <header class="a404__header page__header">
+      <h1 class="a404__heading ff-heading fs-heading-2-base">{{ 'general.404.title' | t }}</h1>
+      <p class="a404__subheading fs-body-100">{{ 'general.404.subtext' | t }}</p>
+      {%- assign button_label = 'general.404.link' | t -%}
+      {%-
+        render 'button-block' with
+        wrapper_class: "a404__button",
+        link: routes.root_url,
+        label: button_label,
+        button_style: "btn--secondary",
+        button_alignment: 'center'
+      -%}
+    </header>
+  </div>
+</div>

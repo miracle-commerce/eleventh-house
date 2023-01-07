@@ -1,0 +1,575 @@
+<div
+  class="
+    image-with-text-split
+    image-with-text-split--image-position-{{ section.settings.image_position }}
+    image-with-text-split--image-mobile-position-{{ section.settings.image_mobile_position }}
+    image-with-text-split--image-padding-{{ section.settings.image_padding }}
+    image-with-text-split--content-align-{{ section.settings.content_alignment }}
+    section
+    section--full-width
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+      animation--image-with-text-split
+    {% endif %}
+  "
+  data-section-id="{{ section.id }}"
+  data-section-type="image-with-text-split"
+  style="
+    --text-align: {{ section.settings.content_alignment }};
+    --color-background: {{ section.settings.background_color }};
+    --color-text: {{ section.settings.text_color }};
+    --color-text-link: {{ section.settings.text_color }};
+    {% render 'overlay-button-vars' with color_button_text: section.settings.button_text_color, color_button_background: section.settings.button_background_color %}
+  "
+>
+  <div class="image-with-text-split__inner">
+    <div class="image-with-text-split__image-container">
+      {%-
+        render 'image' with
+        wrapper_class: "image-with-text-split__image",
+        image: section.settings.image,
+        sizes: "(min-width: 960px) 50vw, 100vw",
+        aspect_ratio: section.settings.aspect_ratio,
+        focal_point: section.settings.focal_point,
+        include_placeholder: true,
+        animate: true
+      -%}
+    </div>
+    <div class="image-with-text-split__text-container">
+      <div class="image-with-text-split__text-container-inner section-blocks animation--section-blocks">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'accent' -%}
+              {%- unless block.settings.accent == blank -%}
+                <p class="image-with-text-split__text-container-accent fs-accent section-blocks__accent">
+                  {{ block.settings.accent }}
+                </p>
+              {%- endunless -%}
+            {%- when 'heading' -%}
+              {%- unless block.settings.title == blank -%}
+                <h2 class="image-with-text-split__text-container-heading ff-heading {{ block.settings.heading_font_class }} section-blocks__heading">
+                  {{ block.settings.title }}
+                </h2>
+              {%- endunless -%}
+            {%- when 'subheading' -%}
+              {%- unless block.settings.subheading == blank -%}
+                <h2 class="image-with-text-split__text-container-subheading ff-heading lh-subheading {{ block.settings.subheading_font_class }} section-blocks__subheading">
+                  {{ block.settings.subheading }}
+                </h2>
+              {%- endunless -%}
+            {%- when 'text' -%}
+              {%- unless block.settings.text == blank -%}
+                <div class="image-with-text-split__text-container-text rte ff-body {{ block.settings.text_font_class }} section-blocks__text">
+                  {{ block.settings.text }}
+                </div>
+              {%- endunless -%}
+            {%- when 'image' -%}
+              {%-
+                render 'image-block' with
+                shopify_attributes: block.shopify_attributes,
+                wrapper_class: 'image-with-text-split__text-container-image  section-blocks__image',
+                image: block.settings.image,
+                width: block.settings.image_size,
+                mobile_width: block.settings.image_size_mobile,
+                break_to_mobile_at: '720',
+                align: section.settings.content_alignment
+              -%}
+            {%- when 'button' -%}
+              {%-
+                render 'button-block' with
+                wrapper_class: "image-with-text-split__text-container-button section-blocks__button",
+                link: block.settings.link,
+                label: block.settings.link_text,
+                button_style: block.settings.button_style,
+                is_overlay: true,
+                button_alignment: section.settings.content_alignment,
+                buttons_can_inline: true,
+                forloop: forloop
+              -%}
+            {%- when 'play-button' -%}
+              {%-
+                render 'play-button-block' with
+                wrapper_class: 'image-with-text-split__text-container-play-button section-blocks__video-button',
+                shopify_attributes: block.shopify_attributes,
+                poster_image: block.settings.poster_image,
+                poster_aspect: block.settings.aspect_ratio,
+                video_url: block.settings.video_url,
+                label: block.settings.text,
+                button_alignment: section.settings.content_alignment,
+                icon_style: block.settings.icon_style
+              -%}
+            {%- when 'border' -%}
+              {%- render 'border-block' -%}
+            {%- when 'spacer' -%}
+              {%- render 'spacer-block' with space: block.settings.space -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:sections.image_with_text_split.name",
+    "tag": "section",
+    "class": "shopify-section--full-width",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:sections.image_with_text_split.settings.header__image.content"
+      },
+      {
+        "type": "select",
+        "id": "image_position",
+        "label": "t:sections.image_with_text_split.settings.image_position.label",
+        "default": "right",
+        "options": [
+          {
+            "value": "left",
+            "label": "t:sections.image_with_text_split.settings.image_position.option_left"
+          },
+          {
+            "value": "right",
+            "label": "t:sections.image_with_text_split.settings.image_position.option_right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "image_mobile_position",
+        "label": "t:sections.image_with_text_split.settings.image_mobile_position.label",
+        "default": "above-content",
+        "options": [
+          {
+            "value": "above-content",
+            "label": "t:sections.image_with_text_split.settings.image_mobile_position.option_above"
+          },
+          {
+            "value": "below-content",
+            "label": "t:sections.image_with_text_split.settings.image_mobile_position.option_below"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "image_padding",
+        "label": "t:sections.image_with_text_split.settings.image_padding.label",
+        "default": "none",
+        "options": [
+          {
+            "label": "t:sections.image_with_text_split.settings.image_padding.option_none", "value": "none"
+          },
+          {
+            "label": "t:sections.image_with_text_split.settings.image_padding.option_top_bottom", "value": "top-and-bottom"
+          },
+          {
+            "label": "t:sections.image_with_text_split.settings.image_padding.option_all_sides", "value": "all-sides"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "t:sections.image_with_text_split.settings.image.label"
+      },
+      {
+        "type": "select",
+        "id": "aspect_ratio",
+        "label": "t:shared.settings.aspect_ratio.label",
+        "default": "square",
+        "options": [
+          {
+            "value": "natural",
+            "label": "t:shared.settings.aspect_ratio.option_natural"
+          },
+          {
+            "value": "square",
+            "label": "t:shared.settings.aspect_ratio.option_square"
+          },
+          {
+            "value": "portrait",
+            "label": "t:shared.settings.aspect_ratio.option_portrait"
+          },
+          {
+            "value": "landscape",
+            "label": "t:shared.settings.aspect_ratio.option_landscape"
+          }
+        ]
+      },
+      {
+        "id": "focal_point",
+        "type": "select",
+        "label": "t:shared.settings.focal_point.label",
+        "options": [{"label":"t:shared.settings.focal_point.option_center","value":"center"},{"label":"t:shared.settings.focal_point.option_top","value":"top"},{"label":"t:shared.settings.focal_point.option_bottom","value":"bottom"},{"label":"t:shared.settings.focal_point.option_left","value":"left"},{"label":"t:shared.settings.focal_point.option_right","value":"right"}],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "t:sections.image_with_text_split.settings.header__content.content"
+      },
+      {
+        "type": "select",
+        "id": "content_alignment",
+        "label": "t:sections.image_with_text_split.settings.content_alignment.label",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "t:shared.settings.alignment_horizontal.option_left"
+          },
+          {
+            "value": "center",
+            "label": "t:shared.settings.alignment_horizontal.option_center"
+          },
+          {
+            "value": "right",
+            "label": "t:shared.settings.alignment_horizontal.option_right"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "t:shared.settings.header_color.content"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "t:shared.settings.background_color.label",
+        "default": "#D9A49C"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "t:sections.image_with_text_split.settings.text_color.label",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "button_background_color",
+        "label": "t:shared.settings.button_background_color.label",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "t:shared.settings.button_text_color.label",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "t:shared.settings.section_style.header_style.content"
+      },
+      {
+        "id": "enable_animation",
+        "type": "checkbox",
+        "label": "t:shared.settings.section_style.enable_animation.label",
+        "info": "t:shared.settings.section_style.enable_animation.info",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "section_padding",
+        "label": "t:shared.settings.section_style.section_padding.label",
+        "default": "section--vertical-padding-none",
+        "options": [
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_none", "value": "section--vertical-padding-none"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_both", "value": "section--vertical-padding-top-bottom"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_top", "value": "section--vertical-padding-top-only"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_bottom", "value": "section--vertical-padding-bottom-only"
+          }
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "type": "accent",
+        "name": "t:sections.image_with_text_split.blocks.accent.name",
+        "settings": [
+          {
+            "id": "accent",
+            "type": "text",
+            "label": "t:sections.image_with_text_split.blocks.accent.settings.text.label",
+            "default": "Accent"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "name": "t:sections.image_with_text_split.blocks.title.name",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "t:sections.image_with_text_split.blocks.title.settings.title.label",
+            "default": "Image with text split"
+          },
+          {
+            "type": "select",
+            "id": "heading_font_class",
+            "label": "t:shared.settings.heading_font_class.label",
+            "default": "fs-heading-display-3",
+            "options": [
+              {
+                "value": "fs-heading-1-base",
+                "label": "t:shared.settings.heading_font_class.option_small"
+              },
+              {
+                "value": "fs-heading-display-3",
+                "label": "t:shared.settings.heading_font_class.option_medium"
+              },
+              {
+                "value": "fs-heading-display-2",
+                "label": "t:shared.settings.heading_font_class.option_large"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "subheading",
+        "name": "t:sections.image_with_text_split.blocks.subheading.name",
+        "settings": [
+          {
+            "id": "subheading",
+            "type": "text",
+            "label": "t:sections.image_with_text_split.blocks.subheading.settings.text.label",
+            "default": "Use these sections to promote a particular feature with editorial photography."
+          },
+          {
+            "type": "select",
+            "id": "subheading_font_class",
+            "label": "t:shared.settings.subheading_font_class.label",
+            "default": "fs-heading-5-base",
+            "options": [
+              {
+                "value": "fs-heading-6-base",
+                "label": "t:shared.settings.subheading_font_class.option_small"
+              },
+              {
+                "value": "fs-heading-5-base",
+                "label": "t:shared.settings.subheading_font_class.option_medium"
+              },
+              {
+                "value": "fs-heading-4-base",
+                "label": "t:shared.settings.subheading_font_class.option_large"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "t:sections.image_with_text_split.blocks.text.name",
+        "settings": [
+          {
+            "id": "text",
+            "type": "richtext",
+            "label": "t:sections.image_with_text_split.blocks.text.settings.text.label",
+            "default": "<p>Use these sections to promote a particular feature with editorial photography.</p>"
+          },
+          {
+            "type": "select",
+            "id": "text_font_class",
+            "label": "t:shared.settings.text_font_class.label",
+            "default": "fs-body-100",
+            "options": [
+              {
+                "value": "fs-body-75",
+                "label": "t:shared.settings.text_font_class.option_small"
+              },
+              {
+                "value": "fs-body-100",
+                "label": "t:shared.settings.text_font_class.option_regular"
+              },
+              {
+                "value": "fs-body-200",
+                "label": "t:shared.settings.text_font_class.option_large"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "t:shared.section_blocks.image.name",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "t:shared.section_blocks.image.settings.image.label"
+          },
+          {
+            "id": "image_size",
+            "type": "range",
+            "min": 50,
+            "max": 750,
+            "step": 10,
+            "unit": "px",
+            "label": "t:shared.section_blocks.image.settings.image_size.label",
+            "default": 200
+          },
+          {
+            "id": "image_size_mobile",
+            "type": "range",
+            "min": 50,
+            "max": 350,
+            "step": 10,
+            "unit": "px",
+            "label": "t:shared.section_blocks.image.settings.image_size_mobile.label",
+            "default": 200
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "name": "t:sections.image_with_text_split.blocks.button.name",
+        "limit": 2,
+        "settings": [
+          {
+            "id": "link",
+            "type": "url",
+            "label": "t:sections.image_with_text_split.blocks.button.settings.link.label"
+          },
+          {
+            "id": "link_text",
+            "type": "text",
+            "label": "t:sections.image_with_text_split.blocks.button.settings.link_text.label",
+            "default": "Read more"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "t:shared.settings.button_style.label",
+            "options": [
+              {
+                "value": "btn--primary",
+                "label": "t:shared.settings.button_style.option_solid"
+              },
+              {
+                "value": "btn--secondary",
+                "label": "t:shared.settings.button_style.option_outline"
+              },
+              {
+                "value": "btn--callout",
+                "label": "t:shared.settings.button_style.option_text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "play-button",
+        "name": "t:shared.section_blocks.play_button.name",
+        "settings": [
+          {
+            "type": "url",
+            "id": "video_url",
+            "label": "Video link",
+            "label": "t:shared.section_blocks.play_button.settings.video_url.label",
+            "info": "t:shared.section_blocks.play_button.settings.video_url.info"
+          },
+          {
+            "type": "image_picker",
+            "id": "poster_image",
+            "label": "t:shared.section_blocks.play_button.settings.poster_image.label"
+          },
+          {
+            "type": "select",
+            "id": "aspect_ratio",
+            "label": "t:shared.settings.aspect_ratio.label",
+            "default": "square",
+            "options": [
+              {
+                "value": "natural",
+                "label": "t:shared.settings.aspect_ratio.option_natural"
+              },
+              {
+                "value": "square",
+                "label": "t:shared.settings.aspect_ratio.option_square"
+              },
+              {
+                "value": "portrait",
+                "label": "t:shared.settings.aspect_ratio.option_portrait"
+              },
+              {
+                "value": "landscape",
+                "label": "t:shared.settings.aspect_ratio.option_landscape"
+              }
+            ]
+          },
+          {
+            "id": "text",
+            "type": "text",
+            "label": "t:shared.section_blocks.play_button.settings.text.label",
+            "default": "Watch now"
+          },
+          {
+            "type": "select",
+            "id": "icon_style",
+            "label": "t:shared.section_blocks.play_button.settings.icon_style.label",
+            "default": "outline",
+            "options": [
+              {
+                "value": "dark",
+                "label": "t:shared.section_blocks.play_button.settings.icon_style.option_dark"
+              },
+              {
+                "value": "light",
+                "label": "t:shared.section_blocks.play_button.settings.icon_style.option_light"
+              },
+              {
+                "value": "outline",
+                "label": "t:shared.section_blocks.play_button.settings.icon_style.option_outline"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "border",
+        "name": "t:shared.section_blocks.border.name"
+      },
+      {
+        "type": "spacer",
+        "name": "t:shared.section_blocks.spacer.name",
+        "settings": [
+          {
+            "type": "range",
+            "id": "space",
+            "label": "t:shared.section_blocks.spacer.settings.space.label",
+            "min": 4,
+            "max": 64,
+            "step": 4,
+            "default": 12,
+            "unit": "px"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:sections.image_with_text_split.presets.name",
+        "blocks": [
+          {
+            "type": "accent"
+          },
+          {
+            "type": "heading"
+          },
+          {
+            "type": "subheading"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

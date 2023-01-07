@@ -1,0 +1,10 @@
+{%- assign largest_amount_off = 0 -%}
+{%- for variant in prod.variants -%}
+  {%- if variant.compare_at_price > variant.price -%}
+    {%- assign variant_amount_off = variant.compare_at_price | minus: variant.price -%}
+    {%- if variant_amount_off > largest_amount_off -%}
+      {%- assign largest_amount_off = variant_amount_off -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{{ variant_amount_off }}

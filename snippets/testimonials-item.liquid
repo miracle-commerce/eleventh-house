@@ -1,0 +1,96 @@
+{%- liquid
+  assign product_image = block.settings.product.featured_media | default: block.settings.product.media[0].preview_image
+
+  if block.settings.image != blank and block.settings.product != blank
+    assign product_image = block.settings.image
+  endif
+
+  if image_size == "small"
+    assign image_sizes_fraction = 0.30
+  elsif image_size == "medium"
+    assign image_sizes_fraction = 0.40
+  elsif image_size == "large"
+    assign image_sizes_fraction = 0.50
+  endif
+-%}
+
+{% capture image_sizes_attribute -%}
+  (min-width: 720px) calc((100vw - (2 * clamp(18px, 3.3vw, 3.3vw))) * {{ image_sizes_fraction }}), 83.3vw
+{%- endcapture %}
+
+{% capture product_image %}
+  <figure class="testimonials__item-product">
+    {%- capture wrapper_tag -%}
+      {%- if block.settings.product != blank %}a{% else %}div{% endif -%}
+    {%- endcapture -%}
+    {%- capture wrapper_attributes -%}
+      {%- if block.settings.product != blank -%}
+        href="{{ block.settings.product.url }}" aria-label="{{ block.settings.product.title }}"
+      {%- endif -%}
+    {%- endcapture -%}
+
+    <{{ wrapper_tag }} {{ wrapper_attributes }}>
+      {%
+        render 'image' with
+        image: product_image,
+        wrapper_class: 'testimonials__item-product-image',
+        aspect_ratio: block.settings.aspect_ratio,
+        focal_point: block.settings.focal_point,
+        include_placeholder: true,
+        sizes: image_sizes_attribute
+      %}
+    </{{ wrapper_tag }}>
+
+    <figcaption class="testimonials__item-product-title fs-product-card-title">
+      {%- if block.settings.product != blank -%}
+        {{ block.settings.product.title }}
+      {%- else -%}
+        {{ 'homepage.onboarding.product_title' | t }}
+      {%- endif -%}
+    </figcaption>
+  </figure>
+{% endcapture %}
+
+{% capture quote %}
+  <div class="testimonials__item-content">
+    {%- if block.settings.show_rating -%}
+      <div class="testimonials__item-stars">
+        {%- render 'star-rating' rating: block.settings.rating -%}
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.quote != blank -%}
+      <blockquote class="testimonials__item-quote {% if quote_font == 'heading' %}ff-heading lh-subheading fs-heading-4-base fs-heading-3-base-above-720{% else %}ff-body fs-body-300 fs-body-350-above-720{% endif %}">
+        {{ block.settings.quote }}
+      </blockquote>
+    {%- endif -%}
+
+    {%- if block.settings.author != blank -%}
+      <cite class="testimonials__item-author ff-body fs-body-100 t-opacity-60">
+        <span>{{ block.settings.author }}</span>
+      </cite>
+    {%- endif -%}
+  </div>
+{% endcapture %}
+
+<div
+  class="
+    testimonials__item swiper-slide
+    testimonials__item--image-{{ image_size }}
+    testimonials__item--image-placement-{{ block.settings.image_position }}
+    animation--item
+  "
+  {% unless forloop.first %}
+    inert
+  {% endunless %}
+  data-index="{{ forloop.index0 }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if block.settings.image_position == 'left' -%}
+    {{ product_image }}
+    {{ quote }}
+  {%- else -%}
+    {{ quote }}
+    {{ product_image }}
+  {%- endif -%}
+</div>

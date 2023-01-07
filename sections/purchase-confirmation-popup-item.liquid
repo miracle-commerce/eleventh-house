@@ -1,0 +1,53 @@
+<form action="{{ routes.cart_url }}" method="post" data-form novalidate data-scroll-lock-ignore>
+  <h3 class="purchase-confirmation-popup__heading ff-heading fs-heading-5-base animation--purchase-confirmation-item">{{ 'cart.general.confirmation_popup_heading' | t }}</h3>
+
+  {%- for item in cart.items -%}
+    <div class="purchase-confirmation-popup__item hidden animation--purchase-confirmation-item" data-product-key="{{ item.key }}">
+
+      <div class="purchase-confirmation-popup__product">
+        <div class="purchase-confirmation-popup__product-image">
+          {%- render 'image' with
+            image: item.image,
+            sizes: "120px",
+            aspect_ratio: settings.cart_item_aspect_ratio,
+            include_placeholder: true
+          -%}
+        </div>
+        <div class="purchase-confirmation-popup__product-details">
+          <h4 class="purchase-confirmation-popup__product-title fs-product-card-title">
+            {{ item.product.title }}
+          </h4>
+
+          {% unless item.product.has_only_default_variant %}
+            <p class="purchase-confirmation-popup__product-variant fs-body-50 t-opacity-50">{{ item.variant.title }}</p>
+          {% endunless %}
+
+          {% if item.selling_plan_allocation %}
+            <p class="purchase-confirmation-popup__product-subscriptions fs-body-50 t-opacity-50">{{ item.selling_plan_allocation.selling_plan.name }}<p>
+          {% endif %}
+
+          <div class="purchase-confirmation-popup__product-price-wrapper fs-body-75">
+            {% if item.original_line_price > item.final_line_price %}
+              <s class="purchase-confirmation-popup__product-title-price">{{ item.original_price | money }}{% if section.settings.show_product_currency %} {{ cart.currency.iso_code }}{% endif %}</s>
+            {% endif %}
+
+            <span class="purchase-confirmation-popup__product-title-price{% if item.original_line_price > item.final_line_price %} sale-price{% endif %}">{{ item.final_price | money }}{% if section.settings.show_product_currency %} {{ cart.currency.iso_code }}{% endif %}</span>
+
+            {% render 'unit-price', item: item %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+
+  <div class="animation--purchase-confirmation-footer-item">
+    <a href="{{ routes.cart_url }}" class="purchase-confirmation-popup__view-cart btn btn--full btn--secondary btn--small no-transition">{{ 'cart.general.view_cart' | t: cart_total: cart.item_count }}</a>
+  </div>
+  <div class="animation--purchase-confirmation-footer-item">
+    <button type="submit" name="checkout" class="purchase-confirmation-popup__submit btn btn--full btn--primary btn--small" aria-label="{{ 'cart.general.checkout' | t }}">{{ 'cart.general.checkout' | t }}</button>
+  </div>
+</form>
+
+<div class="animation--purchase-confirmation-footer-item">
+  {%- render 'free-shipping-bar' %}
+</div>

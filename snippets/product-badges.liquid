@@ -1,0 +1,61 @@
+{% comment %}
+  pass in :
+
+  * prod (product - avoid collision with global product)
+  * show_sale_badge
+  * show_custom_badges
+  * show_sold_out_badge - if true, other badges will not be shown
+{% endcomment %}
+
+{%- assign badges = "" -%}
+{%- assign product_tags = prod.tags -%}
+{%- assign badge_tags_1 = settings.custom_product_badge_group_1_tag_names | split: ', ' -%}
+{%- assign badge_tags_2 = settings.custom_product_badge_group_2_tag_names | split: ', ' -%}
+{%- assign badge_tags_3 = settings.custom_product_badge_group_3_tag_names | split: ', ' -%}
+{%- assign badge_tags_4 = settings.custom_product_badge_group_4_tag_names | split: ', ' -%}
+{%- assign badge_tags = badge_tags_1 | concat: badge_tags_2 | concat: badge_tags_3 | concat: badge_tags_4 -%}
+
+{%- unless show_sold_out_badge and prod.available != true %}
+  {%- if show_sale_badge and prod.compare_at_price > prod.price -%}
+    {%- capture badges -%}
+      {{ badges }}
+      <div class="product-badge product-badge--sale">
+        {%- render "get-display-discount" with prod: prod, format: settings.sale_badge_format -%}
+      </div>
+      {{ badges }}
+    {%- endcapture -%}
+  {%- endif -%}
+
+  {%- if show_custom_badges -%}
+    {%- for badge_tag in badge_tags -%}
+      {%- for product_tag in product_tags -%}
+        {%- assign product_tag_lower = product_tag | downcase -%}
+        {%- assign badge_tag_lower = badge_tag | downcase -%}
+
+        {%- if product_tag_lower == badge_tag_lower -%}
+          {%- capture badges -%}
+            {{ badges }}
+            <div class="product-badge product-badge" data-handle="{{ badge_tag_lower | handleize }}">
+              {{ badge_tag }}
+            </div>
+          {%- endcapture -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endfor -%}
+  {%- endif -%}
+{% endunless %}
+
+{%- if show_sold_out_badge -%}
+  {%- unless prod.available or placeholder -%}
+    {%- capture badges -%}
+      {%- comment -%}this replaces all previous {%- endcomment -%}
+      <div class="product-badge product-badge--sold-out">
+        {{ 'products.product.sold_out' | t }}
+      </div>
+    {%- endcapture -%}
+  {%- endunless -%}
+{%- endif -%}
+
+<div class="product-badges">
+  {{ badges }}
+</div>

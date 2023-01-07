@@ -1,0 +1,108 @@
+{%- comment -%}
+  Pass these variables into snippet:
+
+  Required:
+
+  * image: Image object
+  * sizes: srcset size attribute
+
+  Optional:
+  * prioritize_loading: is this image rendered above the fold or otherwise prioritized? this will avoid loading="lazy"
+  * fallback_width: width shown to browsers that don't support srcSet
+  * tag_name: render something other than an `img` element, for instance `picture` or `source`
+  * media: custom media definition for `source`
+  * image_fill_aspect_ratio: necessary if the image is displayed at a non natural aspect ratio see explanation below
+  * fallback_alt: fall back alt text if non set on image in admin
+  * src_set_type: optional parameter used to reduce the srcset generation to speed up page perf
+      - 'grid'
+      - 'full-width'
+      - if unset a comprehensive src set range will be used
+      
+{%- endcomment -%}
+{%- liquid
+  if tag_name == blank
+    assign tag_name = "img"
+  endif
+
+  if fallback_width == blank
+    assign fallback_width = 320
+  endif
+
+  if lazy
+    assign src_attr = "data-src"
+    assign src_set_attr = "data-srcset"
+  else
+    assign src_attr = "src"
+    assign src_set_attr = "srcset"
+  endif
+
+  if src_set_type == "grid"
+    # Assumption: even with a 3-per row grid on large screen, grid item will not be more than 500px @2x wide
+    assign src_set_widths_raw = "150,200,240,280,300,360,400,450,500,550,600,650,700,750,800,850,900,950,1000" 
+  elsif src_set_type == "full-width"
+    # Assumption: even smallest phone will be  350px @ 2x = 700 at least
+    assign src_set_widths_raw = "700,750,800,850,900,950,1000,1100,1200,1300,1400,1500,1600,1800,2000,2200,2400,2600,2800,3000,3500,4000,4500,5000,5500,6000"
+  else 
+    assign src_set_widths_raw = "100,150,200,240,280,300,360,400,450,500,550,600,650,700,750,800,850,900,950,1000,1100,1200,1300,1400,1500,1600,1800,2000,2200,2400,2600,2800,3000,3500,4000,4500,5000,5500,6000"
+  endif
+
+  assign src_set_widths = src_set_widths_raw | split: ',' 
+  assign src_set_string = ""
+-%}
+
+{%- comment -%}
+  This is all pretty confusing but it is required in order to ensure that images
+  are properly srcSet'd / sizes'd when the image's display aspect-ratio is mismatched from
+  it's actual aspect-ratio.  Imagine a 4:2 landscape image displayed in a 200px x 300px
+  portrait box: if the image's aspect ratio was also 2:3, we would want to load a 200w version
+  to fit in (ignoring display density), but if it is landscape and we load the 200px wide
+  version it's height will only be 100px high, so it will be half the resolution required.  To
+  solve for this the image component passes in the "image_fill_aspect_ratio" and if required and
+  the width_adjustment_factor is changed to ensure the proper file is loaded.
+{%- endcomment -%}
+{%- liquid
+  assign image_aspect_ratio = image.aspect_ratio
+
+  assign needs_width_adjustment_factor = false
+
+  if image_fill_aspect_ratio
+    if image_aspect_ratio > image_fill_aspect_ratio
+      assign needs_width_adjustment_factor = true  
+      assign width_adjustment_factor = image_aspect_ratio | divided_by : image_fill_aspect_ratio
+    endif
+  endif
+-%}
+
+{%- for width_string in src_set_widths -%}
+  {%- assign width = width_string | plus: 0 -%}
+  {% if needs_width_adjustment_factor %}
+    {%- assign required_image_width = width | times: width_adjustment_factor -%}
+  {% else %}
+    {%- assign required_image_width = width -%}
+  {% endif %}
+
+  {% if image.width < required_image_width %}
+    {% break %}
+  {% endif %}
+
+  {%- capture src_set_string -%}
+    {%- if src_set_string.size > 0 -%}{{ src_set_string }},{{ ' ' }}{%- endif -%}
+    {{ image | image_url: width: required_image_width }} {{width}}w
+  {%- endcapture -%}
+  
+{%- endfor -%}
+
+{% capture alt %}{% if image.alt.size > 0 %}{{ image.alt }}{% else %}{{ fallback_alt }}{% endif %}{% endcapture %}
+
+<{{ tag_name }}
+  alt="{{ alt | escape }}"{{ ' ' }}
+  class="image__img{%- if class_name -%} {{ class_name }}{%- endif -%}"{{ ' ' }}
+  {% unless prioritize_loading %}loading="lazy"{{ ' ' }}{% endunless %}
+  width="{{ image.width }}"{{ ' ' }}
+  height="{{ image.height }}"{{ ' ' }}
+  {% unless tag_name == "source" %}{{ src_attr }}="{{ image | image_url: width: fallback_width }}"{{ ' ' }}{% endunless %}
+  {% if media %}media="{{ media }}"{{ ' ' }}{% endif %}
+  {{ src_set_attr }}="{{ src_set_string }}"{{ ' ' }}
+  sizes="{{ sizes }}"
+  onload="javascript: this.closest('.image').classList.add('loaded')"
+/>

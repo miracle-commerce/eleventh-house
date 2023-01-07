@@ -1,0 +1,10 @@
+{% comment %}
+  This is to get the currency symbol.
+  - start with 1 dollar (100)
+  - convert it to money without currency
+  - convert it again with currency
+  - remove the money amount to leave only the currency symbol
+{% endcomment %}
+{%- assign amount = 100 -%}
+{%- assign amount_money_without_currency = amount | money_without_currency -%}
+{{ amount | money | remove: amount_money_without_currency }}

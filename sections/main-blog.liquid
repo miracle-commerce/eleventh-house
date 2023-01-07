@@ -1,0 +1,228 @@
+{%- liquid
+  assign paginate_by = section.settings.article_per_page
+  assign article_categories = settings.article_categories | downcase
+  assign has_featured = section.settings.show_featured_item
+-%}
+
+{%- if section.settings.show_tag_nav and blog.all_tags.size > 0 -%}
+  {%- for tag in blog.all_tags -%}
+    {%- assign tag_dc = tag | downcase -%}
+    {%- if article_categories contains tag_dc or article_categories == blank -%}
+      {%- capture tag_list -%}
+        {{ tag_list }}
+        <li class="blog__nav-item">
+          <a
+            href="{{ blog.url }}/tagged/{{ tag | handle }}"
+            class="
+              blog__nav-link
+              {% if current_tags contains tag %} blog__nav-link--active{% endif %}
+              ff-heading
+              fs-body-150
+            "
+          >
+            {{ tag }}
+          </a>
+        </li>
+      {%- endcapture -%}
+    {%- endif -%}
+    {%- capture tag_select_options -%}
+      {{ tag_select_options }}
+      <option
+        value="{{ blog.url }}/tagged/{{ tag | handle }}"
+        {% if current_tags contains tag %}
+          selected="selected"
+        {% endif %}
+      >
+        {{ tag }}
+      </option>
+    {%- endcapture -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{% paginate blog.articles by paginate_by %}
+  {%- if paginate.current_page > 1 or current_tags != blank -%}
+    {%- assign has_featured = false -%}
+  {%- endif -%}
+
+  <div
+    class="
+      blog
+      section
+      {% if settings.enable_section_animations and section.settings.enable_animation %}
+        animation
+        animation--blog
+      {% endif %}
+    "
+    data-page="{{ paginate.current_page }}"
+    data-section-id="{{ section.id }}"
+    data-section-type="blog"
+  >
+    <div class="blog__inner">
+      <header class="blog__header page__header animation--blog-header">
+        <h1 class="blog__heading ff-heading fs-heading-2-base fs-heading-1-base-ns ta-c">
+          {{ page_title }}
+        </h1>
+
+        {%- if tag_list.size > 0 -%}
+          <div class="blog__nav">
+            <ul class="blog__nav-list" data-current="{{ current_tags }}">
+              <li class="blog__nav-item">
+                <a
+                  href="{{ blog.url }}"
+                  class="
+                    blog__nav-link
+                    {% if current_tags == blank %} blog__nav-link--active{% endif %}
+                    ff-heading
+                    fs-body-150
+                  "
+                >
+                  {{ 'blogs.general.all' | t }}
+                </a>
+              </li>
+              {{ tag_list }}
+            </ul>
+
+            {%- if tag_select_options.size > 0 -%}
+              <div class="blog__nav-mobile--wrapper select-wrapper">
+                <select name="blog-mobile-nav" id="blog-mobile-nav" class="blog__nav-mobile input">
+                  <option
+                    value="{{ blog.url }}"
+                    {% if current_tags == blank %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    {{ 'blogs.general.all' | t }}
+                  </option>
+                  {{ tag_select_options }}
+                </select>
+                {% render 'icon' with icon: 'chevron-small' %}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </header>
+
+      <ul class="blog__article-list{% if has_featured %} blog__article-list--has-featured{% endif %}">
+        {%- for article in blog.articles -%}
+          <li class="blog__article-item{% if has_featured %} blog__article-item--featured{% endif %}">
+            {%
+              render 'article-item' with
+              blog_article: article,
+              blog: blog,
+              aspect_ratio: section.settings.aspect_ratio,
+              show_author: section.settings.show_author,
+              show_date: section.settings.show_date,
+              show_tags: section.settings.show_tags,
+              show_excerpt: section.settings.show_excerpt,
+              show_featured_image: section.settings.show_featured_image,
+              is_featured: has_featured,
+              featured_article_image_width: section.settings.featured_article_image_width
+            %}
+          </li>
+
+          {%- assign has_featured = false -%}
+        {%- endfor -%}
+      </ul>
+
+      <div class="blog__pagination animation animation--blog-pagination">
+        {% if paginate.pages > 1 %}
+          {% render 'pagination' with paginate: paginate, type: 'general.pagination.blog_posts' %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "t:sections.main_blog.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_tag_nav",
+      "label": "t:sections.main_blog.settings.show_tag_nav.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "article_per_page",
+      "min": 12,
+      "max": 36,
+      "step": 12,
+      "label": "t:sections.main_blog.settings.article_per_page.label",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main_blog.settings.article_options_header.content"
+    },
+    {
+      "id": "show_tags",
+      "type": "checkbox",
+      "label": "t:sections.main_blog.settings.show_tags.label",
+      "info": "t:sections.main_blog.settings.show_tags.info",
+      "default": true
+    },
+    {
+      "id": "show_author",
+      "type": "checkbox",
+      "label": "t:sections.main_blog.settings.show_author.label",
+      "default": true
+    },
+    {
+      "id": "show_date",
+      "type": "checkbox",
+      "label": "t:sections.main_blog.settings.show_date.label",
+      "default": true
+    },
+    {
+      "id": "show_excerpt",
+      "type": "checkbox",
+      "label": "t:sections.main_blog.settings.show_excerpt.label",
+      "default": true
+    },
+    {
+      "id": "show_featured_image",
+      "type": "checkbox",
+      "label": "t:sections.main_blog.settings.show_featured_image.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "t:shared.settings.aspect_ratio.label",
+      "default": "landscape",
+      "options": [
+        {
+          "value": "natural",
+          "label": "t:shared.settings.aspect_ratio.option_natural"
+        },
+        {
+          "value": "square",
+          "label": "t:shared.settings.aspect_ratio.option_square"
+        },
+        {
+          "value": "portrait",
+          "label": "t:shared.settings.aspect_ratio.option_portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "t:shared.settings.aspect_ratio.option_landscape"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:shared.settings.section_style.header_style.content"
+    },
+    {
+      "id": "enable_animation",
+      "type": "checkbox",
+      "label": "t:shared.settings.section_style.enable_animation.label",
+      "info": "t:shared.settings.section_style.enable_animation.info",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

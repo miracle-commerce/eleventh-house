@@ -1,0 +1,35 @@
+
+<div
+  class="
+    quick-product--wrap
+    modal
+    popover
+    is-fixed
+    {% if open %}is-visible active{% endif %}
+    {% if settings.enable_section_animations %}
+      animation
+      animation--quick-view
+      animation--quick-view-revealed
+    {% endif %}
+  "
+  aria-modal="true"
+  {% unless open %}aria-hidden="true" {% endunless %}
+  data-quick-view-modal
+>
+  <div class="modal__wash"></div>
+
+  <div class="quick-product--modal__inner modal__inner">
+    <div class="quick-view-modal__content {% unless open %}empty{% endunless %}">
+      {{ content }}
+    </div>
+    <button
+      type="button"
+      data-modal-close
+      class="modal__close-icon"
+      aria-label="{{ 'general.accessibility.close_modal' | t }}"
+        >
+          {% render 'icon-button' with small: true, icon: 'close' %}
+        </button>
+    </div>
+  </div>
+</div>

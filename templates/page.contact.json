@@ -1,0 +1,127 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "enable_animation": true,
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "title": "Get in touch",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Check out our <a href=\"\/pages\/faqs\" target=\"_blank\" title=\"FAQs\">FAQs<\/a> for answers to some of our most popular questions. If you can't find what you're after, know of a brand you think we need to carry, or just want to reach out and say 'hi', feel free to use the form below or email us at hello@shopeleventhhouse.com. <br\/>We will respond to all emails within 48 hours!<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "title": "Name",
+            "required": true,
+            "width": "half"
+          }
+        },
+        "email": {
+          "type": "email",
+          "settings": {
+            "title": "Email",
+            "width": "half"
+          }
+        },
+        "31fb17c7-3ca7-42a2-8a2d-b5150a0020a3": {
+          "type": "text",
+          "settings": {
+            "title": "Order No. (if applicable)",
+            "required": false,
+            "width": "full"
+          }
+        },
+        "message": {
+          "type": "text_area",
+          "settings": {
+            "title": "Message",
+            "placeholder": "Your message",
+            "required": true,
+            "width": "full"
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "email",
+        "31fb17c7-3ca7-42a2-8a2d-b5150a0020a3",
+        "message"
+      ],
+      "settings": {
+        "alignment": "left_left",
+        "heading": "Contact us",
+        "heading_font_class": "fs-heading-3-base",
+        "text": "",
+        "show_recaptcha_terms": true,
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "blog-posts": {
+      "type": "blog-posts",
+      "disabled": true,
+      "settings": {
+        "heading": "Helpful articles",
+        "subheading": "",
+        "button_link": "",
+        "link_text": "View all posts",
+        "display_type": "all",
+        "blog": "",
+        "max_articles": 2,
+        "show_tags": true,
+        "show_author": true,
+        "show_date": true,
+        "show_excerpt": true,
+        "show_featured_image": true,
+        "aspect_ratio": "landscape",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich-text",
+    "contact-form",
+    "blog-posts"
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "enable_animation": true,
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "1661473264f5565549": {
+      "type": "image-with-text",
+      "blocks": {
+        "5fbdd321-9f4c-47e4-814f-b2e2c730cc56": {
+          "type": "accent",
+          "settings": {
+            "accent": "Wash Less"
+          }
+        },
+        "1661473264914d068a-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Reduce Your Carbon Footprint",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "1661473264914d068a-1": {
+          "type": "subheading",
+          "disabled": true,
+          "settings": {
+            "subheading": "Reduce Your Carbon Footprint",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "d4f42c72-9bc9-45ac-8e03-41f86db8d94c": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Washing your clothes less and wearing them more can actively help reduce your carbon footprint. Plus, excessive washing and drying wears out your clothes. Instead, remove stains by hand when possible, and hang to freshen up after each use.<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        },
+        "1661473264914d068a-2": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "link": "",
+            "link_text": "Read more",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "5fbdd321-9f4c-47e4-814f-b2e2c730cc56",
+        "1661473264914d068a-0",
+        "1661473264914d068a-1",
+        "d4f42c72-9bc9-45ac-8e03-41f86db8d94c",
+        "1661473264914d068a-2"
+      ],
+      "settings": {
+        "image_position": "left",
+        "text_alignment": "right",
+        "image": "shopify:\/\/shop_images\/Screenshot_2022-08-15_7.37.39_PM.png",
+        "aspect_ratio": "square",
+        "focal_point": "center",
+        "image_caption": "",
+        "show_small_image": false,
+        "image_small_aspect_ratio": "square",
+        "image_small_focal_point": "center",
+        "background_color": "",
+        "text_color": "#282828",
+        "button_background_color": "#282828",
+        "button_text_color": "#f8f4ed",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "16614737257fda0ba8": {
+      "type": "multi-column",
+      "blocks": {
+        "e97ec3aa-18b6-4cb4-b25c-97af5391ed43": {
+          "type": "image_column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2022-08-15_7.36.25_PM.png",
+            "image_width": 100,
+            "aspect_ratio": "square",
+            "focal_point": "center",
+            "image_position": "above_text",
+            "image_link": "",
+            "small_caption": "",
+            "accent": "",
+            "heading": "Keep It Cool",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>By machine washing on the cold setting instead of warm, studies show that you consume up to 40% less energy. The degree on the washing label only indicates the highest temperature allowed, not the suggested temperature.<\/p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "0bc28a06-1175-4a94-b60c-dbc66f59f84d": {
+          "type": "image_column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2022-08-15_7.36.47_PM_78b8a04c-cbb7-45dd-bc8c-248a19133b5a.png",
+            "image_width": 100,
+            "aspect_ratio": "square",
+            "focal_point": "center",
+            "image_position": "above_text",
+            "image_link": "",
+            "small_caption": "",
+            "accent": "",
+            "heading": "Line Dry",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>Not only will you save energy by air-drying your clothes, the shape of the clothes will remain in tact a lot longer. Before hanging to dry, run the washer's spin cycle at the highest rate, removing excess water and thereby shortening the drying time.<\/p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "9f8cdeca-3a1c-4b2a-869d-f0c8b48346eb": {
+          "type": "image_column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2022-08-15_7.37.03_PM.png",
+            "image_width": 100,
+            "aspect_ratio": "square",
+            "focal_point": "center",
+            "image_position": "above_text",
+            "image_link": "",
+            "small_caption": "",
+            "accent": "",
+            "heading": "Iron as Necessary",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>Save both effort and energy by reducing the amount of clothes you iron. Instead of ironing, remove your clean laundry from the dryer promptly and hang on hangers in the bathroom while showering, as the shower steam helps smooth out wrinkles.<\/p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "e97ec3aa-18b6-4cb4-b25c-97af5391ed43",
+        "0bc28a06-1175-4a94-b60c-dbc66f59f84d",
+        "9f8cdeca-3a1c-4b2a-869d-f0c8b48346eb"
+      ],
+      "settings": {
+        "title": "Take Care Of Your Clothes",
+        "subheading": "<p>Consumer care has shown to have an influential impact on the environmental effect and lifespan of a product. By adopting just a few tips and tricks to take better care of your clothes, you can help lower the overall carbon footprint by significant measures.<\/p>",
+        "heading_font_class": "fs-heading-1-base",
+        "heading_alignment": "center",
+        "content_vertical_alignment": "top",
+        "content_background_padding": "medium",
+        "columns": "3",
+        "column_spacing": 28,
+        "row_spacing": 28,
+        "column_alignment": "left",
+        "columns_mobile": "1",
+        "column_spacing_mobile": 20,
+        "row_spacing_mobile": 20,
+        "column_alignment_mobile": "left",
+        "background_behind_columns": false,
+        "background_color": "",
+        "text_color": "#282828",
+        "button_background_color": "#282828",
+        "button_text_color": "#f8f4ed",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "166147507882ca0e23": {
+      "type": "image-hero",
+      "blocks": {
+        "1661475078b75d13cf-0": {
+          "type": "accent",
+          "settings": {
+            "accent": "Further Reading"
+          }
+        },
+        "1661475078b75d13cf-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Designed to Last",
+            "heading_font_class": "fs-heading-display-2"
+          }
+        },
+        "1661475078b75d13cf-2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Discover what exactly sustainable brands are doing differently.<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        },
+        "6a86d701-7764-4c19-8efd-be8498fd4180": {
+          "type": "button",
+          "settings": {
+            "link": "",
+            "link_text": "Learn more",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "1661475078b75d13cf-0",
+        "1661475078b75d13cf-1",
+        "1661475078b75d13cf-2",
+        "6a86d701-7764-4c19-8efd-be8498fd4180"
+      ],
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 70,
+        "mobile_height": 100,
+        "image": "shopify:\/\/shop_images\/thin-plant-stems-in-sun.jpg",
+        "focal_point": "top",
+        "mobile_focal_point": "top",
+        "media_link": "",
+        "text_position": "center_center",
+        "text_color": "#f8f4ed",
+        "button_background_color": "#f8f4ed",
+        "button_text_color": "#282828",
+        "color_overlay": "#282828",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 40,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1661473264f5565549",
+    "16614737257fda0ba8",
+    "166147507882ca0e23"
+  ]
+}

@@ -1,0 +1,145 @@
+{%- liquid
+  assign overlay_opacity = block.settings.overlay_opacity | divided_by: 100.0
+  assign text_position = block.settings.text_position | split: "_"
+  assign horizontal_position = text_position | first
+  assign vertical_position = text_position | last
+
+  assign text_position_modifier = 'center'
+
+  if horizontal_position == 'flex-start'
+    assign text_position_modifier = 'left'
+  elsif horizontal_position == 'flex-end'
+    assign text_position_modifier = 'right'
+  endif
+
+  assign placeholder_aspect_ratio = 'no-ratio'
+
+  if section.settings.image_aspect == 'original'
+    assign placeholder_aspect_ratio = 'square'
+  endif
+
+  assign has_2_buttons = false
+
+  if block.settings.link_1 != blank and block.settings.link_text_1 != blank and block.settings.link_2 != blank and block.settings.link_text_2 != blank
+    assign has_2_buttons = true
+  endif
+-%}
+<div
+  class="slideshow-slide swiper-slide"
+  style="
+    --text-horizontal-position: {{ horizontal_position }};
+    --text-vertical-position: {{ vertical_position }};
+    --text-alignment: {{ text_position_modifier }};
+    --color-text: {{ block.settings.text_color }};
+    --color-text-link: {{ block.settings.text_color }};
+    --overlay-background: {{ block.settings.color_overlay }};
+    {% if block.settings.color_overlay_gradient != blank %}
+      --overlay-background-gradient: {{ block.settings.color_overlay_gradient }};
+    {% endif %}
+    --overlay-opacity: {{ overlay_opacity }};
+    {% render 'overlay-button-vars' with color_button_text: block.settings.button_text_color, color_button_background: block.settings.button_background_color %}
+  "
+  data-slide="{{ index }}"
+  data-bullet-label="{{ 'general.accessibility.carousel_select' | t: number: index }}"
+  {{ block.shopify_attributes }}
+  {% unless index == 1 %}
+    inert
+  {% endunless %}
+>
+  <div class="slideshow-slide__inner">
+    <div class="slideshow-slide__image-container">
+      {%- if block.settings.image_mobile != blank -%}
+        {%- render 'image' with
+          wrapper_class: "slideshow-slide__image slideshow-slide__image--mobile",
+          image: block.settings.image_mobile,
+          sizes: "100vw",
+          focal_point: block.settings.mobile_focal_point,
+          placeholder_name: "lifestyle-1",
+          animate: true
+        -%}
+      {%- endif -%}
+
+      {%- render 'image' with
+        wrapper_class: "slideshow-slide__image",
+        image: block.settings.image,
+        sizes: "100vw",
+        focal_point: block.settings.focal_point,
+        include_placeholder: true,
+        placeholder_natural_fallback_ratio: placeholder_aspect_ratio,
+        placeholder_name: "lifestyle-1",
+        animate: true
+      -%}
+    </div>
+    <div class="slideshow-slide__overlay"></div>
+
+    <div class="slideshow-slide__text-container-wrapper">
+      <div class="slideshow-slide__text-container">
+        {%- unless block.settings.media_link == blank -%}
+          <a href="{{ block.settings.media_link }}" class="slideshow-slide__image-link" aria-label="{{ block.settings.media_link }}"></a>
+        {%- endunless -%}
+
+        <div class="slideshow-slide__text-container-inner section-blocks animation--section-blocks">
+          {%- unless block.settings.accent == blank -%}
+            <p class="slideshow-slide__text-container-accent fs-accent section-blocks__accent">
+              {{ block.settings.accent }}
+            </p>
+          {%- endunless -%}
+
+          {%- unless block.settings.title == blank -%}
+            <h2 class="slideshow-slide__text-container-heading ff-heading {{ block.settings.heading_font_class }} section-blocks__heading">
+              {{ block.settings.title }}
+            </h2>
+          {%- endunless -%}
+
+          {%- unless block.settings.subheading == blank -%}
+            <h2 class="slideshow-slide__text-container-subheading ff-heading lh-subheading {{ block.settings.subheading_font_class }} section-blocks__subheading">
+              {{ block.settings.subheading }}
+            </h2>
+          {%- endunless -%}
+
+          {%- unless block.settings.text == blank -%}
+            <div class="slideshow-slide__text-container-text rte ff-body {{ block.settings.text_font_class }} section-blocks__text">
+              {{ block.settings.text }}
+            </div>
+          {%- endunless -%}
+
+          {% if has_2_buttons %}
+            <div class="
+                slideshow-slide__buttons-wrapper
+                button-block__inline-wrapper
+                button-block__inline-wrapper--justify-{{ text_position_modifier }}
+                section-blocks__inline-buttons
+              "
+            >
+          {% endif %}
+
+          {%- if block.settings.link_1 != blank and block.settings.link_text_1 -%}
+            {%- render 'button-block' with
+              wrapper_class: "slideshow-slide__text-container-image-button section-blocks__button",
+              link: block.settings.link_1,
+              label: block.settings.link_text_1,
+              button_style: block.settings.button_style_1,
+              is_overlay: true,
+              button_alignment: text_position_modifier,
+            -%}
+          {%- endif -%}
+
+          {%- if block.settings.link_2 != blank and block.settings.link_text_2 -%}
+            {%- render 'button-block' with
+              wrapper_class: "slideshow-slide__text-container-image-button section-blocks__button",
+              link: block.settings.link_2,
+              label: block.settings.link_text_2,
+              button_style: block.settings.button_style_2,
+              is_overlay: true,
+              button_alignment: text_position_modifier,
+            -%}
+          {%- endif -%}
+
+          {% if has_2_buttons %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

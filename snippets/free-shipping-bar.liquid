@@ -1,0 +1,39 @@
+{% comment %}
+  Usage:
+  {% render 'free-shipping-bar' %}
+{% endcomment %}
+
+{%- if settings.enable_free_shipping_bar and settings.free_shipping_threshold != blank -%}
+  {%- liquid
+    assign threshold_in_cents = settings.free_shipping_threshold | times: 100
+
+    assign progress = 100
+
+    if cart.total_price < threshold_in_cents
+      assign progress = cart.total_price | divided_by: settings.free_shipping_threshold
+    endif
+  -%}
+
+  {%- capture remaining_amount -%}
+    <span>{{ cart.total_price | minus: threshold_in_cents | abs | money }}</span>
+  {%- endcapture -%}
+
+  <div class="free-shipping-bar{% if cart.total_price >= threshold_in_cents %} free-shipping-bar--success{% endif %}">
+    <div class="inventory-counter__message-wrapper ff-body fs-body-75">
+      {%- render 'icon' with icon: 'package-closed' -%}
+      <h4 class="free-shipping-bar__message">
+        {%- if cart.total_price >= threshold_in_cents -%}
+          {{ 'cart.general.free_shipping' | t }}
+        {%- else -%}
+          {%- capture remaining_amount -%}
+            <span class="fs-body-bold">{{ cart.total_price | minus: threshold_in_cents | abs | money }}</span>
+          {%- endcapture -%}
+          {{ 'cart.general.free_shipping_remaining_html' | t: remaining_amount: remaining_amount }}
+        {%- endif -%}
+      </h4>
+    </div>
+    <div class="free-shipping-bar__bar" style="--progress-width: {{ progress }}%">
+      <span class="free-shipping-bar__bar-progress"></span>
+    </div>
+  </div>
+{%- endif -%}

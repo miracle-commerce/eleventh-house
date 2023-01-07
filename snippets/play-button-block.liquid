@@ -1,0 +1,59 @@
+<div
+  class="
+    play-button-block
+    button-block--justify-{{ button_alignment }}
+    {% if poster_image != blank %}
+      play-button-block--has-poster
+    {% endif %}
+    {% if label != blank %}
+      play-button-block--has-label
+    {% endif %}
+    play-button-block--icon-style-{{ icon_style }}
+    ff-body
+    fs-body-75
+    {{ wrapper_class }}
+  "
+  {{ shopify_attributes }}
+>
+  <button
+    class="play-button-block__inner"
+    type="button"
+    data-play-button-block
+    {% if label == blank %}
+      aria-label="{{ 'general.accessibility.play_video' | t }}"
+    {% endif %}
+    {% if video_url == blank %}
+      data-flash-trigger data-flash-message="{{ 'general.flash_alert.no_video' | t }}"
+    {% endif %}
+  >
+    <div class="play-button-block-left">
+      {% if poster_image != blank %}
+        {%-
+          render 'image' with
+          image: poster_image,
+          sizes: "100px",
+          aspect_ratio: poster_aspect
+        -%}
+      {% endif %}
+      {% render 'icon' with icon: 'play-arrow' %}
+    </div>
+
+    {%- if label != blank -%}
+      <div class="play-button-block-right">
+        {{ label }}
+      </div>
+    {%- endif -%}
+
+    {%- unless video_url == blank -%}
+      <div class="play-button-block-video-container" data-play-button-block-video-container>
+        <video
+          class="play-button-block-video"
+          data-play-button-block-video
+          controls
+          playsinline
+          src="{{ video_url }}"
+        ></video>
+      </div>
+    {%- endunless -%}
+  </button>
+</div>

@@ -1,0 +1,235 @@
+{%- if section.settings.enable_quick_cart -%}
+  {%- liquid
+    # Needed to input related theme settings into section
+    assign enable_confirmation_popup = settings.enable_confirmation_popup
+    assign cart_item_aspect_ratio = settings.cart_item_aspect_ratio
+  -%}
+  <div
+    class="
+      quick-cart
+      {% if settings.enable_section_animations %}
+        animation
+        animation--quick-cart
+      {% endif %}
+    "
+    data-section-id="{{ section.id }}"
+    data-section-type="quick-cart"
+  >
+    <div class="quick-cart__wrapper">
+      <div class="quick-cart__overlay"></div>
+      <div class="quick-cart__container">
+        <div class="quick-cart__header">
+          <h2 class="quick-cart__heading ff-heading fs-heading-5-base">{{ 'cart.general.cart' | t }}{% if cart.item_count > 0 %}<sup>{{ cart.item_count }}</sup>{% endif %}</h2>
+          <button
+            type="button"
+            data-modal-close
+            class="quick-cart__close-icon"
+            aria-label="{{ 'general.accessibility.close_modal' | t }}"
+          >
+            {% render 'icon-button' with small: true, icon: 'close' %}
+          </button>
+        </div>
+
+        {%- if cart.item_count > 0 -%}
+          <form action="{{ routes.cart_url }}" method="post" data-form novalidate data-scroll-lock-ignore class="quick-cart__form">
+            <div class='quick-cart__items animation--quick-cart-items'>
+              {%- render 'free-shipping-bar' %}
+
+              {%- for item in cart.items -%}
+                <div class='quick-cart__item' data-input-item data-id="{{ item.id }}">
+                  <div class='quick-cart__item-image'>
+                    <a href="{{ item.url }}" class="quick-cart__item-link">
+                      {%- render 'image' with
+                        image: item.image,
+                        sizes: "120px",
+                        prioritize_loading: true
+                        aspect_ratio: settings.cart_item_aspect_ratio,
+                        include_placeholder: true
+                      -%}
+                    </a>
+                  </div>
+                  <div class='quick-cart__item-details'>
+                    <div class='quick-cart__item-top'>
+                      <h4 class="quick-cart__item-title fs-product-card-title">
+                        <a href="{{ item.url }}">{{ item.product.title }}</a>
+                      </h4>
+
+                      {% unless item.product.has_only_default_variant %}
+                        <p class="quick-cart__item-variant fs-body-60 t-opacity-50">{{ item.variant.title }}</p>
+                      {% endunless %}
+
+                      {% if item.selling_plan_allocation %}
+                        <p class="quick-cart__item-subscriptions fs-body-60 t-opacity-50">{{ item.selling_plan_allocation.selling_plan.name }}<p>
+                      {% endif %}
+
+                      <div class="quick-cart__item-price-wrapper fs-body-75">
+                        {% if item.original_line_price > item.final_line_price %}
+                          <s class="quick-cart__item-price">{{ item.original_price | money }}{% if section.settings.show_product_currency %} {{ cart.currency.iso_code }}{% endif %}</s>
+                        {% endif %}
+
+                        <span class="quick-cart__item-price{% if item.original_line_price > item.final_line_price %} sale-price{% endif %}">{{ item.final_price | money }}{% if section.settings.show_product_currency %} {{ cart.currency.iso_code }}{% endif %}</span>
+
+                        {% render 'unit-price', item: item %}
+                      </div>
+
+                      {% if item.line_level_discount_allocations.size > 0 %}
+                        <ul class="quick-cart__item-discounts">
+                        {% for discount_allocation in item.line_level_discount_allocations %}
+                          <li class="quick-cart__item-discount fs-body-75">
+                            {%- render 'icon' with icon: 'discount-badge' -%}
+                            {{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
+                          </li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </div>
+
+                    <div class='quick-cart__item-bottom'>
+                      {% render 'quantity-input' with id: item.id, initial_value: item.quantity %}
+                      <button type="button" data-remove-item class="quick-cart__item-remove fs-body-75 t-subdued btn btn--text-link">{{ 'cart.general.remove' | t }}</button>
+                      <p class="quick-cart__item-error fs-body-50 hidden">{{ 'cart.general.error' | t }}</p>
+                    </div>
+
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+            <div class="quick-cart__footer animation--quick-cart-footer">
+              <div class="quick-cart__footer-inner">
+                {%- if settings.show_cart_notes -%}
+                  <div class="quick-cart__footer-order-note-wrapper" aria-expanded="false" aria-hidden="true">
+                    <button type="button" class="quick-cart__footer-order-note-trigger fs-body-75 btn btn--text-link" data-order-note-trigger>
+                      <div class="quick-cart__footer-order-note-trigger-icons">
+                        {% render 'icon', with icon: 'plus-small' %}
+                        {% render 'icon', with icon: 'minus-small', class: 'hidden' %}
+                      </div>
+                      <span class="quick-cart__footer-order-note-trigger-text" data-cart-not-trigger-text>
+                        {{ 'cart.general.order_note_button_add' | t }}
+                      </span>
+                    </button>
+                    <div class="quick-cart__footer-order-note-input" cart-note-input>
+                      <label for="CartSpecialInstructions" class="fs-body-100">{{ 'cart.general.order_note_label' | t }}</label>
+                      <textarea name="note" id="CartSpecialInstructions" class="input" placeholder="{{ 'cart.general.order_note_placeholder' | t }}">{{ cart.note }}</textarea>
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                {%- if cart.cart_level_discount_applications.size > 0 -%}
+                  <ul class="quick-cart__item-discounts">
+                    {% for discount_application in cart.cart_level_discount_applications %}
+                      <li class="quick-cart__item-discount fs-body-75">
+                        {%- render 'icon' with icon: 'discount-badge' -%}
+                        {{ discount_application.title }} (-{{ discount_application.total_allocated_amount | money }})
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {%- endif -%}
+
+                <div class="quick-cart__footer-subtotal">
+                  <h3 class="ff-body fs-body-200">{{ 'cart.general.subtotal' | t }}</h3>
+                  <span class="ff-body fs-body-200">{{ cart.total_price | money }}{% if section.settings.show_product_currency %} {{ cart.currency.iso_code }}{% endif %}</span>
+                </div>
+                <p class="quick-cart__footer-tax-note ff-body fs-body-75 t-subdued">
+                  {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                    {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                  {%- elsif cart.taxes_included -%}
+                    {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+                  {%- elsif shop.shipping_policy.body != blank -%}
+                    {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                  {%- else -%}
+                    {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+                  {%- endif -%}
+                </p>
+
+                <button type="submit" name="checkout" class="quick-cart__submit btn btn--full btn--primary" aria-label="{{ 'cart.general.checkout' | t }}">{{ 'cart.general.checkout' | t }}</button>
+              </div>
+            </div>
+          </form>
+        {%- else -%}
+          <div class="quick-cart__empty-state">
+            <h3 class="quick-cart__empty-state-heading ff-heading fs-heading fs-heading-4-base">{{ 'cart.general.empty' | t }}</h3>
+            {%- if section.settings.collection_list != blank -%}
+              {%- if section.settings.promotion_text != blank -%}
+                <div class="quick-cart__empty-state-promot-text rte ff-body fs-body-100">{{ section.settings.promotion_text }}</div>
+              {%- endif -%}
+              {%- for collection in section.settings.collection_list -%}
+                {%- render 'button-block' with
+                  wrapper_class: "quick-cart__empty-state-promo-button",
+                  link: collection.url,
+                  label: collection.title,
+                  button_style: section.settings.collection_list_button_style,
+                  button_alignment: 'center',
+                -%}
+              {%- endfor -%}
+            {%- else -%}
+              {%- assign empty_label = 'cart.general.continue_shopping' | t -%}
+              {%- render 'button-block' with
+                wrapper_class: "quick-cart__empty-state-promo-button",
+                link: routes.collections_url,
+                label: empty_label,
+                button_style: "btn--secondary",
+                button_alignment: 'center'
+              -%}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "t:sections.quick_cart.name",
+    "settings": [
+      {
+        "id": "enable_quick_cart",
+        "type": "checkbox",
+        "label": "t:sections.quick_cart.settings.enable_quick_cart.label",
+        "info": "t:sections.quick_cart.settings.enable_quick_cart.info",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "t:sections.quick_cart.settings.header__product.content"
+      },
+      {
+        "id": "show_product_currency",
+        "type": "checkbox",
+        "label": "t:sections.quick_cart.settings.show_product_currency.label",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "t:sections.quick_cart.settings.header__promotion.content"
+      },
+      {
+        "type": "richtext",
+        "id": "promotion_text",
+        "label": "t:sections.quick_cart.settings.promotion_text.label",
+        "default": "<p>Check out these collections.</p>"
+      },
+      {
+        "id": "collection_list",
+        "type": "collection_list",
+        "label": "t:sections.quick_cart.settings.collection_list.label"
+      },
+      {
+        "type": "select",
+        "id": "collection_list_button_style",
+        "label": "t:sections.quick_cart.settings.collection_list_button_style.label",
+        "default": "btn--secondary",
+        "options": [
+          {
+            "value": "btn--primary",
+            "label": "t:shared.settings.button_style.option_solid"
+          },
+          {
+            "value": "btn--secondary",
+            "label": "t:shared.settings.button_style.option_outline"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,26 @@
+{% comment %}
+  pass in :
+
+  * prod (product)
+{% endcomment %}
+
+{%- liquid
+  assign swatch_options = settings.swatch_options | downcase | split: ', '
+
+  assign found_option = blank
+
+  for option in prod.options_with_values
+    assign option_name = option.name | downcase
+    for swatch_option in swatch_options
+      assign swatch_option = swatch_option | downcase
+      if swatch_option == option_name
+        assign found_option = option_name
+        break
+      endif
+    endfor
+    if found_option != blank
+      break
+    endif
+  endfor
+-%}
+{{- found_option | strip_newlines -}}

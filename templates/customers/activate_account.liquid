@@ -1,0 +1,53 @@
+<section
+  class="customer login page"
+  data-section-id="{{ section.id }}"
+  data-section-type="reset-password"
+>
+  <div class="login__inner page__inner ">
+    <header class="login__header page__header">
+      <h1 class="login__heading ff-heading fs-heading-2-base ta-c">{{ 'customer.activate_account.title' | t }}</h1>
+      <p class="login__subheading fs-body-100">{{ 'customer.activate_account.subtext' | t }}</p>
+    </header>
+
+    <div class="login__main">
+      {% form 'activate_customer_password', class: "login__form" %}
+        {%- assign post_message = 'customer.activate_account.success' | t -%}
+
+        {% render 'form-status', form: form, form_id: 'activateAccount', success_message: post_message %}
+
+        <label for="CustomerPassword">{{ 'customer.activate_account.password' | t }}</label>
+        <input
+          type="password"
+          value=""
+          name="customer[password]"
+          id="CustomerPassword"
+          class="input{% if form.errors %} has-errors{% endif %}"
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="CustomerPassword-email-error"
+          {%- endif -%}
+        >
+
+        <label for="CustomerPasswordConfirmation">{{ 'customer.activate_account.password_confirm' | t }}</label>
+        <input
+          type="password"
+          value=""
+          name="customer[password_confirmation]"
+          id="CustomerPasswordConfirmation"
+          class="input{% if form.errors %} has-errors{% endif %}"
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="CustomerPasswordConfirmation-email-error"
+          {%- endif -%}
+        >
+
+        <button type="submit" class="btn btn--primary btn--full">{{ 'customer.activate_account.submit' | t }}</button>
+        <div class="login__links ff-body fs-body-100">
+          <button type="submit" class="btn btn--text-link" name="decline">
+            {{ 'customer.activate_account.cancel' | t }}
+          </button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+{% assign file_extension = 'png' %}
+
+{%- if scope -%}
+  {%- assign scope = scope | prepend: '--' -%}
+{%- endif -%}
+
+<li class="
+  filter-item
+  {% if type == 'chip' %} filter-item--chip{% endif %}
+  "
+>
+  <label
+    data-filter-item
+    class="filter-item__content {% if filter_value.count == 0 and filter_value.active == false %}filter-item__content--disabled{% endif %}"
+    for="filter--{{ filter_value.param_name | url_escape }}--{{ filter_value.label | url_escape }}{{ scope }}"
+  >
+    <input
+      type="checkbox"
+      name="{{ filter_value.param_name }}"
+      value="{{ filter_value.value }}"
+      class="filter-item__checkbox visually-hidden"
+      data-filter-item-input
+      data-filter="{{ filter_value.param_name }}={{ filter_value.value }}"
+      data-value-escaped="{{ filter_value.value | url_escape }}"
+      id="filter--{{ filter_value.param_name | url_escape }}--{{ filter_value.label | url_escape }}{{ scope }}"
+      {% if filter_value.active -%}checked{% endif %}
+      {%- if key != blank and val != blank -%}
+        data-{{ key }}="{{ val | handle }}"
+      {%- endif -%}
+      {% if filter_value.count == 0 and filter_value.active == false %}disabled{% endif %}
+    />
+
+    <div class="filter-item__content-inner">
+      {%- if type == 'swatch' -%}
+        <div
+          class="filter-item__swatch"
+          data-shape="{{ settings.swatch_shape }}"
+          style="
+            background-image: url({{ filter_value.label | handle | append: '.' | append: file_extension | file_url }});
+            background-color: {{ filter_value.label | downcase }};
+          "
+        >
+        </div>
+      {%- endif -%}
+
+      {%- if type == 'checkbox' -%}
+        <div class="filter-input__input">
+          {% render 'icon' with icon: 'checkmark' %}
+        </div>
+      {%- endif -%}
+
+      {%- if type == 'checkbox' or type == 'swatch' -%}
+        <span class="filter-item__label">
+          {{ filter_value.label }}
+        </span>
+        <span class="filter-item__count fs-body-75">{{ 'filters.item_count_html' | t: value: filter_value.count }}</span>
+      {%- endif -%}
+
+      {%- if type == 'chip' -%}
+        <div class="filter-item__chip">
+          {{ filter_value.label }}
+        </div>
+      {%- endif -%}
+    </div>
+  </label>
+</li>

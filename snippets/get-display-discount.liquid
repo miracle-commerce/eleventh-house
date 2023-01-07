@@ -1,0 +1,80 @@
+{%- comment -%}
+  Pass in:
+
+  - product or variant
+  - format string, one of
+    - "sale_text"
+    - "percent_off"
+    - "minus_percent"
+    - "save_percent"
+    - "amount_off"
+    - "minus_amount"
+    - "save_amount"
+{%- endcomment -%}
+
+{%- assign varies = false -%}
+
+{% if variant %}
+  {% assign prod = variant %}
+{% else %}
+  {%- if prod.compare_at_price_varies or prod.price_varies -%}
+    {%- assign varies = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if format == "sale_text" -%}
+  {%- if prod.compare_at_price > prod.price -%}
+    {{ 'products.product.on_sale' | t }}
+  {%- endif -%}
+{%- else -%}
+  {%- assign is_percent_format = false -%}
+  {%- if format == "percent_off" or format == "minus_percent" or format == "save_percent" -%}
+    {%- assign is_percent_format = true -%}
+  {%- endif -%}
+
+  {%- if varies -%}
+    {%- if is_percent_format -%}
+      {%- capture displayed_discount -%}{%- render 'get-varied-percent-discount' with prod: prod -%}{%- endcapture -%}
+    {%- else -%}
+      {%- capture displayed_discount -%}{%- render 'get-varied-amount-discount' with prod: prod -%}{%- endcapture -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- if is_percent_format -%}
+      {%- capture displayed_discount -%}{%- render 'get-percent-discount' with prod: prod -%}{%- endcapture -%}
+    {%- else -%}
+      {%- capture displayed_discount -%}{%- render 'get-amount-discount' with prod: prod -%}{%- endcapture -%}
+    {%- endif -%}
+  {%- endif -%}
+  {% assign displayed_discount = displayed_discount | plus: 0 %}
+
+  {% unless is_percent_format %}
+    {% capture formatted_currency_discount %}{{ displayed_discount | money }}{% endcapture %}
+  {% endunless %}
+  {% if displayed_discount > 0 %}
+    {%- if format == "percent_off" -%}
+      {% if varies %}{{ 'products.product.on_sale_varied_prefix' | t }}{% endif %}
+      {{ 'products.product.on_sale_format_percent_off' | t: value: displayed_discount }}
+    {%- elsif format == "minus_percent" -%}
+      {% if varies %}{{ 'products.product.on_sale_varied_prefix' | t }}{% endif %}
+      {{ 'products.product.on_sale_format_minus_percent' | t: value: displayed_discount }}
+    {%- elsif format == "save_percent" -%}
+      {% if varies %}
+        {{ 'products.product.on_sale_format_save_percent_varied' | t: value: displayed_discount }}
+      {% else %}
+        {{ 'products.product.on_sale_format_save_percent' | t: value: displayed_discount }}
+      {% endif %}
+    {%- elsif format == "amount_off" -%}
+      {% if varies %}{{ 'products.product.on_sale_varied_prefix' | t }}{% endif %}
+      {{ 'products.product.on_sale_format_amount_off' | t: value: formatted_currency_discount }}
+    {%- elsif format == "minus_amount" -%}
+      {% if varies %}{{ 'products.product.on_sale_varied_prefix' | t }}{% endif %}
+      {{ 'products.product.on_sale_format_minus_amount' | t: value: formatted_currency_discount }}
+    {%- elsif format == "save_amount" -%}
+      {% if varies %}
+        {{ 'products.product.on_sale_format_save_amount_varied' | t: value: formatted_currency_discount }}
+      {% else %}
+        {{ 'products.product.on_sale_format_save_amount' | t: value: formatted_currency_discount }}
+      {% endif %}
+    {%- endif -%}
+  {% endif %}
+{%- endif -%}

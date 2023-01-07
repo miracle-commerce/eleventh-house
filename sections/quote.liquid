@@ -1,0 +1,249 @@
+<div
+  data-section-id="{{ section.id }}"
+  data-section-type="quote"
+  class="
+    quote
+    section
+    section--divider-{{ section.settings.divider_style }}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+      animation--quotes
+    {% endif %}
+  "
+>
+  <div class="section__inner">
+    <div
+      class="quotes swiper {% if section.blocks.size > 1 %}has-multiple{% endif %}"
+      data-slider
+      data-autoplay-enabled="{{ section.settings.autoplay_enabled }}"
+      data-autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}"
+      data-count="{{ section.blocks.size }}"
+      data-pagination-style="{{ section.settings.pagination_style }}"
+    >
+      <div class="slider-fade-out left"></div>
+      {% if section.blocks.size > 1 %}
+        <button class="slider-nav-button slider-nav-button-prev" title="{{ 'general.accessibility.previous' | t }}">
+          {% render 'icon' with icon: 'chevron' %}
+        </button>
+      {% endif %}
+      <div class="slider-inner swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {%-
+            render 'quote-item' with
+            has_multiple_blocks: section.blocks.size > 1,
+            block: block,
+            forloop: forloop,
+            quote: block.settings.quote,
+            logo: block.settings.logo,
+            author: block.settings.title,
+            pagination_style: section.settings.pagination_style,
+            font_choice: section.settings.font_choice,
+            font_size: block.settings.font_size
+          -%}
+          {%- if section.settings.pagination_style == "logos" -%}
+            {%- capture logo_pagination_list_item -%}
+              {{ logo_pagination_list_item }}
+              <li>
+                <a
+                  tabindex="1"
+                  role="button"
+                  logo-nav-button
+                  data-index="{{ forloop.index0 }}"
+                  aria-label="{{ 'general.accessibility.quote_nav' | t: name: block.settings.title }}"
+                >
+                  {% if block.settings.logo %}
+                    {%- render 'quote-item-logo' with logo: block.settings.logo, class: "quote__navigation-logo" -%}
+                  {% else %}
+                    <span class="fs-accent">Add Logo</span>
+                  {% endif %}
+                </a>
+              </li>
+            {%- endcapture -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="slider-fade-out right"></div>
+      {% if section.blocks.size > 1 %}
+        <button class="slider-nav-button slider-nav-button-next" title="{{ 'general.accessibility.next' | t }}">
+          {% render 'icon' with icon: 'chevron' %}
+        </button>
+      {% endif %}
+    </div>
+    {% if section.blocks.size > 1 %}
+      <div class="quote__navigation">
+        {% if section.settings.pagination_style == "dots" %}
+          {%- render 'navigation-dots' with dot_count: section.blocks.size -%}
+        {% else %}
+          <ul class="logo-navigation">
+            {{ logo_pagination_list_item }}
+          </ul>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:sections.quotes.name",
+    "tag": "section",
+    "settings": [
+      {
+        "id": "autoplay_enabled",
+        "type": "checkbox",
+        "label": "t:sections.quotes.settings.autoplay_enabled.label",
+        "default": true
+      },
+      {
+        "id": "autoplay_delay",
+        "type": "range",
+        "label": "t:sections.quotes.settings.autoplay_delay.label",
+        "default": 7,
+        "min": 3,
+        "max": 15,
+        "step": 1,
+        "unit": "s"
+      },
+      {
+        "id": "pagination_style",
+        "type": "select",
+        "label": "t:sections.quotes.settings.pagination_style.label",
+        "default": "dots",
+        "options": [
+          {
+            "value": "dots",
+            "label": "t:sections.quotes.settings.pagination_style.option_dots"
+          },
+          {
+            "value": "logos",
+            "label": "t:sections.quotes.settings.pagination_style.option_logos"
+          }
+        ]
+      },
+      {
+        "id": "font_choice",
+        "type": "select",
+        "label": "t:sections.quotes.settings.font_choice.label",
+        "default": "heading",
+        "options": [
+          {
+            "value": "heading",
+            "label": "t:sections.quotes.settings.font_choice.option_heading"
+          },
+          {
+            "value": "body",
+            "label": "t:sections.quotes.settings.font_choice.option_body"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "t:shared.settings.section_style.header_style.content"
+      },
+      {
+        "id": "enable_animation",
+        "type": "checkbox",
+        "label": "t:shared.settings.section_style.enable_animation.label",
+        "info": "t:shared.settings.section_style.enable_animation.info",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "divider_style",
+        "label": "t:shared.settings.section_style.divider_style.label",
+        "default": "none",
+        "options": [
+          {
+            "label": "t:shared.settings.section_style.divider_style.option_none", "value": "none"
+          },
+          {
+            "label": "t:shared.settings.section_style.divider_style.option_solid", "value": "solid"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "section_padding",
+        "label": "t:shared.settings.section_style.section_padding.label",
+        "default": "section--vertical-padding-top-bottom",
+        "options": [
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_none",
+            "value": "section--vertical-padding-none"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_both",
+            "value": "section--vertical-padding-top-bottom"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_top",
+            "value": "section--vertical-padding-top-only"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_bottom",
+            "value": "section--vertical-padding-bottom-only"
+          }
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "type": "quote",
+        "name": "t:sections.quotes.blocks.quote.name",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "t:sections.quotes.blocks.quote.settings.logo.label"
+          },
+          {
+            "type": "richtext",
+            "id": "quote",
+            "label": "t:sections.quotes.blocks.quote.settings.quote.label",
+            "default": "<p>\“Absolutely unparalleled products and service. I'm confident that this store will be the next big thing in its industry, and that its products will be timeless.\”</p>"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "t:sections.quotes.blocks.quote.settings.author.label",
+            "default": "Steve Jordans"
+          },
+          {
+            "id": "font_size",
+            "type": "select",
+            "label": "t:sections.quotes.blocks.quote.settings.font_size.label",
+            "default": "medium",
+            "options": [
+              {
+                "value": "small",
+                "label": "t:sections.quotes.blocks.quote.settings.font_size.option_small"
+              },
+              {
+                "value": "medium",
+                "label": "t:sections.quotes.blocks.quote.settings.font_size.option_medium"
+              },
+              {
+                "value": "large",
+                "label": "t:sections.quotes.blocks.quote.settings.font_size.option_large"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:sections.quotes.presets.name",
+        "blocks": [
+          {
+            "type": "quote"
+          },
+          {
+            "type": "quote"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

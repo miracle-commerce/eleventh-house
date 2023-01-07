@@ -1,0 +1,79 @@
+{%- capture tag -%}
+  {%- if block.settings.link_text == blank and block.settings.link != blank -%}a{%- else -%}div{%- endif -%}
+{%- endcapture -%}
+{%- capture attributes -%}
+  {%- if block.settings.link_text == blank and block.settings.link != blank -%}
+    href="{{ block.settings.link }}"
+  {%- else -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+<{{ tag }}
+  {{ attributes }}
+  class="
+    image-hero-split-item
+    image-hero-split-item--{{ index }}
+    image-hero-split-item--image-aspect-{{ image_aspect }}
+    animation--item
+  "
+  style="    --text-vertical-position: {{ text_position }};"
+>
+  <div class="image-hero-split-item__image-container">
+    {%- if block.settings.image_mobile != blank -%}
+      {%-
+        render 'image' with
+        wrapper_class: "image-hero-split-item__image image-hero-split-item__image--mobile",
+        image: block.settings.image_mobile,
+        sizes: "100vw",
+        focal_point: block.settings.mobile_focal_point,
+        animate: true
+      -%}
+    {%- endif -%}
+
+    {%- liquid
+      assign placeholder_aspect_ratio = 'no-ratio'
+
+      if image_aspect == 'original' and index == 1
+        assign placeholder_aspect_ratio = 'square'
+      endif
+    -%}
+
+    {%-
+      render 'image' with
+      wrapper_class: "image-hero-split-item__image",
+      image: block.settings.image,
+      sizes: "(max-width: 45em) 100vw, (max-width: 45em) 50vw",
+      focal_point: block.settings.focal_point,
+      include_placeholder: true,
+      placeholder_natural_fallback_ratio: placeholder_aspect_ratio,
+      animate: true
+    -%}
+  </div>
+  <div class="image-hero-split-item__text-container">
+    <div class="image-hero-split-item__text-container-inner section-blocks animation--section-blocks">
+      {%- unless block.settings.title == blank -%}
+        <h2 class="image-hero-split-item__heading ff-heading fs-heading-display-3 section-heading">
+          {{ block.settings.title }}
+        </h2>
+      {%- endunless -%}
+
+      {%- unless block.settings.text == blank -%}
+        <div class="image-hero-split-item__text rte ff-body fs-body-100 section-blocks__text">
+          {{ block.settings.text }}
+        </div>
+      {%- endunless -%}
+
+      {% if block.settings.link_text != blank and block.settings.link != blank %}
+        {%-
+          render 'button-block' with
+          wrapper_class: "image-hero-split-item__button-container section-blocks__button",
+          link: block.settings.link,
+          label: block.settings.link_text,
+          is_overlay: true,
+          button_alignment: 'center',
+          button_style: block.settings.button_style
+        -%}
+      {% endif %}
+    </div>
+  </div>
+</{{ tag }}>

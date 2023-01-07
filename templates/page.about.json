@@ -1,0 +1,725 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "enable_animation": true,
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "166129754279392766": {
+      "type": "image-hero",
+      "blocks": {
+        "16612975428ce93805-0": {
+          "type": "accent",
+          "settings": {
+            "accent": "We Are"
+          }
+        },
+        "16612975428ce93805-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Eleventh House",
+            "heading_font_class": "fs-heading-display-2"
+          }
+        },
+        "16612975428ce93805-2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Artfully Curated \/ Eco-Conscious \/ Adventure-Ready<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "16612975428ce93805-0",
+        "16612975428ce93805-1",
+        "16612975428ce93805-2"
+      ],
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 70,
+        "mobile_height": 100,
+        "image": "shopify:\/\/shop_images\/Brand_Stock_Photos-17.jpg",
+        "focal_point": "center",
+        "mobile_focal_point": "center",
+        "media_link": "",
+        "text_position": "center_center",
+        "text_color": "#f8f4ed",
+        "button_background_color": "#f8f4ed",
+        "button_text_color": "#282828",
+        "color_overlay": "#282828",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 40,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "disabled": true,
+      "blocks": {
+        "block-0": {
+          "type": "slide",
+          "settings": {
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "media_link": "",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Slideshow",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "<p>Use this section to make a bold statement<\/p>",
+            "text_font_class": "fs-body-100",
+            "link_1": "",
+            "link_text_1": "Read more",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "Read more",
+            "button_style_2": "btn--primary",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 40
+          }
+        },
+        "block-1": {
+          "type": "slide",
+          "settings": {
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "media_link": "",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Slideshow",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "<p>Use this section to make a bold statement<\/p>",
+            "text_font_class": "fs-body-100",
+            "link_1": "",
+            "link_text_1": "Read more",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "Read more",
+            "button_style_2": "btn--primary",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 40
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1"
+      ],
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 100,
+        "mobile_height": 100,
+        "enable_autoplay": true,
+        "duration_autoplay": 6,
+        "navigation_alignment": "center",
+        "navigation_color_foreground": "#ffffff",
+        "navigation_color_background": "",
+        "navigation_background_opacity": 100,
+        "enable_animation": true,
+        "section_padding": "none"
+      }
+    },
+    "image-with-text-1": {
+      "type": "image-with-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Our Story",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "1fba7d9b-256c-4420-9930-34383fd68fda": {
+          "type": "border",
+          "settings": {
+          }
+        },
+        "block-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>It all started with a desire to simplify the sustainable shopping experience for the modern adventurer. Here at Eleventh House, we artfully curate sustainable apparel, gear, and lifestyle goods for a community of like-minded outdoor lovers.<\/p><p>Not only do we love eco-friendly products, but we are fit-obsessed, laser-focused on functionality, and in love with inclusivity. Everything we carry is \"utterly usable\" and intended by its makers to last for years to come. Last but certainly not least, we strive to amplify the voices of women who are pushing boundaries in science, activism, conservation, and athleticism. <\/p><p>Come adventure with us. #detourswelcome<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "1fba7d9b-256c-4420-9930-34383fd68fda",
+        "block-1"
+      ],
+      "settings": {
+        "image_position": "right",
+        "text_alignment": "left",
+        "image": "shopify:\/\/shop_images\/thin-plant-stems-in-sun.jpg",
+        "aspect_ratio": "square",
+        "focal_point": "center",
+        "image_caption": "",
+        "show_small_image": true,
+        "image_small": "shopify:\/\/shop_images\/Eleventh_House_Final_Branding-54.png",
+        "image_small_aspect_ratio": "natural",
+        "image_small_focal_point": "center",
+        "background_color": "#ffffff",
+        "text_color": "#282828",
+        "button_background_color": "#282828",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "1661305117f2de866a": {
+      "type": "image-with-text",
+      "blocks": {
+        "166130511786bd5d1f-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Sustainability",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "87094702-36fc-4e27-9216-339910535d79": {
+          "type": "border",
+          "settings": {
+          }
+        },
+        "fac873fc-4a2f-45ad-b0ea-cdaeb205f46a": {
+          "type": "text",
+          "settings": {
+            "text": "<p>There’s no denying it, we love clothes. But the global fashion industry has some big obstacles to overcome including but not limited to: pollution, waste, and human rights abuses. Like you, we care for our planet, people, and animals, and believe that we have a real opportunity to make major strides simply by making better choices. Choosing and rewarding responsible brands means we’re voting for the change we want to see.<\/p><p>We know sifting through all the noise out there is difficult, time consuming, and confusing to say the least. Eco-conscious, sustainable, ethical, greenwashing, what does it all mean? That’s where we come in. We’ve carefully vetted every brand and curated a collection of considered products so you can shop with confidence, knowing anything you purchase here is building a better future.<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        },
+        "166130511786bd5d1f-1": {
+          "type": "subheading",
+          "disabled": true,
+          "settings": {
+            "subheading": "Use these sections to promote a particular feature with editorial photography",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "166130511786bd5d1f-2": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "link": "",
+            "link_text": "Read more",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "166130511786bd5d1f-0",
+        "87094702-36fc-4e27-9216-339910535d79",
+        "fac873fc-4a2f-45ad-b0ea-cdaeb205f46a",
+        "166130511786bd5d1f-1",
+        "166130511786bd5d1f-2"
+      ],
+      "settings": {
+        "image_position": "left",
+        "text_alignment": "right",
+        "image": "shopify:\/\/shop_images\/wild-plants.jpg",
+        "aspect_ratio": "square",
+        "focal_point": "center",
+        "image_caption": "",
+        "show_small_image": false,
+        "image_small_aspect_ratio": "square",
+        "image_small_focal_point": "center",
+        "background_color": "",
+        "text_color": "#282828",
+        "button_background_color": "#282828",
+        "button_text_color": "#f8f4ed",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "166129892012a9e4de": {
+      "type": "image-with-text-split",
+      "disabled": true,
+      "blocks": {
+        "1661298920192e5445-0": {
+          "type": "accent",
+          "settings": {
+            "accent": "Accent"
+          }
+        },
+        "1661298920192e5445-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Image with text split",
+            "heading_font_class": "fs-heading-display-3"
+          }
+        },
+        "1661298920192e5445-2": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Use these sections to promote a particular feature with editorial photography.",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        }
+      },
+      "block_order": [
+        "1661298920192e5445-0",
+        "1661298920192e5445-1",
+        "1661298920192e5445-2"
+      ],
+      "settings": {
+        "image_position": "left",
+        "image_mobile_position": "above-content",
+        "image_padding": "none",
+        "aspect_ratio": "square",
+        "focal_point": "center",
+        "content_alignment": "left",
+        "background_color": "#d9a49c",
+        "text_color": "#000000",
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Our Credo",
+            "heading_font_class": "fs-heading-2-base"
+          }
+        },
+        "block-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Beautiful, technical, conscious. There are millions of products on the market, and many of them at least one of these things, but to be a part of the Eleventh House brand offering, a product must meet all three criteria because we are committed to creating positive social and environmental change without sacrificing on style or performance.<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1"
+      ],
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "1661302368953bfb3b": {
+      "type": "multi-column",
+      "blocks": {
+        "1661302368d3ec356b-0": {
+          "type": "column",
+          "settings": {
+            "accent": "",
+            "heading": "Artfully Curated",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>We spend our time carefully seeking out brands whose products are not only aesthetically pleasing and functional, but represent a total commitment to sustainability. We hope you love them as much as we do.<\/p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "1661302368d3ec356b-1": {
+          "type": "column",
+          "settings": {
+            "accent": "",
+            "heading": "Eco-Conscious",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>We believe every dollar you spend is a vote for the future you want to see. \"Buy less, buy better\" may seem like a strange mantra for an ecommerce store, but we make it easy for you to shop thoughtfully by offering only quality sustainable options.<\/p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "1661302368d3ec356b-2": {
+          "type": "column",
+          "settings": {
+            "accent": "",
+            "heading": "Adventure-Ready",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>We fully embrace the compelling contradiction of city life and the great outdoors and we strive for the pieces we carry to help ease the transition between the two. After all, the real adventure is everyday life, isn’t it?<\/p>",
+            "text_font_class": "fs-body-100",
+            "text_max_width": 100,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "1661302368d3ec356b-0",
+        "1661302368d3ec356b-1",
+        "1661302368d3ec356b-2"
+      ],
+      "settings": {
+        "title": "",
+        "subheading": "",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "content_vertical_alignment": "top",
+        "content_background_padding": "medium",
+        "columns": "3",
+        "column_spacing": 36,
+        "row_spacing": 28,
+        "column_alignment": "left",
+        "columns_mobile": "1",
+        "column_spacing_mobile": 20,
+        "row_spacing_mobile": 20,
+        "column_alignment_mobile": "left",
+        "background_behind_columns": true,
+        "background_color": "#999770",
+        "text_color": "#282828",
+        "button_background_color": "#282828",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "grid": {
+      "type": "grid",
+      "disabled": true,
+      "blocks": {
+        "block-0": {
+          "type": "item",
+          "settings": {
+            "width": "100",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        },
+        "block-1": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "width": "100",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        },
+        "block-2": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "width": "100",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2"
+      ],
+      "settings": {
+        "enable_animation": true,
+        "full_width": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "quote": {
+      "type": "quote",
+      "disabled": true,
+      "settings": {
+        "autoplay_enabled": true,
+        "autoplay_delay": 7,
+        "pagination_style": "dots",
+        "font_choice": "heading",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "image-with-text-2": {
+      "type": "image-with-text",
+      "disabled": true,
+      "blocks": {
+        "block-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Our Locations",
+            "heading_font_class": "fs-heading-display-3"
+          }
+        },
+        "block-1": {
+          "type": "border",
+          "settings": {
+          }
+        },
+        "block-2": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Toronto",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "block-3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>123 Queen Street<br\/>Tuesday to Sunday: 9 - 5<br\/>+1 (416) 555-5555<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        },
+        "block-4": {
+          "type": "button",
+          "settings": {
+            "link": "",
+            "link_text": "Get Directions",
+            "button_style": "btn--secondary"
+          }
+        },
+        "block-5": {
+          "type": "spacer",
+          "settings": {
+            "space": 20
+          }
+        },
+        "block-6": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "VANCOUVER",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "block-7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>789 Main Street<br\/>Tuesday to Sunday: 9 - 5<br\/>+1 (604) 555-5555<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        },
+        "block-8": {
+          "type": "button",
+          "settings": {
+            "link": "",
+            "link_text": "Get directions",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "block-0",
+        "block-1",
+        "block-2",
+        "block-3",
+        "block-4",
+        "block-5",
+        "block-6",
+        "block-7",
+        "block-8"
+      ],
+      "settings": {
+        "image_position": "right",
+        "text_alignment": "left",
+        "aspect_ratio": "square",
+        "focal_point": "center",
+        "image_caption": "",
+        "show_small_image": false,
+        "image_small_aspect_ratio": "square",
+        "image_small_focal_point": "center",
+        "background_color": "#f7f7f7",
+        "text_color": "#000000",
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "disabled": true,
+      "settings": {
+        "alignment": "left_left",
+        "heading": "Contact us",
+        "heading_font_class": "fs-heading-3-base",
+        "text": "",
+        "show_recaptcha_terms": true,
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "1662686481da73b444": {
+      "type": "image-hero",
+      "blocks": {
+        "166268648183b83750-0": {
+          "type": "accent",
+          "settings": {
+            "accent": "Further Reading"
+          }
+        },
+        "166268648183b83750-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Brand Criteria",
+            "heading_font_class": "fs-heading-display-2"
+          }
+        },
+        "166268648183b83750-2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Discover what it takes to be an Eleventh House brand.<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        },
+        "532d014d-30aa-4f51-96d2-a66a5d9d8661": {
+          "type": "button",
+          "settings": {
+            "link": "shopify:\/\/blogs\/journal\/ethically-sourced",
+            "link_text": "Learn more",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "166268648183b83750-0",
+        "166268648183b83750-1",
+        "166268648183b83750-2",
+        "532d014d-30aa-4f51-96d2-a66a5d9d8661"
+      ],
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 70,
+        "mobile_height": 100,
+        "image": "shopify:\/\/shop_images\/wild-plants.jpg",
+        "focal_point": "top",
+        "mobile_focal_point": "top",
+        "media_link": "",
+        "text_position": "center_center",
+        "text_color": "#f8f4ed",
+        "button_background_color": "#f8f4ed",
+        "button_text_color": "#414141",
+        "color_overlay": "#414141",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 40,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "1661299022b2ba5237": {
+      "type": "apps",
+      "blocks": {
+        "cb68d3db-993e-40c7-a8a7-638216afca6a": {
+          "type": "shopify:\/\/apps\/instafeed-instagram-feed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "heading_size": 20,
+            "feed_width": 100,
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "cb68d3db-993e-40c7-a8a7-638216afca6a"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "166129754279392766",
+    "slideshow",
+    "image-with-text-1",
+    "1661305117f2de866a",
+    "166129892012a9e4de",
+    "rich-text",
+    "1661302368953bfb3b",
+    "grid",
+    "quote",
+    "image-with-text-2",
+    "contact-form",
+    "1662686481da73b444",
+    "1661299022b2ba5237"
+  ]
+}

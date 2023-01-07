@@ -1,0 +1,152 @@
+<div
+  class="product__block product__block--product-header{% if block_settings.show_divider %} product__block--with-divider{% endif %}"
+  {% if block %}
+    {{- block.shopify_attributes -}}
+  {% endif %}
+>
+  {%- if is_quick -%}
+    <div class="product__block--product-header-image-wrap">
+      <div class="product__media">
+        {%- for media in product.media -%}
+          <div
+            class="product__media-item {% unless media.id == featured_media.id %} hidden{% endunless %}"
+            data-media-item-id="{{ media.id }}"
+            data-product-media-wrapper
+          >
+            {%
+              render 'media' with
+              media: media,
+              fallback_alt: product.title,
+              featured_media: featured_media,
+              enable_product_lightbox: section.settings.enable_product_lightbox,
+              loop_video: section.settings.enable_video_looping,
+              aspect_ratio: section.settings.image_aspect_ratio,
+              sizes: "122px"
+            %}
+          </div>
+        {%- else -%}
+          <div class="product__media-item placeholder-image">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="product__block--product-header-inner">
+    {%- if product != blank -%}
+      {%- if block_settings.show_sale_badge or block_settings.show_custom_badges -%}
+        {%-
+          render 'product-badges' with
+          prod: product,
+          show_sale_badge: block_settings.show_sale_badge,
+          show_custom_badges: block_settings.show_custom_badges,
+          show_sold_out_badge: false
+        -%}
+      {%- endif -%}
+      <h1 class="product__title ff-heading fs-heading-4-base fs-heading-3-base-ns">{{ product.title }}</h1>
+      {%- if block_settings.show_vendor or block_settings.show_sku -%}
+        <div
+          class="product__vendor_and_sku"
+          data-showing-sku="{% if block_settings.show_sku and current_variant.sku != blank %}true{% else %}false{% endif %}"
+          data-showing-vendor="{% if block_settings.show_vendor and product.vendor != blank %}true{% else %}false{% endif %}"
+        >
+          {%- if block_settings.show_vendor -%}
+            <div class="product__vendor fs-body-100 t-opacity-70">{{ product.vendor | link_to_vendor }}</div>
+          {%- endif -%}
+          {%- if block_settings.show_sku -%}
+            <div class="product__sku fs-body-25 t-opacity-60" data-product-sku>
+              {%- if current_variant.sku != blank -%}
+                {{ 'products.product.sku_with_value' | t: value: current_variant.sku }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <h1 class="product__title ff-heading">{{ 'sections.featured_product.placeholder.title' | t }}</h1>
+      {%- if block_settings.show_vendor -%}
+        <div
+          class="product__vendor_and_sku"
+          data-showing-vendor="true"
+        >
+          <div class="product__vendor fs-body-100 t-opacity-70">
+            {{ 'sections.featured_product.placeholder.vendor' | t }}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    <div class="product__price-and-ratings">
+      <div class="product__price fs-body-100">
+        {%- if product != blank -%}
+          <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+          <s data-compare-price>{{- current_variant.compare_at_price | money -}}</s>
+          <span class="" data-price>{{ current_variant.price | money }}</span>
+
+          {%- if block_settings.show_discount -%}
+            <span data-discount-display class="product__price-displayed-discount fs-body-50">
+              {%-
+                render "get-display-discount"
+                with product: product,
+                variant: current_variant,
+                format: block_settings.discount_format
+              -%}
+            </span>
+          {%- endif -%}
+
+          {% render 'unit-price' item: current_variant %}
+        {%- else -%}
+          <span>{{ 9999 | money }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if block_settings.show_product_rating and product != blank -%}
+        <div class="product__rating">
+          <div class="product__rating-stars">
+            {%- liquid
+              assign reviews = product.metafields.reviews
+              assign rating_count = 0
+
+              if reviews.rating_count != blank
+                assign rating_count = reviews.rating_count
+              endif
+
+              assign rating = 0
+              if reviews.rating.value != blank and reviews.rating.value.scale_max != blank
+                # normalize on a 0-5 scale
+                assign rating = reviews.rating.value.rating | times: 5.0 | divided_by: reviews.rating.value.scale_max
+              endif
+            -%}
+
+            {%- render 'star-rating', rating: rating -%}
+          </div>
+          <div class="product__rating-count t-opacity-60 fs-body-75">
+            (<a href="#shopify-product-reviews" class="product__rating-count-potential-link">{{ rating_count }}</a>)
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if block_settings.show_discount and product != blank -%}
+      {%- comment -%}weird hack but we need to be able to access these dynamically {%- endcomment -%}
+      {%- for variant in product.variants -%}
+        <div hidden class="visually-hidden" variant-discount-display variant-id="{{ variant.id }}">
+          {%-
+            render "get-display-discount" with
+            product: product,
+            variant: variant,
+            format: block_settings.discount_format
+          -%}
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if is_quick -%}
+      <a class="quick-view-view-product-details-link btn btn--text-link" href="{{ product.url }}">
+        {{ 'products.product.quick_view_product_link' | t }}
+        {% render 'icon' with icon: 'arrow-long-small' %}
+      </a>
+    {%- endif -%}
+  </div>
+</div>

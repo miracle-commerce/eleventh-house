@@ -1,0 +1,94 @@
+{%- comment -%}
+  Pass these variables into snippet:
+
+  Required:
+
+  * collection: Collection object
+  * label_style: String
+  * overlay_title_background: Color_picker value
+  * overlay_title_background_style: String
+  * image_sizes: String (passed to image as sizes attribute)
+
+  Optional:
+
+  * aspect_ratio: String
+  * placeholder: Bool - show placeholder content if passed
+{%- endcomment -%}
+
+{%- liquid
+  assign label_is_overlay = false
+
+  if label_style == 'overlay'
+    assign label_is_overlay = true
+  endif
+-%}
+{% capture collection_label %}
+  <div class="collection-item__label">
+    <h4 class="collection-item__title fs-body-100 {% if label_is_overlay %}ff-heading{% else %}ff-body{% endif %}">
+      {%- if label_is_overlay -%}
+        <span>
+          {%- if placeholder -%}
+            {{ 'collections.general.collection_label' | t }}
+          {%- else -%}
+            {{ collection.title }}
+          {%- endif -%}
+        </span>
+        <span class="collection-item__icon">
+          {%- render 'icon' with icon: 'arrow-short' -%}
+        </span>
+      {%- else -%}
+        {%- if placeholder -%}
+          {{ 'collections.general.collection_label' | t }}
+        {%- else -%}
+          <a href="{{ collection.url }}">{{ collection.title }}</a>
+        {%- endif -%}
+      {%- endif -%}
+    </h4>
+  </div>
+{% endcapture %}
+
+<div
+  class="
+    collection-item
+    collection-item--label-{{ label_style }}
+    collection-item--label-background-{{ overlay_title_background_style }}
+    animation--item
+  "
+  style="
+    --overlay-text-color: {{ section.settings.overlay_text_color }};
+    --label-background: {{ overlay_title_background }};
+    --label-gradient-start: {{ overlay_title_background | color_modify: 'alpha', 0.4 }};
+    --label-gradient-mid: {{ overlay_title_background | color_modify: 'alpha', 0.2 }};
+    --label-gradient-end: {{ overlay_title_background | color_modify: 'alpha', 0 }};
+  "
+>
+  {%- capture wrapping_tag -%}
+    {%- if include_placeholder -%}div{%- else -%}a{%- endif -%}
+  {%- endcapture -%}
+  {%- capture wrapping_attributes -%}
+    {%- unless include_placeholder -%}href="{{ collection.url }}" aria-label="{{ collection.title }}"{%- endunless -%}
+  {%- endcapture -%}
+  <{{ wrapping_tag }}
+    {{ wrapping_attributes }}
+    class="collection-item__image-wrapper hover"
+  >
+    {%
+      render 'image' with
+      image: collection.featured_image,
+      wrapper_class: 'collection-item__image',
+      aspect_ratio: aspect_ratio,
+      placeholder_name: 'collection-1',
+      include_placeholder: true,
+      sizes: image_sizes,
+      src_set_type: "grid"
+    %}
+
+    {%- if label_is_overlay -%}
+      {{ collection_label }}
+    {%- endif -%}
+  </{{ wrapping_tag }}>
+
+  {%- unless label_is_overlay -%}
+    {{ collection_label }}
+  {%- endunless -%}
+</div>

@@ -1,0 +1,103 @@
+
+{% comment %}minimal product experience
+
+Pass in:
+
+* block
+* product
+* custom_product_image
+* aspect_ratio
+* render_shopify_attributes (optional) - render block.shopify_attibures
+* image_sizes
+
+{% endcomment %}
+
+{% unless image_sizes %}
+  {% assign image_sizes = "80px" %}
+{% endunless %}
+
+{%- if aspect_ratio == blank -%}
+  {%- assign aspect_ratio = settings.product_listing_aspect_ratio -%}
+{%- endif -%}
+<div class="product-card-mini {{class}}" {% if render_shopify_attributes %}{{ block.shopify_attributes }}{% endif %}>
+  <div class="product-card-mini__inner">
+    {%- if custom_product_image or product.featured_media -%}
+      {% assign image = product.featured_media %}
+      {% if custom_product_image %}
+        {% assign image = custom_product_image %}
+      {% endif %}
+      <a class="product-card-mini__image-link"
+        {% if product %}
+          href="{{ product.url }}"
+          aria-label="{{ product.title }}"
+        {% endif %}
+      >
+        {% render 'image' with
+          image: image,
+          aspect_ratio: aspect_ratio,
+          wrapper_class: 'product-card-mini__image',
+          sizes: image_sizes,
+        %}
+      </a>
+    {% else %}
+      <div class="product-card-mini__image-link" >
+        {%- render 'placeholder-image' with
+          wrapper_class: "product-card-mini__image",
+          aspect_ratio: aspect_ratio,
+          placeholder_name: "product-1"
+        -%}
+      </div>
+    {%- endif -%}
+
+    <div class="product-card-mini__meta fs-body-75">
+      <div class="product-card-mini__text ff-body">
+        <h4 class="product-card-mini__product-title fs-product-card-title">
+          {%- if placeholder or product == blank -%}
+            {{ 'homepage.onboarding.product_title' | t }}
+          {%- else -%}
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          {%- endif -%}
+        </h4>
+
+        {% if placeholder or product == blank %}
+          {{ 9999 | money }}
+        {% elsif product.compare_at_price > product.price %}
+          <p class="product-card-mini__price">
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s class="t-subdued">{{ product.compare_at_price | money }}</s>
+
+            {% if product.price_varies %}
+              {%- assign sale_price = product.price | money -%}
+              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+              <span class="sale">{{ product.price | money }}<span>
+            {% endif %}
+          </p>
+        {% else %}
+          {% if product.price_varies %}
+            {%- assign price = product.price | money -%}
+            <p class="product-card-mini__price">
+              {{ 'products.product.from_lowest_price_html' | t: lowest_price: price }}
+            </p>
+          {% else %}
+            <span class="product-card-mini__price">{{ product.price | money }}</span>
+          {% endif %}
+
+        {% endif %}
+
+        <div>
+          {% render 'unit-price' item: current_variant %}
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn--tertiary btn--x-small product-card-mini__quick-view-button"
+        data-quick-view-trigger
+        data-product-url="{{ product.url }}"
+      >
+        {{ 'products.product.quick_view' | t }}
+      </button>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+{%- if settings.quick_search_suggested_heading != blank -%}
+  <h4 class="quick-search__suggested-header ff-body fs-body-100 t-subdued">
+    {{ settings.quick_search_suggested_heading }}
+  </h4>
+{%- endif -%}
+
+{%- for link in settings.quick_search_suggested_links -%}
+  <a class="quick-search__result" href="{{ link.url }}">
+    <div class="quick-search__result-details ff-body fs-body-75">
+      <div class="quick-search__result-heading">{{ link.title }}</div>
+    </div>
+  </a>
+{%- endfor -%}

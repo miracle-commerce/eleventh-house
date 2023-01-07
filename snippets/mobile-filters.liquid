@@ -1,0 +1,64 @@
+{%- liquid
+  assign filters_valid = false
+  if results.filters != empty and show_filters
+    assign filters_valid = true
+  endif
+
+  if results.products_count >= 5000 or results.results_count >= 5000
+    assign filters_valid = false
+    assign show_sort = false
+  endif
+
+  assign filters_active = false
+  assign active_filter_count = 0
+  for filter in results.filters
+    if filter.active_values.size > 0
+      assign filters_active = true
+    endif
+    for active_value in filter.active_values
+      assign active_filter_count = active_filter_count | plus: 1
+    endfor
+  endfor
+-%}
+
+<div
+  class="
+    mobile-filters
+    active
+    {% if enable_sticky_filter_bar %}mobile-filters--sticky{%- endif %}
+    {% if filters_valid and show_sort -%}mobile-filters--has-grid{%- endif %}
+    {% if filters_valid or show_sort -%}show{%- endif %}
+    animation--mobile-filters
+  "
+  data-mobile-filters
+>
+  {%- if filters_valid -%}
+    <div class="mobile-filters__group" data-group="{{ 'filters.title' | t }}">
+      <button
+        type="button"
+        class="mobile-filters__button"
+        data-mobile-filters-toggle
+        data-filter-drawer-target="__tags"
+        data-tags-dropdown
+      >
+        {% render 'icon' with icon: 'filter' %}
+
+        {{ 'filters.title' | t }}
+
+        {%- if filters_active -%}
+          <span class="mobile-filters__button-count">{{ active_filter_count }}</span>
+        {%- endif -%}
+      </button>
+    </div>
+  {%- endif -%}
+
+  {%- if show_sort -%}
+    <div class="mobile-filters__group" data-group="{{ heading }}">
+      <button type="button" class="mobile-filters__button" data-filter-drawer-target="__sort" data-sort-dropdown>
+        {% render 'icon' with icon: 'sort' %}
+
+        {{ 'filters.sort_title' | t }}
+      </button>
+    </div>
+  {%- endif -%}
+</div>

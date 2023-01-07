@@ -1,0 +1,35 @@
+{%- liquid
+  assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tiktok, Tumblr, YouTube, Vimeo, LinkedIn' | split: ', '
+  assign social_count = 0
+
+  for social in social_accounts
+    assign social_handle = social | handleize
+    assign social_link = "social_" | append: social_handle | append: '_link'
+
+    if settings[social_link] != blank
+      assign social_count = social_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if social_count > 0 -%}
+  <ul class="social-icons" data-count="{{ social_count }}">
+    {%- for social in social_accounts -%}
+      {%- assign social_handle = social | handleize -%}
+      {%- capture social_link -%}social_{{ social_handle }}_link{%- endcapture -%}
+
+      {%- if settings[social_link] != blank -%}
+        <li>
+          <a
+            href="{{ settings[social_link] }}"
+            title="{{ 'sections.footer.social_platform' | t: name: shop.name, platform: social }}"
+            target="_blank"
+            rel="noopener"
+          >
+            {% render 'icon' with icon: social_handle %}
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endif -%}

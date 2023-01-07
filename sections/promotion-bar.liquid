@@ -1,0 +1,291 @@
+{%- liquid
+  assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+  assign min_height = section.settings.min_height
+  assign min_height_mobile = section.settings.min_height_mobile
+  assign image_sizes = '(min-width: 1400px) 1400px, calc(100vw - calc(2 * 3.3vw))'
+  if section.settings.full_width
+    assign image_sizes = '100vw'
+  endif
+-%}
+<div
+  class="
+    sales-banner
+    sales-banner--bar
+    {% if section.settings.image != blank or section.settings.mobile_image != blank %}sales-banner--has-image{% endif %}
+    section
+    {% if section.settings.full_width %}section--full-width{% endif %}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+      animation--promotion-bar
+    {% endif %}
+  "
+  style="
+    --color-background: {{ section.settings.background_color }};
+    --color-text: {{ section.settings.text_color }};
+    --color-text-meta: {{ section.settings.text_color | color_modify: 'alpha', 0.6 }};
+    --color-text-link: {{ section.settings.text_color }};
+    --overlay-background: {{ section.settings.color_overlay }};
+    {% if section.settings.color_overlay_gradient != blank %}
+      --overlay-background-gradient: {{ section.settings.color_overlay_gradient }};
+    {% endif %}
+    --overlay-opacity: {{ overlay_opacity }};
+    --min-height: {{ min_height }}px;
+    --min-height-mobile: {{ min_height_mobile }}px;
+    {% render 'overlay-button-vars' with color_button_text: section.settings.button_text_color, color_button_background: section.settings.button_background_color %}
+  "
+  data-section-id="{{ section.id }}"
+  data-section-type="promotion-bar"
+>
+  <div class="sales-banner__inner">
+    {%- if section.settings.mobile_image != blank -%}
+      {%-
+        render 'image' with
+        wrapper_class: "sales-banner__image sales-banner__image--mobile",
+        image: section.settings.mobile_image,
+        focal_point: section.settings.mobile_focal_point,
+        sizes: image_sizes
+      -%}
+    {%- endif -%}
+
+    {%- if section.settings.image != blank -%}
+      {%-
+        render 'image' with
+        wrapper_class: "sales-banner__image",
+        image: section.settings.image,
+        focal_point: section.settings.focal_point,
+        sizes: image_sizes
+      -%}
+    {%- endif -%}
+    <div class="sales-banner__overlay"></div>
+
+    <div class="sales-banner__content">
+      <div class="sales-banner__bar">
+        {%- if section.settings.heading != blank -%}
+          <div class="sales-banner__bar-item sales-banner__bar-item--heading">
+            <h4 class="ff-heading fs-heading-5-base">{{ section.settings.heading }}</h4>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank or section.settings.link_text != blank and section.settings.link != blank -%}
+          <div class="sales-banner__bar-item sales-banner__bar-item--text animation animation--bar-divider">
+            {%- if section.settings.text != blank -%}
+              <div class="sales-banner__bar-text">{{ section.settings.text }}</div>
+            {%- endif -%}
+
+            {%- if section.settings.link_text -%}
+              {%-
+                render 'button-block' with
+                wrapper_class: "sales-banner__button",
+                link: section.settings.link,
+                label: section.settings.link_text,
+                is_overlay: true,
+                buttons_can_inline: true,
+                is_small: true,
+                button_style: section.settings.button_style
+              -%}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:sections.promotion_bar.name",
+    "tag": "section",
+    "class": "shopify-section--sales-banner shopify-section--full-width",
+    "settings": [
+      {
+        "type": "range",
+        "id": "min_height",
+        "min": 60,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "t:sections.promotion_bar.settings.min_height.label",
+        "default": 60
+      },
+      {
+        "type": "range",
+        "id": "min_height_mobile",
+        "min": 60,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "t:sections.promotion_bar.settings.min_height_mobile.label",
+        "default": 60
+      },
+      {
+        "type": "header",
+        "content": "t:sections.promotion_bar.settings.header_content.content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "t:sections.promotion_bar.settings.heading.label",
+        "default": "Announce your sale"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "t:sections.promotion_bar.settings.text.label",
+        "default": "<p>Highlight sale campaigns, discounts, and promotions.</p>"
+      },
+      {
+        "id": "link",
+        "type": "url",
+        "label": "t:shared.settings.button_link.label",
+        "default": "/collections"
+      },
+      {
+        "id": "link_text",
+        "type": "text",
+        "label": "t:shared.settings.button_link_text.label",
+        "default": "Button"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "t:shared.settings.button_style.label",
+        "default": "btn--secondary",
+        "options": [
+          {
+            "value": "btn--primary",
+            "label": "t:shared.settings.button_style.option_solid"
+          },
+          {
+            "value": "btn--secondary",
+            "label": "t:shared.settings.button_style.option_outline"
+          },
+          {
+            "value": "btn--callout",
+            "label": "t:shared.settings.button_style.option_text"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "t:sections.promotion_bar.settings.header_background_image.content"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "t:sections.promotion_bar.settings.image.label"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "t:sections.promotion_bar.settings.mobile_image.label"
+      },
+      {
+        "id": "focal_point",
+        "type": "select",
+        "label": "t:shared.settings.focal_point.label",
+        "options": [{"label":"t:shared.settings.focal_point.option_center","value":"center"},{"label":"t:shared.settings.focal_point.option_top","value":"top"},{"label":"t:shared.settings.focal_point.option_bottom","value":"bottom"},{"label":"t:shared.settings.focal_point.option_left","value":"left"},{"label":"t:shared.settings.focal_point.option_right","value":"right"}],
+        "default": "center"
+      },
+      {
+        "id": "mobile_focal_point",
+        "type": "select",
+        "label": "t:sections.promotion_bar.settings.mobile_focal_point.label",
+        "options": [{"label":"t:shared.settings.focal_point.option_center","value":"center"},{"label":"t:shared.settings.focal_point.option_top","value":"top"},{"label":"t:shared.settings.focal_point.option_bottom","value":"bottom"},{"label":"t:shared.settings.focal_point.option_left","value":"left"},{"label":"t:shared.settings.focal_point.option_right","value":"right"}],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "t:shared.settings.header_color.content"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "t:shared.settings.text_color.label",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "button_background_color",
+        "label": "t:shared.settings.button_background_color.label",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "t:shared.settings.button_text_color.label",
+        "default": "#000000"
+      },
+      {
+        "id": "background_color",
+        "type": "color",
+        "label": "t:sections.promotion_bar.settings.background_color.label",
+        "info": "t:sections.promotion_bar.settings.background_color.info",
+        "default": "#C51C26"
+      },
+      {
+        "id": "color_overlay",
+        "type": "color",
+        "label": "t:shared.settings.color_overlay.label",
+        "default": "#000"
+      },
+      {
+        "id": "color_overlay_gradient",
+        "type": "color_background",
+        "label": "t:shared.settings.color_overlay_gradient.label"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "t:shared.settings.overlay_opacity.label",
+        "unit": "%",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "t:shared.settings.section_style.header_style.content"
+      },
+      {
+        "id": "enable_animation",
+        "type": "checkbox",
+        "label": "t:shared.settings.section_style.enable_animation.label",
+        "info": "t:shared.settings.section_style.enable_animation.info",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "t:shared.settings.section_style.full_width.label",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "section_padding",
+        "label": "t:shared.settings.section_style.section_padding.label",
+        "default": "section--vertical-padding-top-bottom",
+        "options": [
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_none", "value": "section--vertical-padding-none"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_both", "value": "section--vertical-padding-top-bottom"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_top", "value": "section--vertical-padding-top-only"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_bottom", "value": "section--vertical-padding-bottom-only"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:sections.promotion_bar.presets.name"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,90 @@
+{%- assign menu_depth = depth | plus: 1 | default: 1 -%}
+
+{%- assign children_allowed = true %}
+{%- if parents_only -%}
+  {%- assign children_allowed = false %}
+{%- endif -%}
+
+{%- for link in links -%}
+  {%- liquid
+    assign has_children = false
+    if link.levels > 0 and children_allowed
+      assign has_children = true
+    endif
+
+    assign child_is_active = false
+    for link in link.links
+      if link.active
+        assign child_is_active = true
+        break
+      elsif link.links.size > 0
+        for link in link.links
+          if link.active
+            assign child_is_active = true
+            break
+          endif
+        endfor
+      endif
+    endfor
+  -%}
+
+  <li
+    class="
+      drawer-menu__item
+      {% if emphasized -%}
+        drawer-menu__item--emphasized
+      {%- endif %}
+      {% if emphasized and forloop.last -%}
+        drawer-menu__item--emphasized-last
+      {%- endif %}
+    "
+    data-list-item
+  >
+    <a
+      data-item="{% if has_children %}parent{% else %}link{% endif %}"
+      class="drawer-menu__link {% if has_children %}no-transition{% endif %} {% if link.active or child_is_active %}active{% endif %}"
+      href="{{ link.url }}"
+      {% if has_children %}
+        data-link="primary"
+        aria-haspopup="true"
+        aria-expanded="false"
+      {% endif %}
+    >
+      <span class="">
+        {{ link.title }}
+      </span>
+      {%- if has_children -%}
+        {% render 'icon' with icon: 'chevron', class: 'menu-icon' %}
+      {%- endif -%}
+    </a>
+
+    {% comment %} Render sub navigation {% endcomment %}
+    {%- if link.links.size > 0 -%}
+      <ul class="drawer-menu__list drawer-menu__list--sub drawer-menu-list--{{ menu_depth }}" aria-hidden="true">
+        {% assign header_has_link = false %}
+        {% if link.url != "#nolink" %}
+          {% assign header_has_link = true %}
+        {% endif %}
+        <li class="drawer-menu__item drawer-menu__item--heading">
+          <span
+            class="drawer-menu__item--heading-back-link"
+            data-item="back"
+            aria-label="{{ 'general.accessibility.back' | t }}"
+          >
+            {% render 'icon' with icon: 'arrow-long', class: 'back-link-icon' %}
+          </span>
+          <a
+            class="drawer-menu__link"
+            data-heading="true"
+            {% if header_has_link %}
+              href="{{ link.url }}"
+            {% endif %}
+          >
+            <span class="fs-body-300">{{ link.title }}</span>
+          </a>
+        </li>
+        {% render 'drawer-menu-list', links: link.links, depth: menu_depth %}
+      </ul>
+    {%- endif -%}
+  </li>
+{%- endfor -%}

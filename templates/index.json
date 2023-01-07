@@ -1,0 +1,1138 @@
+{
+  "sections": {
+    "16558445044f80743b": {
+      "type": "image-hero",
+      "blocks": {
+        "13e64c04-24cb-47e1-9d51-e8dac21c478d": {
+          "type": "accent",
+          "settings": {
+            "accent": "FEATURE"
+          }
+        },
+        "d0cd2366-7930-4809-80d7-2b38d2d4fb07": {
+          "type": "heading",
+          "settings": {
+            "title": "Adventure Awaits",
+            "heading_font_class": "fs-heading-display-1"
+          }
+        },
+        "8a49de45-4784-4f5d-adcf-b87e81e76548": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Artfully curated, sustainable apparel, gear, and lifestyle goods for the modern woman",
+            "subheading_font_class": "fs-heading-6-base"
+          }
+        },
+        "d525a297-b0ac-4079-a90c-68d26f07aae7": {
+          "type": "button",
+          "settings": {
+            "link": "shopify:\/\/collections\/shop-all",
+            "link_text": "Shop Now",
+            "button_style": "btn--primary"
+          }
+        },
+        "15c58a65-cec7-4639-8936-8e3534462aff": {
+          "type": "button",
+          "settings": {
+            "link": "shopify:\/\/pages\/about",
+            "link_text": "Read more",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "13e64c04-24cb-47e1-9d51-e8dac21c478d",
+        "d0cd2366-7930-4809-80d7-2b38d2d4fb07",
+        "8a49de45-4784-4f5d-adcf-b87e81e76548",
+        "d525a297-b0ac-4079-a90c-68d26f07aae7",
+        "15c58a65-cec7-4639-8936-8e3534462aff"
+      ],
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 70,
+        "mobile_height": 50,
+        "image": "shopify:\/\/shop_images\/Brand_Stock_Photos-17.jpg",
+        "focal_point": "top",
+        "mobile_focal_point": "center",
+        "media_link": "",
+        "text_position": "center_center",
+        "text_color": "#f8f4ed",
+        "button_background_color": "#f8f4ed",
+        "button_text_color": "#282828",
+        "color_overlay": "#282828",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 60,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "1655855477ee9538e0": {
+      "type": "countdown-bar",
+      "settings": {
+        "min_height": 60,
+        "min_height_mobile": 60,
+        "year": 2022,
+        "month": "december",
+        "day": "1",
+        "hour": "12",
+        "minute": "0",
+        "hide_timer_on_complete": true,
+        "timer_complete_message": "",
+        "heading": "Grand Opening",
+        "text": "<p>Sign up to be the first to know when the innaugural collection goes live!<\/p>",
+        "link": "shopify:\/\/pages\/contact",
+        "link_text": "Get Notified",
+        "button_style": "btn--secondary",
+        "focal_point": "center",
+        "mobile_focal_point": "center",
+        "text_color": "#414141",
+        "button_background_color": "#414141",
+        "button_text_color": "#414141",
+        "background_color": "#ffffff",
+        "color_overlay": "#000000",
+        "color_overlay_gradient": "linear-gradient(180deg, rgba(153, 151, 112, 1) 20%, rgba(255, 255, 255, 1) 85%)",
+        "overlay_opacity": 75,
+        "enable_animation": true,
+        "full_width": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "1654880426b1f83355": {
+      "type": "image-with-text",
+      "blocks": {
+        "07f3a428-e300-4934-8b33-3b2b4acf86c7": {
+          "type": "accent",
+          "settings": {
+            "accent": "Our Story"
+          }
+        },
+        "16548804264c48a1d9-0": {
+          "type": "heading",
+          "settings": {
+            "title": "A Modern Marketplace With Heart.",
+            "heading_font_class": "fs-heading-display-2"
+          }
+        },
+        "16548804264c48a1d9-1": {
+          "type": "subheading",
+          "disabled": true,
+          "settings": {
+            "subheading": "Use these sections to promote a particular feature with editorial photography",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "16548804264c48a1d9-2": {
+          "type": "button",
+          "settings": {
+            "link": "shopify:\/\/pages\/about",
+            "link_text": "Read more",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "07f3a428-e300-4934-8b33-3b2b4acf86c7",
+        "16548804264c48a1d9-0",
+        "16548804264c48a1d9-1",
+        "16548804264c48a1d9-2"
+      ],
+      "settings": {
+        "image_position": "right",
+        "text_alignment": "left",
+        "image": "shopify:\/\/shop_images\/fall-leaves-changing.jpg",
+        "aspect_ratio": "square",
+        "focal_point": "center",
+        "image_caption": "",
+        "show_small_image": true,
+        "image_small": "shopify:\/\/shop_images\/woman-looks-down.jpg",
+        "image_small_aspect_ratio": "square",
+        "image_small_focal_point": "center",
+        "background_color": "",
+        "text_color": "#282828",
+        "button_background_color": "#282828",
+        "button_text_color": "#f8f4ed",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "1654916105fd939f8f": {
+      "type": "video-hero",
+      "blocks": {
+        "1654916105bea353be-0": {
+          "type": "accent",
+          "settings": {
+            "accent": "Brand Spotlight"
+          }
+        },
+        "1654916105bea353be-1": {
+          "type": "heading",
+          "settings": {
+            "title": "dk active",
+            "heading_font_class": "fs-heading-display-3"
+          }
+        },
+        "535519ef-68f5-42dd-8ad6-15ab68afaa95": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Australian Made ethical activewear designed to move with you - need we say more?",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "f1f1f156-0760-4d72-9fa8-b617a687aabd": {
+          "type": "button",
+          "settings": {
+            "link": "https:\/\/shopeleventhhouse.com\/collections\/d-k-active",
+            "link_text": "Explore Now",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "1654916105bea353be-0",
+        "1654916105bea353be-1",
+        "535519ef-68f5-42dd-8ad6-15ab68afaa95",
+        "f1f1f156-0760-4d72-9fa8-b617a687aabd"
+      ],
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 65,
+        "mobile_height": 50,
+        "video_url": "",
+        "image": "shopify:\/\/shop_images\/Brand_Stock_Photos-17.jpg",
+        "media_link": "",
+        "focal_point": "bottom",
+        "text_position": "center_flex-end",
+        "text_color": "#f8f4ed",
+        "button_background_color": "#f8f4ed",
+        "button_text_color": "#282828",
+        "color_overlay": "#f8f4ed",
+        "color_overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.24) 38%, rgba(0, 0, 0, 1) 100%)",
+        "overlay_opacity": 70,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "16558561315f6147d3": {
+      "type": "sales-banner",
+      "disabled": true,
+      "settings": {
+        "min_height": 300,
+        "min_height_mobile": 500,
+        "sale_type": "up to",
+        "sale_amount": "60",
+        "sale_unit": "percent_off",
+        "terms_and_conditions": "* Optional legal note",
+        "sale_font_size": 150,
+        "sale_font_size_mobile": 150,
+        "currency_symbol_position": "before",
+        "heading": "Announce your sale",
+        "heading_font_class": "fs-heading-3-base",
+        "text": "<p>Highlight sale campaigns, discounts, and promotions.<\/p>",
+        "link": "shopify:\/\/collections",
+        "link_text": "Button",
+        "button_style": "btn--secondary",
+        "link_2": "shopify:\/\/collections",
+        "link_text_2": "Button",
+        "button_style_2": "btn--secondary",
+        "focal_point": "center",
+        "mobile_focal_point": "center",
+        "text_color": "#ffffff",
+        "button_background_color": "#ffffff",
+        "button_text_color": "#000000",
+        "background_color": "#c51c26",
+        "color_overlay": "#000000",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 0,
+        "enable_animation": true,
+        "show_frame": true,
+        "full_width": false,
+        "section_padding": "section--vertical-padding-top-only"
+      }
+    },
+    "1654878022d8e24a9a": {
+      "type": "grid",
+      "disabled": true,
+      "blocks": {
+        "165487802257d72399-2": {
+          "type": "item",
+          "settings": {
+            "width": "33",
+            "height": 500,
+            "mobile_height": 360,
+            "media_fit": "cover",
+            "focal_point": "top",
+            "mobile_focal_point": "center",
+            "text_position": "flex-start_flex-end",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-6-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "Shop now",
+            "button_style": "btn--callout",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1) 52%, rgba(0, 0, 0, 1) 100%)",
+            "overlay_opacity": 50
+          }
+        },
+        "165487802257d72399-1": {
+          "type": "item",
+          "settings": {
+            "width": "33",
+            "height": 500,
+            "mobile_height": 360,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "flex-start_flex-end",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-6-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--callout",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1) 52%, rgba(0, 0, 0, 1) 100%)",
+            "overlay_opacity": 50
+          }
+        },
+        "165487802257d72399-0": {
+          "type": "item",
+          "settings": {
+            "width": "33",
+            "height": 600,
+            "mobile_height": 360,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "flex-start_flex-end",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-6-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--callout",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1) 43%, rgba(0, 0, 0, 1) 100%)",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "165487802257d72399-2",
+        "165487802257d72399-1",
+        "165487802257d72399-0"
+      ],
+      "settings": {
+        "enable_animation": true,
+        "full_width": false,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "16549177944ec2347e": {
+      "type": "rich-text",
+      "disabled": true,
+      "blocks": {
+        "1654917794cdc0bc3c-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Rich text",
+            "heading_font_class": "fs-heading-3-base"
+          }
+        },
+        "1654917794cdc0bc3c-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use this text area to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "1654917794cdc0bc3c-0",
+        "1654917794cdc0bc3c-1"
+      ],
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 650
+      }
+    },
+    "16548834739d532589": {
+      "type": "shoppable-feature",
+      "blocks": {
+        "16548834735b1dc2a7-0": {
+          "type": "hotspot",
+          "settings": {
+            "product_item": "arlo-top",
+            "horizontal_position": 30,
+            "vertical_position": 63
+          }
+        },
+        "7162c60c-cb22-4548-b225-5b37f46e9424": {
+          "type": "hotspot",
+          "settings": {
+            "product_item": "esla-vest",
+            "horizontal_position": 57,
+            "vertical_position": 60
+          }
+        },
+        "16548834735b1dc2a7-1": {
+          "type": "hotspot",
+          "settings": {
+            "product_item": "becksa-7-8-legging",
+            "horizontal_position": 46,
+            "vertical_position": 37
+          }
+        },
+        "16548834735b1dc2a7-2": {
+          "type": "hotspot",
+          "disabled": true,
+          "settings": {
+            "product_item": "",
+            "horizontal_position": 48,
+            "vertical_position": 15
+          }
+        }
+      },
+      "block_order": [
+        "16548834735b1dc2a7-0",
+        "7162c60c-cb22-4548-b225-5b37f46e9424",
+        "16548834735b1dc2a7-1",
+        "16548834735b1dc2a7-2"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/woman-walks-across-bridge-in-forest.jpg",
+        "image_position": "left",
+        "image_size": 50,
+        "aspect_ratio": "portrait_alt",
+        "heading": "The Trail Edit",
+        "subheading": "<p>Adventure awaits: the perfect pieces to get you back on trek<\/p>",
+        "link": "",
+        "link_text": "Shop Now",
+        "button_style": "btn--callout",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_position_desktop": "inside"
+      }
+    },
+    "1655855558c1ac2348": {
+      "type": "featured-collection-slider",
+      "blocks": {
+        "16558555587b915de6-0": {
+          "type": "collection",
+          "settings": {
+            "show_view_all": true,
+            "collection": "the-top-ten-edit",
+            "collection_name": ""
+          }
+        },
+        "16558555587b915de6-1": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "show_view_all": true,
+            "collection": "",
+            "collection_name": "Second collection"
+          }
+        }
+      },
+      "block_order": [
+        "16558555587b915de6-0",
+        "16558555587b915de6-1"
+      ],
+      "settings": {
+        "heading": "This Week's Top 10",
+        "subheading": "<p>All your current favorites in one place<\/p>",
+        "link": "",
+        "link_text": "",
+        "maximum_products": 10,
+        "columns": "4",
+        "mobile_columns": "2",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "165489980473ecbf41": {
+      "type": "image-with-text",
+      "blocks": {
+        "c9de685c-2bf6-4a49-8c7e-22edd265184c": {
+          "type": "accent",
+          "settings": {
+            "accent": "GIVE STYLE"
+          }
+        },
+        "1654899804e4fc48ec-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Gift Cards",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "1654899804e4fc48ec-1": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Looking for a last minute gift idea? Give the gift of sustainable style and goods from Eleventh House! Delivered directly to your inbox immediately after purchase.",
+            "subheading_font_class": "fs-heading-6-base"
+          }
+        },
+        "1654899804e4fc48ec-2": {
+          "type": "button",
+          "settings": {
+            "link": "shopify:\/\/products\/gift-card",
+            "link_text": "Shop Now",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "c9de685c-2bf6-4a49-8c7e-22edd265184c",
+        "1654899804e4fc48ec-0",
+        "1654899804e4fc48ec-1",
+        "1654899804e4fc48ec-2"
+      ],
+      "settings": {
+        "image_position": "left",
+        "text_alignment": "left",
+        "image": "shopify:\/\/shop_images\/Eleventh_House_Gift_Card_Web.png",
+        "aspect_ratio": "square",
+        "focal_point": "center",
+        "image_caption": "",
+        "show_small_image": true,
+        "image_small": "shopify:\/\/shop_images\/Eleventh_House_Final_Branding-86.png",
+        "image_small_aspect_ratio": "natural",
+        "image_small_focal_point": "bottom",
+        "background_color": "#f8f4ed",
+        "text_color": "#282828",
+        "button_background_color": "#282828",
+        "button_text_color": "#f8f4ed",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "16548801325228c324": {
+      "type": "blog-posts",
+      "blocks": {
+        "40576c70-01f0-4d00-8a56-9c44ea56b9ce": {
+          "type": "article",
+          "settings": {
+            "article": "journal\/the-foundation-of-a-modern-wardrobe"
+          }
+        },
+        "2db7eac4-4f2c-454f-a6e1-182e64cfd109": {
+          "type": "article",
+          "settings": {
+            "article": "journal\/sustainability-initiatives"
+          }
+        }
+      },
+      "block_order": [
+        "40576c70-01f0-4d00-8a56-9c44ea56b9ce",
+        "2db7eac4-4f2c-454f-a6e1-182e64cfd109"
+      ],
+      "settings": {
+        "heading": "From The Journal",
+        "subheading": "",
+        "button_link": "shopify:\/\/blogs\/journal",
+        "link_text": "View All Entries",
+        "display_type": "all",
+        "blog": "journal",
+        "max_articles": 2,
+        "show_tags": false,
+        "show_author": false,
+        "show_date": true,
+        "show_excerpt": true,
+        "show_featured_image": true,
+        "aspect_ratio": "landscape",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "16548772614c49ba39": {
+      "type": "featured-collection-slider",
+      "disabled": true,
+      "blocks": {
+        "767ac6c0-8826-4284-bd74-6eb8a441d7bc": {
+          "type": "collection",
+          "settings": {
+            "show_view_all": true,
+            "collection": "",
+            "collection_name": "Collection"
+          }
+        }
+      },
+      "block_order": [
+        "767ac6c0-8826-4284-bd74-6eb8a441d7bc"
+      ],
+      "settings": {
+        "heading": "Featured collection",
+        "subheading": "",
+        "link": "",
+        "link_text": "View all products",
+        "maximum_products": 8,
+        "columns": "4",
+        "mobile_columns": "2",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "1655747757d7226f15": {
+      "type": "grid",
+      "disabled": true,
+      "blocks": {
+        "e866e078-81cd-4f2b-8678-817de7dc830a": {
+          "type": "item",
+          "settings": {
+            "width": "50",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        },
+        "c832af30-0b0e-4968-9284-ab8633c9a7c3": {
+          "type": "item",
+          "settings": {
+            "width": "50",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        },
+        "c51c0355-4ad0-4933-b13d-f827c724bcf5": {
+          "type": "item",
+          "settings": {
+            "width": "33",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        },
+        "c49fee52-014f-4275-968c-dc288d31fd2b": {
+          "type": "item",
+          "settings": {
+            "width": "33",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        },
+        "765a5e2e-93df-44f3-aa92-3c26e95174c2": {
+          "type": "item",
+          "settings": {
+            "width": "33",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        },
+        "48a4e426-4325-412e-a437-c11aa5b4edf2": {
+          "type": "item",
+          "settings": {
+            "width": "100",
+            "height": 500,
+            "mobile_height": 500,
+            "media_fit": "cover",
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Grid item",
+            "subheading": "<p>Perfect for lookbooks and editorial photography<\/p>",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "",
+            "text_font_class": "fs-body-100",
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary",
+            "background_color": "",
+            "text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
+            "color_overlay": "#000000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "e866e078-81cd-4f2b-8678-817de7dc830a",
+        "c832af30-0b0e-4968-9284-ab8633c9a7c3",
+        "c51c0355-4ad0-4933-b13d-f827c724bcf5",
+        "c49fee52-014f-4275-968c-dc288d31fd2b",
+        "765a5e2e-93df-44f3-aa92-3c26e95174c2",
+        "48a4e426-4325-412e-a437-c11aa5b4edf2"
+      ],
+      "settings": {
+        "enable_animation": true,
+        "full_width": false,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "165488047346f59e49": {
+      "type": "collection-list-slider",
+      "disabled": true,
+      "settings": {
+        "heading": "The Weekly Roundup",
+        "subheading": "",
+        "link": "shopify:\/\/collections",
+        "link_text": "View all collections",
+        "columns": "5",
+        "mobile_columns": "2",
+        "collection_list": [
+
+        ],
+        "collection_listing_aspect_ratio": "portrait",
+        "label_style": "overlay",
+        "overlay_title_background_style": "gradient",
+        "overlay_text_color": "#ffffff",
+        "overlay_title_background": "#000000",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "1654913893935a57bd": {
+      "type": "image-with-text-split",
+      "disabled": true,
+      "blocks": {
+        "1654913893d03d0b33-0": {
+          "type": "accent",
+          "settings": {
+            "accent": "Accent"
+          }
+        },
+        "1654913893d03d0b33-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Image with text split",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "1654913893d03d0b33-2": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Use these sections to promote a particular feature with editorial photography.",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "63e2f450-ccdf-4ba0-8c95-8e7b01b5c7f5": {
+          "type": "image",
+          "settings": {
+            "image_size": 250,
+            "image_size_mobile": 200
+          }
+        },
+        "7f329234-f652-4947-8f09-cad43d072028": {
+          "type": "button",
+          "settings": {
+            "link": "",
+            "link_text": "Read more",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "1654913893d03d0b33-0",
+        "1654913893d03d0b33-1",
+        "1654913893d03d0b33-2",
+        "63e2f450-ccdf-4ba0-8c95-8e7b01b5c7f5",
+        "7f329234-f652-4947-8f09-cad43d072028"
+      ],
+      "settings": {
+        "image_position": "right",
+        "image_mobile_position": "above-content",
+        "image_padding": "none",
+        "aspect_ratio": "natural",
+        "focal_point": "top",
+        "content_alignment": "center",
+        "background_color": "#0b3b3e",
+        "text_color": "#ffffff",
+        "button_background_color": "#ffffff",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "16558561940a4fe50f": {
+      "type": "testimonials",
+      "disabled": true,
+      "blocks": {
+        "1655856194e7b43695-0": {
+          "type": "testimonial",
+          "settings": {
+            "product": "",
+            "image_position": "right",
+            "aspect_ratio": "square",
+            "focal_point": "center",
+            "show_rating": true,
+            "rating": 5,
+            "quote": "\"Add customer reviews and testimonials to showcase your store’s happy customers.\"",
+            "author": "– Author's name"
+          }
+        },
+        "1655856194e7b43695-1": {
+          "type": "testimonial",
+          "settings": {
+            "product": "",
+            "image_position": "right",
+            "aspect_ratio": "square",
+            "focal_point": "center",
+            "show_rating": true,
+            "rating": 4.5,
+            "quote": "\"Add customer reviews and testimonials to showcase your store’s happy customers.\"",
+            "author": "– Author's name"
+          }
+        },
+        "1655856194e7b43695-2": {
+          "type": "testimonial",
+          "settings": {
+            "product": "",
+            "image_position": "right",
+            "aspect_ratio": "square",
+            "focal_point": "center",
+            "show_rating": true,
+            "rating": 5,
+            "quote": "\"Add customer reviews and testimonials to showcase your store’s happy customers.\"",
+            "author": "– Author's name"
+          }
+        }
+      },
+      "block_order": [
+        "1655856194e7b43695-0",
+        "1655856194e7b43695-1",
+        "1655856194e7b43695-2"
+      ],
+      "settings": {
+        "image_size": "small",
+        "quote_font": "heading",
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "1655748277aeb95c8a": {
+      "type": "image-with-text",
+      "disabled": true,
+      "blocks": {
+        "1655748276a16c587f-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Image with text",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "a20757dc-e69a-44d7-a715-2a5d06580517": {
+          "type": "border",
+          "settings": {
+          }
+        },
+        "1655748276a16c587f-1": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Use these sections to promote a particular feature with editorial photography",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "2c5ae3e6-0766-4bad-aff5-a724000e1ddd": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use these sections to promote a particular feature with editorial photography<\/p>",
+            "text_font_class": "fs-body-75"
+          }
+        },
+        "6bfc7d96-f5a5-41c5-b66f-6b8eb23d8a52": {
+          "type": "border",
+          "settings": {
+          }
+        },
+        "737ce2a8-7a79-4050-901a-b48412cad79e": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Use these sections to promote a particular feature with editorial photography",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "78b87e77-53f6-4b58-828a-36ba7eeaa4f1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use these sections to promote a particular feature with editorial photography<\/p>",
+            "text_font_class": "fs-body-75"
+          }
+        },
+        "1655748276a16c587f-2": {
+          "type": "button",
+          "settings": {
+            "link": "",
+            "link_text": "Read more",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "1655748276a16c587f-0",
+        "a20757dc-e69a-44d7-a715-2a5d06580517",
+        "1655748276a16c587f-1",
+        "2c5ae3e6-0766-4bad-aff5-a724000e1ddd",
+        "6bfc7d96-f5a5-41c5-b66f-6b8eb23d8a52",
+        "737ce2a8-7a79-4050-901a-b48412cad79e",
+        "78b87e77-53f6-4b58-828a-36ba7eeaa4f1",
+        "1655748276a16c587f-2"
+      ],
+      "settings": {
+        "image_position": "left",
+        "text_alignment": "left",
+        "aspect_ratio": "square",
+        "focal_point": "center",
+        "image_caption": "",
+        "show_small_image": false,
+        "image_small_aspect_ratio": "square",
+        "image_small_focal_point": "center",
+        "background_color": "",
+        "text_color": "#000000",
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    },
+    "165489278903cc3881": {
+      "type": "image-with-text-split",
+      "disabled": true,
+      "blocks": {
+        "cec1e4e1-4b28-4709-8d1a-c986ad40425b": {
+          "type": "image",
+          "settings": {
+            "image_size": 160,
+            "image_size_mobile": 110
+          }
+        },
+        "da0d8502-d1a9-42c4-946f-f3143ddb712c": {
+          "type": "heading",
+          "settings": {
+            "title": "Image with text split",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "16548927896be1844d-2": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Use these sections to promote a particular feature with editorial photography.",
+            "subheading_font_class": "fs-heading-5-base"
+          }
+        },
+        "82fd259e-87e0-4232-9b45-72472ceab4dc": {
+          "type": "button",
+          "settings": {
+            "link": "",
+            "link_text": "Read more",
+            "button_style": "btn--callout"
+          }
+        },
+        "7792bb9a-dddb-46ca-9045-e26f6f6948b5": {
+          "type": "button",
+          "settings": {
+            "link": "",
+            "link_text": "Read more",
+            "button_style": "btn--callout"
+          }
+        }
+      },
+      "block_order": [
+        "cec1e4e1-4b28-4709-8d1a-c986ad40425b",
+        "da0d8502-d1a9-42c4-946f-f3143ddb712c",
+        "16548927896be1844d-2",
+        "82fd259e-87e0-4232-9b45-72472ceab4dc",
+        "7792bb9a-dddb-46ca-9045-e26f6f6948b5"
+      ],
+      "settings": {
+        "image_position": "right",
+        "image_mobile_position": "above-content",
+        "image_padding": "none",
+        "aspect_ratio": "landscape",
+        "focal_point": "top",
+        "content_alignment": "center",
+        "background_color": "#562a26",
+        "text_color": "#d1d8c0",
+        "button_background_color": "#d1d8c0",
+        "button_text_color": "#ffffff",
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-top-only"
+      }
+    },
+    "16558563969f2c9cec": {
+      "type": "promotion-bar",
+      "disabled": true,
+      "settings": {
+        "min_height": 60,
+        "min_height_mobile": 60,
+        "heading": "Announce your sale",
+        "text": "<p>Highlight sale campaigns, discounts, and promotions.<\/p>",
+        "link": "shopify:\/\/collections",
+        "link_text": "Button",
+        "button_style": "btn--secondary",
+        "focal_point": "center",
+        "mobile_focal_point": "center",
+        "text_color": "#000000",
+        "button_background_color": "#000000",
+        "button_text_color": "#000000",
+        "background_color": "#ffffff",
+        "color_overlay": "#000000",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 0,
+        "enable_animation": true,
+        "full_width": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    }
+  },
+  "order": [
+    "16558445044f80743b",
+    "1655855477ee9538e0",
+    "1654880426b1f83355",
+    "1654916105fd939f8f",
+    "16558561315f6147d3",
+    "1654878022d8e24a9a",
+    "16549177944ec2347e",
+    "16548834739d532589",
+    "1655855558c1ac2348",
+    "165489980473ecbf41",
+    "16548801325228c324",
+    "16548772614c49ba39",
+    "1655747757d7226f15",
+    "165488047346f59e49",
+    "1654913893935a57bd",
+    "16558561940a4fe50f",
+    "1655748277aeb95c8a",
+    "165489278903cc3881",
+    "16558563969f2c9cec"
+  ]
+}

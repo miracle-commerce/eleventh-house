@@ -1,0 +1,69 @@
+{%- liquid
+  if image.preview_image
+    comment
+      hack - nicer way?
+    endcomment
+    assign image = image.preview_image
+  endif
+
+  if sizes_px
+    assign sizes = sizes_px | append: "px"
+  endif
+
+  if focal_point
+    assign focal_alignment = focal_point | replace: "_", " "
+  endif
+
+  if aspect_ratio != blank and aspect_ratio != 'natural'
+    if aspect_ratio == "portrait"
+      assign image_fill_aspect_ratio = 0.66666
+    elsif aspect_ratio == "landscape"
+      assign image_fill_aspect_ratio = 1.5
+    elsif aspect_ratio == "square"
+      assign image_fill_aspect_ratio = 1
+    elsif aspect_ratio == "portrait_alt"
+      assign image_fill_aspect_ratio = 0.8
+    elsif aspect_ratio == "landscape_alt"
+      assign image_fill_aspect_ratio = 1.25
+    endif
+  endif
+-%}
+
+{%- if image != blank -%}
+  <div
+    class="
+      image
+      {{ wrapper_class }}
+      {% if aspect_ratio != blank and aspect_ratio != 'natural' %}aspect-ratio--{{ aspect_ratio }}{% endif %}
+      {% if animate %}image--animate{% endif %}
+      {% unless no_lazy_load %}animation--lazy-load{% endunless %}
+    "
+    style="
+      {%- if focal_alignment -%}--focal-alignment: {{ focal_alignment }};{%- endif -%}
+      {%- if object_fit != blank and aspect_ratio != 'natural' -%}--object-fit: {{ object_fit }};{%- endif -%}
+    "
+  >
+    <div class="image__inner">
+      {%
+        render 'responsive-image' with
+        image: image,
+        sizes: sizes,
+        prioritize_loading: prioritize_loading,
+        image_fill_aspect_ratio: image_fill_aspect_ratio,
+        object_fit: object_fit,
+        fallback_alt: fallback_alt,
+        src_set_type: src_set_type
+      %}
+    </div>
+  </div>
+{%- elsif include_placeholder -%}
+  {%- assign natural_fallback = placeholder_natural_fallback_ratio | default: 'square' -%}
+
+  {%-
+    render 'placeholder-image' with
+    wrapper_class: wrapper_class,
+    placeholder_name: placeholder_name,
+    aspect_ratio: aspect_ratio,
+    natural_fallback_ratio: natural_fallback
+  -%}
+{%- endif -%}

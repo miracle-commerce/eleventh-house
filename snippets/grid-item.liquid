@@ -1,0 +1,139 @@
+{%- liquid
+  assign overlay_opacity = block.settings.overlay_opacity | divided_by: 100.0
+  assign text_position = block.settings.text_position | split: "_"
+  assign focal_alignment = block.settings.focal_point | replace: "_", " "
+  assign mobile_focal_alignment = block.settings.mobile_focal_point | replace: "_", " "
+  assign horizontal_position = text_position | first
+  assign vertical_position = text_position | last
+  assign has_background_color = false
+
+  if block.settings.background_color != blank and block.settings.background_color != 'rgba(0,0,0,0)'
+    assign has_background_color = true
+  endif
+
+  assign text_position_modifier = 'center'
+
+  if horizontal_position == 'flex-start'
+    assign text_position_modifier = 'left'
+  elsif horizontal_position == 'flex-end'
+    assign text_position_modifier = 'right'
+  endif
+-%}
+
+{%- capture image_sizes -%}
+  (min-width: 960px) calc(calc(100vw - calc(2 * clamp(18px, 3.3vw, 3.3vw))) *
+  {{ block.settings.width | divided_by: 100.00 }}), calc(100vw - calc(2 * 3.3vw))
+{%- endcapture -%}
+
+<div
+  class="
+    grid-item
+    grid-item--width-{{ block.settings.width }}
+    grid-item--text-{{ text_position_modifier }}
+  "
+  style="
+    --height: {{ block.settings.height }}px;
+    --mobile-height: {{ block.settings.mobile_height }}px;
+    --image-focal-alignment: {{ focal_alignment }};
+    --mobile-focal-alignment: {{ mobile_focal_alignment }};
+    --media-fit: {{ block.settings.media_fit }};
+    --text-horizontal-position: {{ horizontal_position }};
+    --text-vertical-position: {{ vertical_position }};
+    --background-color: {{ block.settings.background_color }};
+    --color-text: {{ block.settings.text_color }};
+    --color-text-link: {{ block.settings.text_color }};
+    --overlay-background: {{ block.settings.color_overlay }};
+    {% if block.settings.color_overlay_gradient != blank %}
+      --overlay-background-gradient: {{ block.settings.color_overlay_gradient }};
+    {% endif %}
+    --overlay-opacity: {{ overlay_opacity }};
+    {% render 'overlay-button-vars' with color_button_text: block.settings.button_text_color, color_button_background: block.settings.button_background_color %}
+  "
+  {{ block.shopify_attributes }}
+>
+  {%- capture wrapping_tag -%}
+    {%- if block.settings.link != blank %}a{% else %}div{% endif -%}
+  {%- endcapture -%}
+  {%- capture wrapping_attributes -%}
+    {%- if block.settings.link != blank -%}
+      href="{{ block.settings.link }}"
+    {%- endif -%}
+  {%- endcapture -%}
+  <{{ wrapping_tag }}
+    {{ wrapping_attributes }}
+    class="grid-item__inner"
+  >
+    {%- if block.settings.mobile_image != blank -%}
+      {%-
+        render 'image' with
+        wrapper_class: "grid-item__image grid-item__image--mobile",
+        image: block.settings.mobile_image,
+        sizes: "100vw",
+        animate: true
+      -%}
+    {%- endif -%}
+
+    {%- if block.settings.image != blank -%}
+      {%-
+        render 'image' with
+        wrapper_class: "grid-item__image",
+        image: block.settings.image,
+        sizes: image_sizes,
+        animate: true
+      -%}
+    {%- elsif has_background_color == false -%}
+      {%-
+        render 'placeholder-image' with
+        wrapper_class: "grid-item__image",
+        placeholder_name: 'lifestyle-1',
+        natural_fallback_ratio: 'natural'
+      -%}
+    {%- endif -%}
+
+    <div class="grid-item__overlay"></div>
+
+    <div class="grid-item__text-container-wrapper">
+      <div class="grid-item__text-container">
+        <div class="grid-item__text-container-inner  section-blocks animation--section-blocks">
+          {%- unless block.settings.accent == blank -%}
+            <p class="grid-item__accent fs-accent section-blocks__accent">
+              {{ block.settings.accent }}
+            </p>
+          {%- endunless -%}
+
+          {%- unless block.settings.title == blank -%}
+            <h2 class="
+                grid-item__heading
+                ff-heading
+                fs-heading-3-base
+                section-blocks__heading
+                {% if block.settings.width == '100' or  block.settings.width == '66' %} fs-heading-2-base-above-960{% endif %}
+              ">
+              {{ block.settings.title }}
+            </h2>
+          {%- endunless -%}
+
+          {%- unless block.settings.subheading == blank -%}
+            <h2 class="grid-item__subheading lh-subheading ff-heading {{ block.settings.subheading_font_class }} section-blocks__subheading">
+              {{ block.settings.subheading }}
+            </h2>
+          {%- endunless -%}
+
+          {%- unless block.settings.text == blank -%}
+            <div class="grid-item__text rte ff-body {{ block.settings.text_font_class }} section-blocks__text">
+              {{ block.settings.text }}
+            </div>
+          {%- endunless -%}
+
+          {%- if block.settings.link_text != blank and block.settings.link != blank -%}
+            <div class="grid-item__button section-blocks__button">
+              <div class="btn btn--overlay {{ block.settings.button_style }}{% if block.settings.width == '33' %} btn--small-above-960{% endif %}">
+                <span>{{ block.settings.link_text }}</span>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </{{ wrapping_tag }}>
+</div>

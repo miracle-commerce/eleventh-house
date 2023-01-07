@@ -1,0 +1,6 @@
+{%- capture content -%}
+  <h3 class="quick-view-modal-loading-indicator">
+    {% render 'loader' %}
+  </h3>
+{%- endcapture -%}
+{% render 'quick-view-modal-base' with content: content, open: false %}

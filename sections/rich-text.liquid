@@ -1,0 +1,458 @@
+{%- liquid
+  assign alignment_values = section.settings.alignment | split: "_"
+  assign heading_alignment = alignment_values | first
+  assign content_alignment = alignment_values | last
+-%}
+
+<div
+  data-section-id="{{ section.id }}"
+  data-section-type="rich-text"
+  class="
+    rich-text
+    section
+    section--divider-{{ section.settings.divider_style }}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+      animation--rich-text
+    {% endif %}
+  "
+  style="
+    {% if section.settings.content_width == 'custom' %}
+      --content-width: {{ section.settings.custom_content_width }}px;
+    {% endif %}
+    --content-alignment: {{ content_alignment }};
+    --heading-alignment: {{ heading_alignment }};
+  "
+>
+  <div class="rich-text__inner section-blocks animation--section-blocks">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'heading' -%}
+          {%- unless block.settings.title == blank -%}
+            <h2 class="rich-text__heading ff-heading {{ block.settings.heading_font_class }} section-blocks__heading">
+              {{ block.settings.title | newline_to_br }}
+            </h2>
+          {%- endunless -%}
+        {%- when 'subheading' -%}
+          {%- unless block.settings.subheading == blank -%}
+            <h2 class="rich-text__subheading ff-heading lh-subheading {{ block.settings.subheading_font_class }} section-blocks__subheading">
+              {{ block.settings.subheading }}
+            </h2>
+          {%- endunless -%}
+        {%- when 'text' -%}
+          {%- unless block.settings.text == blank -%}
+            <div class="rich-text__text rte ff-body {{ block.settings.text_font_class }} section-blocks__subheading">
+              {{ block.settings.text }}
+            </div>
+          {%- endunless -%}
+        {%- when 'image' -%}
+          {%-
+            render 'image-block' with
+            shopify_attributes: block.shopify_attributes,
+            wrapper_class: 'rich-text__image  section-blocks__image',
+            image: block.settings.image,
+            width: block.settings.image_size,
+            mobile_width: block.settings.image_size_mobile,
+            break_to_mobile_at: '720',
+            align: content_alignment
+          -%}
+        {%- when 'button' -%}
+          {%-
+            render 'button-block' with
+            shopify_attributes: block.shopify_attributes,
+            wrapper_class: "rich-text__button section-blocks__button",
+            link: block.settings.link,
+            label: block.settings.link_text,
+            button_style: block.settings.button_style,
+            button_alignment: content_alignment,
+            buttons_can_inline: true,
+            forloop: forloop
+          -%}
+        {%- when 'play-button' -%}
+          {%-
+            render 'play-button-block' with
+            wrapper_class: 'rich-text__play-button section-blocks__video-button',
+            shopify_attributes: block.shopify_attributes,
+            poster_image: block.settings.poster_image,
+            poster_aspect: block.settings.aspect_ratio,
+            video_url: block.settings.video_url,
+            label: block.settings.text,
+            button_alignment: content_alignment,
+            icon_style: block.settings.icon_style
+          -%}
+        {%- when 'border' -%}
+          {%- render 'border-block' -%}
+        {%- when 'spacer' -%}
+          {%- render 'spacer-block' with space: block.settings.space -%}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.rich_text.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.rich_text.settings.alignment.label",
+      "options": [
+        {
+          "value": "left_left",
+          "label": "t:sections.rich_text.settings.alignment.option_all_left"
+        },
+        {
+          "value": "center_center",
+          "label": "t:sections.rich_text.settings.alignment.option_all_center"
+        },
+        {
+          "value": "center_left",
+          "label": "t:sections.rich_text.settings.alignment.option_heading_center"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:shared.settings.section_style.header_style.content"
+    },
+    {
+      "id": "enable_animation",
+      "type": "checkbox",
+      "label": "t:shared.settings.section_style.enable_animation.label",
+      "info": "t:shared.settings.section_style.enable_animation.info",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "t:shared.settings.section_style.divider_style.label",
+      "default": "none",
+      "options": [
+        {
+          "label": "t:shared.settings.section_style.divider_style.option_none",
+          "value": "none"
+        },
+        {
+          "label": "t:shared.settings.section_style.divider_style.option_solid",
+          "value": "solid"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "t:shared.settings.section_style.section_padding.label",
+      "default": "section--vertical-padding-top-bottom",
+      "options": [
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_none",
+          "value": "section--vertical-padding-none"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_both",
+          "value": "section--vertical-padding-top-bottom"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_top",
+          "value": "section--vertical-padding-top-only"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_bottom",
+          "value": "section--vertical-padding-bottom-only"
+        }
+      ]
+    },
+    {
+      "type": "radio",
+      "id": "content_width",
+      "label": "t:shared.settings.section_style.content_width.label",
+      "options": [
+        {
+          "value": "full",
+          "label": "t:shared.settings.section_style.content_width.option_full"
+        },
+        {
+          "value": "custom",
+          "label": "t:shared.settings.section_style.content_width.option_custom"
+        }
+      ],
+      "default": "custom"
+    },
+    {
+      "type": "range",
+      "id": "custom_content_width",
+      "label": "t:shared.settings.section_style.custom_content_width.label",
+      "unit": "px",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "default": 700
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.rich_text.blocks.heading.name",
+      "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "t:sections.rich_text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+        {
+          "type": "select",
+          "id": "heading_font_class",
+          "label": "t:shared.settings.heading_font_class.label",
+          "default": "fs-heading-2-base",
+          "options": [
+            {
+              "value": "fs-heading-3-base",
+              "label": "t:shared.settings.heading_font_class.option_small"
+            },
+            {
+              "value": "fs-heading-2-base",
+              "label": "t:shared.settings.heading_font_class.option_medium"
+            },
+            {
+              "value": "fs-heading-1-base",
+              "label": "t:shared.settings.heading_font_class.option_large"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "t:sections.rich_text.blocks.subheading.name",
+      "settings": [
+        {
+          "id": "subheading",
+          "type": "text",
+          "label": "t:sections.rich_text.blocks.subheading.settings.text.label",
+          "default": "Use this text area to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store."
+        },
+        {
+          "type": "select",
+          "id": "subheading_font_class",
+          "label": "t:shared.settings.subheading_font_class.label",
+          "default": "fs-heading-5-base",
+          "options": [
+            {
+              "value": "fs-heading-6-base",
+              "label": "t:shared.settings.subheading_font_class.option_small"
+            },
+            {
+              "value": "fs-heading-5-base",
+              "label": "t:shared.settings.subheading_font_class.option_medium"
+            },
+            {
+              "value": "fs-heading-4-base",
+              "label": "t:shared.settings.subheading_font_class.option_large"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich_text.blocks.text.name",
+      "settings": [
+        {
+          "id": "text",
+          "type": "richtext",
+          "label": "t:sections.rich_text.blocks.text.settings.text.label",
+          "default": "<p>Use this text area to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        },
+        {
+          "type": "select",
+          "id": "text_font_class",
+          "label": "t:shared.settings.text_font_class.label",
+          "default": "fs-body-100",
+          "options": [
+            {
+              "value": "fs-body-200",
+              "label": "t:shared.settings.text_font_class.option_large"
+            },
+            {
+              "value": "fs-body-100",
+              "label": "t:shared.settings.text_font_class.option_regular"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "t:shared.section_blocks.image.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:shared.section_blocks.image.settings.image.label"
+        },
+        {
+          "id": "image_size",
+          "type": "range",
+          "min": 50,
+          "max": 750,
+          "step": 10,
+          "unit": "px",
+          "label": "t:shared.section_blocks.image.settings.image_size.label",
+          "default": 200
+        },
+        {
+          "id": "image_size_mobile",
+          "type": "range",
+          "min": 50,
+          "max": 350,
+          "step": 10,
+          "unit": "px",
+          "label": "t:shared.section_blocks.image.settings.image_size_mobile.label",
+          "default": 200
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich_text.blocks.button.name",
+      "limit": 2,
+      "settings": [
+        {
+          "id": "link",
+          "type": "url",
+          "label": "t:sections.rich_text.blocks.button.settings.link.label"
+        },
+        {
+          "id": "link_text",
+          "type": "text",
+          "label": "t:sections.rich_text.blocks.button.settings.link_text.label",
+          "default": "Read more"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "t:shared.settings.button_style.label",
+          "options": [
+            {
+              "value": "btn--primary",
+              "label": "t:shared.settings.button_style.option_solid"
+            },
+            {
+              "value": "btn--secondary",
+              "label": "t:shared.settings.button_style.option_outline"
+            },
+            {
+              "value": "btn--callout",
+              "label": "t:shared.settings.button_style.option_text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "play-button",
+      "name": "t:shared.section_blocks.play_button.name",
+      "settings": [
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "t:shared.section_blocks.play_button.settings.video_url.label",
+          "info": "t:shared.section_blocks.play_button.settings.video_url.info"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster_image",
+          "label": "t:shared.section_blocks.play_button.settings.poster_image.label"
+        },
+        {
+          "type": "select",
+          "id": "aspect_ratio",
+          "label": "t:shared.settings.aspect_ratio.label",
+          "default": "square",
+          "options": [
+            {
+              "value": "natural",
+              "label": "t:shared.settings.aspect_ratio.option_natural"
+            },
+            {
+              "value": "square",
+              "label": "t:shared.settings.aspect_ratio.option_square"
+            },
+            {
+              "value": "portrait",
+              "label": "t:shared.settings.aspect_ratio.option_portrait"
+            },
+            {
+              "value": "landscape",
+              "label": "t:shared.settings.aspect_ratio.option_landscape"
+            }
+          ]
+        },
+        {
+          "id": "text",
+          "type": "text",
+          "label": "t:shared.section_blocks.play_button.settings.text.label",
+          "default": "Watch now"
+        },
+        {
+          "type": "select",
+          "id": "icon_style",
+          "label": "t:shared.section_blocks.play_button.settings.icon_style.label",
+          "default": "outline",
+          "options": [
+            {
+              "value": "dark",
+              "label": "t:shared.section_blocks.play_button.settings.icon_style.option_dark"
+            },
+            {
+              "value": "light",
+              "label": "t:shared.section_blocks.play_button.settings.icon_style.option_light"
+            },
+            {
+              "value": "outline",
+              "label": "t:shared.section_blocks.play_button.settings.icon_style.option_outline"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "border",
+      "name": "t:shared.section_blocks.border.name"
+    },
+    {
+      "type": "spacer",
+      "name": "t:shared.section_blocks.spacer.name",
+      "settings": [
+        {
+          "type": "range",
+          "id": "space",
+          "label": "t:shared.section_blocks.spacer.settings.space.label",
+          "min": 4,
+          "max": 64,
+          "step": 4,
+          "default": 12,
+          "unit": "px"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich_text.presets.name",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

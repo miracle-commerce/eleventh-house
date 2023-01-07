@@ -1,0 +1,11 @@
+{%- unless logo == blank -%}
+  {%- assign imageHeight = 25 %}
+  {%- assign image_width = logo.width | divided_by: logo.height | times: imageHeight %}
+  {%-
+    render 'image' with
+    image: logo,
+    wrapper_class: class,
+    disable_style: true,
+    sizes_px: image_width
+  -%}
+{%- endunless -%}

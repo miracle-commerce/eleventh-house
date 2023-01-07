@@ -1,0 +1,55 @@
+{% capture content %}
+  <div
+    class="product__callouts-items"
+    data-with-box="{{ block_settings.add_box }}"
+    data-with-dividers="{{ block_settings.add_dividers }}"
+  >
+    {%
+      render 'product-block-callouts-item' with
+      text: block_settings.text_1,
+      icon: block_settings.icon_1
+    %}
+    {%
+      render 'product-block-callouts-item' with
+      text: block_settings.text_2,
+      icon: block_settings.icon_2
+    %}
+    {%
+      render 'product-block-callouts-item' with
+      text: block_settings.text_3,
+      icon: block_settings.icon_3
+    %}
+    {%
+      render 'product-block-callouts-item' with
+      text: block_settings.text_4,
+      icon: block_settings.icon_4
+    %}
+    {%
+      render 'product-block-callouts-item' with
+      text: block_settings.text_5,
+      icon: block_settings.icon_5
+    %}
+    {%
+      render 'product-block-callouts-item' with
+      text: block_settings.text_6,
+      icon: block_settings.icon_6
+    %}
+  </div>
+{% endcapture %}
+
+{% if block_settings.display_as_collapsible_row %}
+  {%-
+    render 'product-block-accordion' with
+    block: block,
+    block_settings: block.settings,
+    heading: block.settings.collapsible_row_title
+    content: content,
+  -%}
+{% else %}
+  <div
+    class="product__block product__block-callouts product__callouts product__block--medium"
+    {{ block.shopify_attributes }}
+  >
+    {{ content }}
+  </div>
+{% endif %}

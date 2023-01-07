@@ -1,0 +1,24 @@
+{%- liquid
+  if product != blank
+    assign description = product.description
+  else
+    assign description = 'sections.featured_product.placeholder.description' | t
+  endif
+-%}
+
+{% if block_settings.display_as_collapsible_row %}
+  {%-
+    render 'product-block-accordion' with
+    block: block,
+    block_settings: block.settings,
+    heading: block.settings.collapsible_row_title
+    content: description,
+  -%}
+{% else %}
+  {%
+    render 'product-block-text' with
+    content: description,
+    block_settings: block_settings,
+    block: block,
+  %}
+{% endif %}

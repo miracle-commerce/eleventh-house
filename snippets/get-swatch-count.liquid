@@ -1,0 +1,33 @@
+{% comment %}
+  pass in :
+
+  * prod (product)
+  * only_first (optional) - only count the first swatch set
+  * show_zero_count (optional) - show count even if 0
+{% endcomment %}
+
+{%- liquid
+  assign swatch_options = settings.swatch_options | downcase | split: ', '
+  assign first_swatch_option = swatch_options.first
+
+  assign swatch_count = 0
+
+  for option in prod.options_with_values
+    assign option_name = option.name | downcase
+    assign qualifies = false
+
+    if only_first
+      if first_swatch_option == option_name
+        assign qualifies = true
+      endif
+    else
+      if swatch_options contains option_name
+        assign qualifies = true
+      endif
+    endif
+    if qualifies
+      assign swatch_count = swatch_count | plus : option.values.size
+    endif
+  endfor
+-%}
+{{ swatch_count }}

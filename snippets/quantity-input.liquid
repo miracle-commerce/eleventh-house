@@ -1,0 +1,30 @@
+<div class="quantity-input">
+  <button
+    type="button"
+    class="quantity-input__button product__quantity-subtract-item"
+    data-subtract-quantity
+    aria-label="{{ 'general.accessibility.quantity_add' | t }}"
+  >
+    {% render 'icon' with icon: 'minus-small' %}
+  </button>
+  <label class="visually-hidden" for="Quantity-Input-{{ id }}">{{ 'products.product.quantity' | t }}</label>
+  <input
+    type="number"
+    name="updates[]"
+    id="Quantity-Input-{{ id }}"
+    value="{{ initial_value }}"
+    min="1"
+    pattern="[0-9]*"
+    class="quantity-input__input"
+    data-quantity-input
+    aria-label="{{ 'general.accessibility.quantity' | t }}"
+  >
+  <button
+    type="button"
+    class="quantity-input__button product__quantity-add-item"
+    data-add-quantity
+    aria-label="{{ 'general.accessibility.quantity_subtract' | t }}"
+  >
+    {% render 'icon' with icon: 'plus-small' %}
+  </button>
+</div>

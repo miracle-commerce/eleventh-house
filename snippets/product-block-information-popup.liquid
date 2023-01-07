@@ -1,0 +1,18 @@
+<a
+  class="product__information-popup product__block product__block--medium fs-body-75"
+  data-popup-trigger
+  data-modal-content-id="modal-{{ popup_page_target }}-{{ block.id }}"
+  href="{{ popup_page.url }}"
+>
+  {%- if icon != 'none' -%}{% render 'icon-editorial' with icon: icon %}{%- endif -%}
+  {{ text }}
+</a>
+<div
+  id="modal-{{ popup_page_target }}-{{ block.id }}"
+  class="information-popup__content modal-content"
+  aria-modal="true"
+>
+  <h2 class="ff-heading fs-heading-2-base">{{ popup_page.title }}</h2>
+
+  {{ popup_page.content }}
+</div>

@@ -1,0 +1,277 @@
+{%- liquid
+  assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+-%}
+
+<div
+  class="
+    image-hero-split
+    section
+    section--full-width
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+      animation--image-hero-split
+    {% endif %}
+  "
+  data-section-id="{{ section.id }}"
+  data-section-type="image-hero-split"
+  style="
+    --custom-height: {{ section.settings.desktop_height }}vh;
+    --custom-height-mobile: {{ section.settings.mobile_height }}vh;
+    --color-text: {{ section.settings.text_color }};
+    --color-text-link: {{ section.settings.text_color }};
+    --overlay-background: {{ section.settings.color_overlay }};
+    {% if section.settings.color_overlay_gradient != blank %}
+      --overlay-background-gradient: {{ section.settings.color_overlay_gradient }};
+    {% endif %}
+    --overlay-opacity: {{ overlay_opacity }};
+    {% render 'overlay-button-vars' with color_button_text: section.settings.button_text_color, color_button_background: section.settings.button_background_color %}
+  "
+>
+  <div class="image-hero-split__inner">
+    {%- for block in section.blocks -%}
+      {%-
+        render 'image-hero-split-item' with
+        block: block,
+        index: forloop.index,
+        image_aspect: section.settings.image_aspect,
+        text_position: section.settings.text_position
+      -%}
+
+      {%- if section.blocks.size < 2 -%}
+        {%-
+          render 'image-hero-split-item' with
+          index: 2,
+          image_aspect: section.settings.image_aspect,
+          text_position: section.settings.text_position
+        -%}
+      {%- endif -%}
+    {%- else -%}
+      {%- for i in (1..2) -%}
+        {%-
+          render 'image-hero-split-item' with
+          index: forloop.index,
+          image_aspect: section.settings.image_aspect,
+          text_position: section.settings.text_position
+        -%}
+      {%- endfor -%}
+    {%- endfor -%}
+
+    <div class="image-hero-split__overlay"></div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "t:sections.image_hero_split.name",
+    "tag": "section",
+    "class": "shopify-section--full-width",
+    "settings": [
+      {
+        "type": "radio",
+        "id": "image_aspect",
+        "label": "t:sections.image_hero_split.settings.image_aspect.label",
+        "options": [
+        { "value": "original", "label": "t:sections.image_hero_split.settings.image_aspect.option_original" },
+        { "value": "custom", "label": "t:sections.image_hero_split.settings.image_aspect.option_custom" }
+        ],
+        "info": "t:sections.image_hero_split.settings.image_aspect.info",
+        "default": "custom"
+      },
+      {
+        "type": "range",
+        "id": "desktop_height",
+        "label": "t:sections.image_hero_split.settings.height.label",
+        "unit": "%",
+        "min": 50,
+        "max": 100,
+        "step": 5,
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "mobile_height",
+        "label": "t:sections.image_hero_split.settings.mobile_height.label",
+        "unit": "%",
+        "min": 50,
+        "max": 100,
+        "step": 5,
+        "default": 100
+      },
+      {
+        "type": "paragraph",
+        "content": "t:sections.image_hero_split.settings.height_paragraph.content"
+      },
+      {
+        "id": "text_position",
+        "type": "select",
+        "label": "t:sections.image_hero_split.settings.text_position.label",
+        "options": [
+          { "label": "t:shared.settings.alignment_vertical.option_top", "value": "flex-start" },
+          { "label": "t:shared.settings.alignment_vertical.option_middle", "value": "center" },
+          { "label": "t:shared.settings.alignment_vertical.option_bottom", "value": "flex-end" }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "t:shared.settings.header_color.content"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "t:shared.settings.text_color.label",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "button_background_color",
+        "label": "t:shared.settings.button_background_color.label",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "t:shared.settings.button_text_color.label",
+        "default": "#000000"
+      },
+      {
+        "id": "color_overlay",
+        "type": "color",
+        "label": "t:shared.settings.color_overlay.label",
+        "default": "#000"
+      },
+      {
+        "id": "color_overlay_gradient",
+        "type": "color_background",
+        "label": "t:shared.settings.color_overlay_gradient.label"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "t:shared.settings.overlay_opacity.label",
+        "unit": "%",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 30
+      },
+      {
+        "type": "header",
+        "content": "t:shared.settings.section_style.header_style.content"
+      },
+      {
+        "id": "enable_animation",
+        "type": "checkbox",
+        "label": "t:shared.settings.section_style.enable_animation.label",
+        "info": "t:shared.settings.section_style.enable_animation.info",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "section_padding",
+        "label": "t:shared.settings.section_style.section_padding.label",
+        "default": "section--vertical-padding-none",
+        "options": [
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_none", "value": "section--vertical-padding-none"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_both", "value": "section--vertical-padding-top-bottom"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_top", "value": "section--vertical-padding-top-only"
+          },
+          {
+            "label": "t:shared.settings.section_style.section_padding.option_bottom", "value": "section--vertical-padding-bottom-only"
+          }
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "t:sections.image_hero_split.blocks.image.name",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "t:sections.image_hero_split.blocks.image.settings.image.label"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "t:sections.image_hero_split.blocks.image.settings.image_mobile.label"
+          },
+          {
+            "id": "focal_point",
+            "type": "select",
+            "label": "t:sections.image_hero_split.blocks.image.settings.focal_point.label",
+            "options": [{"label":"t:shared.settings.focal_point.option_center","value":"center"},{"label":"t:shared.settings.focal_point.option_top","value":"top"},{"label":"t:shared.settings.focal_point.option_bottom","value":"bottom"},{"label":"t:shared.settings.focal_point.option_left","value":"left"},{"label":"t:shared.settings.focal_point.option_right","value":"right"}],
+            "default": "center"
+          },
+          {
+            "id": "mobile_focal_point",
+            "type": "select",
+            "label": "t:sections.image_hero_split.blocks.image.settings.mobile_focal_point.label",
+            "options": [{"label":"t:shared.settings.focal_point.option_center","value":"center"},{"label":"t:shared.settings.focal_point.option_top","value":"top"},{"label":"t:shared.settings.focal_point.option_bottom","value":"bottom"},{"label":"t:shared.settings.focal_point.option_left","value":"left"},{"label":"t:shared.settings.focal_point.option_right","value":"right"}],
+            "default": "center"
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "label": "t:sections.image_hero_split.blocks.image.settings.title.label",
+            "default": "Image hero split"
+          },
+          {
+            "id": "text",
+            "type": "richtext",
+            "label": "t:sections.image_hero_split.blocks.image.settings.text.label",
+            "default": "<p>Use this sections to promote a particular feature with editorial photography.</p>"
+          },
+          {
+            "id": "link",
+            "type": "url",
+            "label": "t:sections.image_hero_split.blocks.image.settings.link.label",
+            "info": "t:sections.image_hero_split.blocks.image.settings.link.info"
+          },
+          {
+            "id": "link_text",
+            "type": "text",
+            "label": "t:sections.image_hero_split.blocks.image.settings.link_text.label",
+            "default": "Read more"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "t:shared.settings.button_style.label",
+            "options": [
+              {
+                "value": "btn--primary",
+                "label": "t:shared.settings.button_style.option_solid"
+              },
+              {
+                "value": "btn--secondary",
+                "label": "t:shared.settings.button_style.option_outline"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:sections.image_hero_split.presets.name",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

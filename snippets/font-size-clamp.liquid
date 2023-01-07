@@ -1,0 +1,35 @@
+{% comment %}
+  Use this to create a clamp value for font sizes based on their desktop size and mobile font scale
+  Minimum viewport width of 480px
+  Maximum viewport width of 960px
+  slope = (maxFontSize - minFontSize) / (maxWidth - minWidth)
+  yAxisIntersection = -minWidth * slope + minFontSize
+  Pass these variables into snippet:
+  * desktop_size: Num
+  * mobile_scale: Num
+  * multiplier: Num
+{% endcomment %}
+
+{%- liquid
+  assign multiplier = multiplier | times: 1.0
+  assign pixels_per_rem = 16 | times: 1.0
+  assign mobile_scale = mobile_scale | times: 0.01
+
+  assign minimum_viewport_width = 375 | divided_by: pixels_per_rem
+  assign maximum_viewport_width = 1280 | divided_by: pixels_per_rem
+
+  assign minimum_font_size = desktop_size | times: 1.0 | times: multiplier | times: mobile_scale | divided_by: pixels_per_rem
+  assign maximum_font_size = desktop_size | times: 1.0 | times: multiplier | divided_by: pixels_per_rem
+
+  assign slope_font_size_value = maximum_font_size | minus: minimum_font_size
+  assign slope_viewport_width_value = maximum_viewport_width | minus: minimum_viewport_width
+  assign slope = slope_font_size_value | divided_by: slope_viewport_width_value
+
+  assign min_viewport_width_converted_negative = minimum_viewport_width | times: -1.0
+  assign slope_times_min_viewport = min_viewport_width_converted_negative | times: slope
+  assign y_axis_intersection = slope_times_min_viewport | plus: minimum_font_size
+
+  assign slope_times_100 = slope | times: 100
+-%}
+
+clamp({{ minimum_font_size }}rem, {{ y_axis_intersection }}rem + {{ slope_times_100 }}vw, {{ maximum_font_size }}rem)

@@ -1,0 +1,18 @@
+{% comment %}
+  - "enters-upwards" is the only mode but is there others?
+  - optional overlay?
+  - see product quickview, it is modal on desktop, drawer on mobile
+{% endcomment %}
+<div class="mobile-drawer enters-upwards {{ class }}">
+  <div class="mobile-drawer__overlay"></div>
+  <div class="mobile-drawer__container">
+    {{ content }}
+    <button
+      class="mobile-drawer__close"
+      data-close
+      aria-label="{{ 'general.accessibility.close_modal' | t }}"
+    >
+      {% render 'icon-button' with small: true, icon: 'close' %}
+    </button>
+  </div>
+</div>

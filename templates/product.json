@@ -1,0 +1,184 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product--default",
+      "blocks": {
+        "product_header": {
+          "type": "product_header",
+          "settings": {
+            "show_divider": true,
+            "show_vendor": true,
+            "show_sku": false,
+            "show_discount": true,
+            "discount_format": "percent_off",
+            "show_product_rating": true,
+            "show_sale_badge": true,
+            "show_custom_badges": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_popup_option": "Size",
+            "variant_popup_icon": "none",
+            "variant_popup_text": "Size guide",
+            "variant_popup_page": "",
+            "swatch_size": "medium",
+            "chip_layout": "3col"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+            "show_labels": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "text_font_class": "fs-body-100",
+            "column_placement": "right",
+            "display_as_collapsible_row": false,
+            "expand_by_default": true,
+            "collapsible_row_title": "Description"
+          }
+        },
+        "55c9b61a-021c-4db1-b87c-7111fe5a8ee0": {
+          "type": "accordion",
+          "disabled": true,
+          "settings": {
+            "expand_by_default": false,
+            "column_placement": "right",
+            "heading": "Features",
+            "content": "",
+            "page_for_content": ""
+          }
+        },
+        "5ce3a84a-a376-4161-b40a-edb0d6c9a09e": {
+          "type": "accordion",
+          "disabled": true,
+          "settings": {
+            "expand_by_default": false,
+            "column_placement": "right",
+            "heading": "Fabric & Care",
+            "content": "",
+            "page_for_content": ""
+          }
+        },
+        "b6a7ffd1-1fd7-4e9b-a2e7-0844fb978fd7": {
+          "type": "accordion",
+          "disabled": true,
+          "settings": {
+            "expand_by_default": false,
+            "column_placement": "right",
+            "heading": "Fit",
+            "content": "",
+            "page_for_content": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "product_callouts_mini": {
+          "type": "product_callouts_mini",
+          "disabled": true,
+          "settings": {
+            "icon_1": "package-closed",
+            "text_1": "Fast",
+            "icon_2": "paper-airplane",
+            "text_2": "Trustworthy",
+            "icon_3": "chat",
+            "text_3": "Eco-Friendly",
+            "icon_4": "none",
+            "text_4": "",
+            "icon_5": "none",
+            "text_5": "",
+            "icon_6": "none",
+            "text_6": ""
+          }
+        },
+        "product_callouts": {
+          "type": "product_callouts",
+          "disabled": true,
+          "settings": {
+            "add_box": true,
+            "add_dividers": true,
+            "icon_1": "package-closed",
+            "text_1": "<p>Free shipping over $150<\/p>",
+            "icon_2": "paper-airplane",
+            "text_2": "<p>Free Returns & Exchanges<\/p>",
+            "icon_3": "chat",
+            "text_3": "<p>Need help? <a href=\"\/pages\/contact\">Contact us<\/a><\/p>",
+            "icon_4": "none",
+            "text_4": "",
+            "icon_5": "none",
+            "text_5": "",
+            "icon_6": "chat",
+            "text_6": "",
+            "display_as_collapsible_row": false,
+            "expand_by_default": false,
+            "collapsible_row_title": "Callouts"
+          }
+        }
+      },
+      "block_order": [
+        "product_header",
+        "variant_picker",
+        "quantity_selector",
+        "description",
+        "55c9b61a-021c-4db1-b87c-7111fe5a8ee0",
+        "5ce3a84a-a376-4161-b40a-edb0d6c9a09e",
+        "b6a7ffd1-1fd7-4e9b-a2e7-0844fb978fd7",
+        "buy_buttons",
+        "product_callouts_mini",
+        "product_callouts"
+      ],
+      "settings": {
+        "enable_sticky_product_details": true,
+        "gallery_style": "grid",
+        "gallery_size": "large",
+        "gallery_overflow": "2",
+        "enable_video_looping": true,
+        "enable_product_lightbox": true,
+        "image_aspect_ratio": "portrait",
+        "enable_animation": true
+      }
+    },
+    "1661215528897af3ff": {
+      "type": "apps",
+      "blocks": {
+        "b9de431c-1a55-4260-ab1c-e95ebca59f33": {
+          "type": "shopify:\/\/apps\/product-reviews\/blocks\/reviews\/bae150af-8da8-48b2-9867-398188115e5f",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "b9de431c-1a55-4260-ab1c-e95ebca59f33"
+      ],
+      "settings": {
+      }
+    },
+    "recommendations": {
+      "type": "recommended-products",
+      "settings": {
+        "title": "Recommended products",
+        "subheading": "",
+        "maximum_products": 8,
+        "columns": "4",
+        "mobile_columns": "2",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1661215528897af3ff",
+    "recommendations"
+  ]
+}

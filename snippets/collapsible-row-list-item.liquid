@@ -1,0 +1,51 @@
+{%- liquid
+  assign settings = block.settings
+  assign heading = settings.title
+  assign text = settings.text
+
+  assign item_heading_expanded = false
+  assign item_text_hidden = true
+
+  if block.settings.expand_by_default
+    assign item_heading_expanded = true
+    assign item_text_hidden = false
+  endif
+-%}
+
+<div
+  class="collapsible-row-list-item"
+  data-index="{{ forloop.index0 }}"
+  {{ block.shopify_attributes }}
+>
+  {%- unless heading == blank -%}
+    <button
+      type="button"
+      class="collapsible-row-list-item__trigger {% if item_heading_font == 'heading' %}ff-heading fs-heading-5-base{% else %}ff-body fs-body-250{% endif %}"
+      aria-controls="content-{{ forloop.index }}"
+      aria-expanded="{{ item_heading_expanded }}"
+    >
+      {% if block.settings.icon != "none" %}
+        {% render 'icon-editorial' with class: "collapsible-row-list-item__icon", icon: block.settings.icon %}
+      {% endif %}
+      <span class="collapsible-row-list-item__heading">
+        {{ heading }}
+      </span>
+      <div class="accordion__label-icons">
+        {% render 'icon', with icon: 'plus' %}
+        {% render 'icon', with icon: 'minus' %}
+      </div>
+    </button>
+  {%- endunless -%}
+
+  {%- unless text == blank -%}
+    <div
+      class="collapsible-row-list-item__text-container"
+      aria-hidden="{{ item_text_hidden }}"
+      id="content-{{ forloop.index }}"
+    >
+      <div class="collapsible-row-list-item__text fs-body-100 rte">
+        {{ text }}
+      </div>
+    </div>
+  {%- endunless -%}
+</div>

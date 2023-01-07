@@ -1,0 +1,44 @@
+{%- liquid
+  assign open = false
+  if block_settings.expand_by_default
+    assign open = true
+  endif
+
+  if block_settings.page_for_content
+    assign content_page = pages[block_settings.page_for_content]
+    if content_page and content_page != blank
+      assign content = content_page.content
+    endif
+  endif
+-%}
+<div class="accordion {{ classes }}" {{ block.shopify_attributes }}>
+  {{ page_for_content }}
+  <div
+    class="accordion__inner"
+    data-index="{{ forloop.index0 }}"
+    data-open="{% if open %}true{% else %}false{% endif %}"
+    {{ block.shopify_attributes }}
+  >
+    <button
+      class="accordion__label"
+      aria-expanded="{% if open %}true{% else %}false{% endif %}"
+      aria-controls="{{ block.id }}"
+    >
+      <h3 class="ff-heading fs-heading-5-base">{{ heading }}</h3>
+      <div class="accordion__label-icons">
+        {% render 'icon', with icon: 'plus' %}
+        {% render 'icon', with icon: 'minus' %}
+      </div>
+    </button>
+    <div
+      class="accordion__content fs-body-100 rte non-page-rte"
+      aria-hidden="{% if open %}false{% else %}true{% endif %}"
+      {% unless open %}
+        style="display: none"
+      {% endunless %}
+      id="accordion-content-{{ block.id }}"
+    >
+      {{ content }}
+    </div>
+  </div>
+</div>

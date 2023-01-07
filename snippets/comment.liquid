@@ -1,0 +1,7 @@
+<div class="comment__meta">
+  <h4 class="comment__author fs-body-75 fs-accent">{{ comment.author }}</h4>
+  <span class="comment__date fs-body-75">{{ comment.created_at | time_tag: format: 'date' }}</span>
+</div>
+<div class="comment__content">
+  {{ comment.content }}
+</div>

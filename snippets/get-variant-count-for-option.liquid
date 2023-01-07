@@ -1,0 +1,21 @@
+{% comment %}
+  pass in :
+
+  * prod (product)
+  * option_name - option name to get count of
+{% endcomment %}
+
+{%- liquid
+  assign option_name = option_name | downcase | strip_newlines
+
+  assign count = 0
+
+  for product_option in prod.options_with_values
+    assign product_option_name = product_option.name | downcase
+      if product_option_name == option_name
+        assign count = product_option.values.size
+        break
+      endif
+  endfor
+-%}
+{{ count }}

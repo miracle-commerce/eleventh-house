@@ -1,0 +1,174 @@
+{%- liquid
+  assign swatch_options = settings.swatch_options | downcase | split: ', '
+  assign chip_options = settings.chip_options | downcase | split: ', '
+  assign swatch_shape = settings.swatch_shape
+  assign swatch_size = block_settings.swatch_size
+  assign chip_layout = block_settings.chip_layout
+
+  assign file_extension = 'png'
+
+  assign rendered_swatch_options = ""
+  assign rendered_chip_options = ""
+  assign rendered_other_options = ""
+-%}
+
+{%- unless product.has_only_default_variant -%}
+  {%- liquid
+    assign variant_popup_page = pages[block_settings.variant_popup_page]
+    assign variant_popup_content_exists = false
+    assign variant_popup_option = ''
+
+    if block_settings.variant_popup_option != blank and block_settings.variant_popup_text != blank and variant_popup_page.content != blank
+      assign variant_popup_content_exists = true
+      assign variant_popup_option = block_settings.variant_popup_option | downcase
+    endif
+  -%}
+
+  <div class="product__controls-group product__block product__block--medium" {{ block.shopify_attributes }}>
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign option_name = option.name | downcase
+        assign show_popup_trigger = false
+        assign rendered_popup_trigger = ""
+        assign option_values = ""
+
+        if variant_popup_content_exists and option_name == variant_popup_option
+        assign show_popup_trigger = true
+        endif
+      -%}
+
+      {% if show_popup_trigger %}
+        {% capture rendered_popup_trigger %}
+          {%
+            render 'product-block-information-popup' with
+            block: block,
+            popup_page_target: block_settings.variant_popup_page,
+            popup_page: variant_popup_page,
+            icon: block_settings.variant_popup_icon,
+            text: block_settings.variant_popup_text
+          %}
+        {% endcapture %}
+      {% endif %}
+
+      {% comment %}
+        All inputs that have `name=options[Name]` will be picked up by
+        ProductForm, registered as an option input, and made available
+        at ProductForm.optionsInputs
+      {% endcomment %}
+      {%- capture option_values -%}
+        <select
+          id="option{{ option.position }}"
+          name="options[{{ option.name | escape }}]"
+          class="input"
+        >
+          {%- for value in option.values -%}
+            <option
+              data-value-handle="{{ value | handleize }}--{{ forloop.index0 }}"
+              value="{{ value | escape }}"
+              {%- if option.selected_value == value -%}
+                selected="selected"
+              {%- endif -%}
+            >
+              {{ value }}
+            </option>
+          {%- endfor -%}
+        </select>
+      {%- endcapture -%}
+
+      {% capture rendered_option_inner %}
+        {%- if swatch_options contains option_name -%}
+          <!-- Handle swatches -->
+          <div
+            class="product__color-swatches"
+            data-option-buttons
+            data-product-option="option{{ option.position }}"
+          >
+            <div class="product__color-swatches--inner">
+              {%- for value in option.values -%}
+                <button
+                  type="button"
+                  data-button
+                  data-label="{{ value | url_encode }}"
+                  aria-label="{{ value | replace: '"', "'" }}"
+                  data-option-handle="{{ value | handleize }}--{{ forloop.index0 }}"
+                  data-shape="{{ swatch_shape }}"
+                  data-size="{{ swatch_size }}"
+                  class="product__color-swatch {% if option.selected_value == value %}selected{% endif %}"
+                  style="background-color: {{ value | downcase | replace: ' ', '' }}; background-image: url({{ value | handle | append: '.' | append: file_extension | file_url }})"
+                ></button>
+              {%- endfor -%}
+
+              {{ option_values }}
+            </div>
+          </div>
+        {%- elsif chip_options contains option_name -%}
+          <!-- Handle chips -->
+          <div
+            class="product__color-chips"
+            data-option-buttons
+            data-product-option="option{{ option.position }}"
+            data-layout="{{ chip_layout }}"
+          >
+            {%- for value in option.values -%}
+              <button
+                type="button"
+                data-button
+                data-label="{{ value | url_encode }}"
+                aria-label="{{ value | replace: '"', "'" }}"
+                data-option-handle="{{ value | handleize }}--{{ forloop.index0 }}"
+                class="product__chip {% if option.selected_value == value %}selected{% endif %}"
+              >
+                {{ value }}
+              </button>
+            {%- endfor -%}
+
+            {{ option_values }}
+          </div>
+        {%- else -%}
+          <div class="select-wrapper">
+            {{ option_values }}
+
+            {% render 'icon' with icon: 'chevron-small' %}
+          </div>
+        {%- endif -%}
+      {% endcapture %}
+
+      {% capture rendered_option %}
+        <div class="js-enabled product__option" data-product-option>
+          <div class="product__label-wrapper">
+            <label class="product__label fs-body-100" for="option{{ option.position }}">
+              {{ option.name }}:
+              <span class="t-opacity-70" data-selected-value-for-option data-option-name="option{{ option.position }}">
+                {{- option.selected_value -}}
+              </span>
+            </label>
+          </div>
+          {{ rendered_option_inner }}
+          {{ rendered_popup_trigger }}
+        </div>
+      {% endcapture %}
+
+      {%- comment -%}This allows us to force order: swatches, chips, others {%- endcomment -%}
+      {%- if swatch_options contains option_name -%}
+        {% capture rendered_swatch_options %}
+          {{ rendered_swatch_options }}
+          {{ rendered_option }}
+        {% endcapture %}
+      {%- elsif chip_options contains option_name -%}
+        {% capture rendered_chip_options %}
+          {{ rendered_chip_options }}
+          {{ rendered_option }}
+        {% endcapture %}
+      {%- else -%}
+        {% capture rendered_other_options %}
+          {{ rendered_other_options }}
+          {{ rendered_option }}
+        {% endcapture %}
+      {%- endif -%}
+    {% endfor %}
+
+    {{ rendered_swatch_options }}
+    {{ rendered_chip_options }}
+    {{ rendered_other_options }}
+  </div>
+{% endunless %}

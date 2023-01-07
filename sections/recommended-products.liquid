@@ -1,0 +1,190 @@
+{%- liquid
+  assign max_products = section.settings.maximum_products
+-%}
+
+<div
+  class="
+    recommended-products
+    carousel--mobile-per-view-{{ section.settings.mobile_columns }}
+    carousel--per-view-{{ section.settings.mobile_columns }}
+    section
+    section--includes-product-items
+    section--divider-{{ section.settings.divider_style }}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+      animation--list-slider
+    {% endif %}
+  "
+  data-section-id="{{ section.id }}"
+  data-section-type="recommended-products"
+  data-product-id="{{ product.id }}"
+  data-limit="{{ max_products }}"
+  data-products-per-view="{{ section.settings.columns }}"
+  data-mobile-products-per-view="{{ section.settings.mobile_columns }}"
+>
+  <div class="section__inner" data-recommendations>
+    <div class="carousel__navigation-wrapper">
+      <div class="section-introduction animation--section-introduction">
+        {%- unless section.settings.title == blank -%}
+          <h2 class="recommended-products__heading ff-heading fs-heading-3-base section-introduction__heading">
+            {{ section.settings.title }}
+          </h2>
+        {%- endunless -%}
+
+        {%- unless section.settings.subheading == blank -%}
+          <div class="recommended-products__subheading ff-body fs-body-100 rte section-introduction__subheading">
+            {{ section.settings.subheading }}
+          </div>
+        {%- endunless -%}
+      </div>
+
+      {%- render 'carousel-navigation' with wrapper_class: 'animation--controls' %}
+    </div>
+
+    <div class="recommended-products__content carousel swiper">
+      <div class="recommended-products__slider-wrapper carousel__wrapper swiper-wrapper">
+        {%- if recommendations.products_count > 0 -%}
+          {%- for product in recommendations.products limit: max_products -%}
+            <div class="recommended-products__slide carousel__slide swiper-slide" data-slide>
+              {% render 'product-item', prod: product, aspect_ratio: settings.product_listing_aspect_ratio %}
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.product_recommendations.name",
+  "tag": "section",
+  "limit": 1,
+  "templates": [
+    "product"
+  ],
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.product_recommendations.settings.paragraph__intro.content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.collection_sections_shared.settings.title.label",
+      "default": "Recommended products"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "t:sections.collection_sections_shared.settings.subheading.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.collection_sections_shared.settings.header_product_list.content"
+    },
+    {
+      "type": "range",
+      "id": "maximum_products",
+      "label": "t:sections.collection_sections_shared.settings.maximum_products.label",
+      "min": 3,
+      "max": 15,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "t:sections.collection_sections_shared.settings.columns.label",
+      "default": "4",
+      "options": [
+        {
+          "value": "3",
+          "label": "t:sections.collection_sections_shared.settings.columns.option_3"
+        },
+        {
+          "value": "4",
+          "label": "t:sections.collection_sections_shared.settings.columns.option_4"
+        },
+        {
+          "value": "5",
+          "label": "t:sections.collection_sections_shared.settings.columns.option_5"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "t:sections.collection_sections_shared.settings.mobile_columns.label",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.collection_sections_shared.settings.mobile_columns.option_1"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.collection_sections_shared.settings.mobile_columns.option_2"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:shared.settings.section_style.header_style.content"
+    },
+    {
+      "id": "enable_animation",
+      "type": "checkbox",
+      "label": "t:shared.settings.section_style.enable_animation.label",
+      "info": "t:shared.settings.section_style.enable_animation.info",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "t:shared.settings.section_style.divider_style.label",
+      "default": "none",
+      "options": [
+        {
+          "label": "t:shared.settings.section_style.divider_style.option_none",
+          "value": "none"
+        },
+        {
+          "label": "t:shared.settings.section_style.divider_style.option_solid",
+          "value": "solid"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "t:shared.settings.section_style.section_padding.label",
+      "default": "section--vertical-padding-top-bottom",
+      "options": [
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_none",
+          "value": "section--vertical-padding-none"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_both",
+          "value": "section--vertical-padding-top-bottom"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_top",
+          "value": "section--vertical-padding-top-only"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_bottom",
+          "value": "section--vertical-padding-bottom-only"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.product_recommendations.presets.name"
+    }
+  ]
+}
+{% endschema %}

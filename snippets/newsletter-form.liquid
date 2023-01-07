@@ -1,0 +1,35 @@
+{%- liquid
+  assign success_msg = 'general.newsletter_form.confirmation' | t
+  assign class = class | append: ' newsletter-form'
+  if id == blank
+    assign id = 'newsletter'
+  endif
+  if tags == blank
+    assign tags = 'newsletter'
+  endif
+-%}
+
+{% form 'customer', class: class, id: id %}
+  {% render 'form-status', form: form, form_id: id, success_message: success_msg %}
+
+  {%- unless form.posted_successfully? -%}
+    <div class="newsletter-form__inner">
+      <input type="hidden" name="contact[tags]" value="{{ tags }}">
+      <label for="{{ id }}-email" class="visually-hidden">{{ 'general.newsletter_form.email_placeholder' | t }}</label>
+      <input
+        type="email"
+        class="input newsletter-form__input"
+        name="contact[email]"
+        id="{{ id }}-email"
+        value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+        placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+        autocorrect="off"
+        autocapitalize="off"
+        required
+      >
+      <button type="submit" name="commit" id="Subscribe" class="newsletter-form__button">
+        {{ 'general.newsletter_form.submit' | t }}
+      </button>
+    </div>
+  {%- endunless -%}
+{% endform %}

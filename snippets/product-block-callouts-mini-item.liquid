@@ -1,0 +1,10 @@
+{% if text != blank and text != "" %}
+  <div class="product__callouts-mini-item fs-body-75">
+    {% if icon and icon != "none" %}
+      {% render 'icon-editorial' with class: "product__callouts-item-icon", icon: icon %}
+    {% endif %}
+    <div class="product__callouts-mini-item-text ">
+      {{ text }}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,155 @@
+{% liquid
+  assign account_visible = false
+  if shop.customer_accounts_enabled
+    assign account_visible = true
+  endif
+
+  assign localization_option_count = 0
+
+  if shop.published_locales.size > 1
+    assign localization_option_count = localization_option_count | plus: 1
+  endif
+
+  if localization.available_countries.size > 1
+    assign localization_option_count = localization_option_count | plus: 1
+  endif
+%}
+
+<section
+  class="
+    drawer-menu
+    {% if settings.enable_section_animations %}
+      animation
+      animation--drawer-menu
+    {% endif %}
+  "
+  data-drawer-menu
+  data-scroll-lock-ignore
+>
+  <div class="drawer-menu__overlay" data-overlay></div>
+
+  <div class="drawer-menu__panel">
+    <div class="drawer-menu__bottom">
+      <div class="drawer-menu__all-links" data-depth="0" data-all-links data-in-initial-position="true">
+        <div class="drawer-menu__contents" data-scroll-lock-ignore>
+
+          <div class="drawer-menu__main" data-main role="navigation">
+            <div class="drawer-menu__links-wrapper animation--drawer-menu-item">
+              <ul class="drawer-menu__primary-links" data-depth="0" data-primary-container="true">
+                {% render 'drawer-menu-list', links: links %}
+              </ul>
+            </div>
+
+            {% if secondary_links %}
+              <div class="drawer-menu__links-wrapper animation--drawer-menu-item">
+                <ul class="drawer-menu__secondary-links"  data-depth="0" data-secondary-container="true">
+                  {% render 'drawer-menu-list', parents_only: true, links: secondary_links %}
+                  {% if account_visible -%}
+                    <li class="drawer-menu__item drawer-menu__item--account-item" data-list-item>
+                      {%- if customer -%}
+                        {% render 'icon' with icon: 'header-account' %}
+
+                        <a class="drawer-menu__link" href="{{ routes.account_url }}">
+                          {{ 'sections.drawer_menu.account.logged_in' | t }}
+                        </a>
+                        <span class="drawer-menu__link">
+                          (<a class="drawer-menu__logout_link" href="{{ routes.account_logout_url }}">
+                            {{ 'sections.drawer_menu.account.logout' | t }}
+                          </a>)
+                        </span>
+
+                      {% else %}
+                        {% render 'icon' with icon: 'header-account' %}
+                        <a class="drawer-menu__link" href="{{ routes.account_url }}">
+                          {{ 'sections.drawer_menu.account.logged_out' | t }}
+                        </a>
+                      {%- endif -%}
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        {%- if locale_selector or country_selector -%}
+          {%- form 'localization', class: 'drawer-menu__form' -%}
+            <ul class="drawer-menu__footer" data-footer data-localization-option-count="{{ localization_option_count }}">
+              {%- if country_selector -%}
+                <li class="drawer-menu__item localization-item-trigger" data-list-item>
+                  <a class="drawer-menu__link fs-body-50" href="#" data-item="viewCurrency">
+                    <span class="flag-icon flag-icon-{{ localization.country.iso_code | handleize }}"></span>
+                    <span class="drawer-menu__link--label">{{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})</span>
+                  </a>
+                  <ul class="drawer-menu__list drawer-menu__list--sub drawer-menu__list--country-selector">
+                    <li class="drawer-menu__item drawer-menu__item--heading">
+                      <span class="drawer-menu__item--heading-back-link" data-item="secondaryHeading" aria-label="{{ 'general.accessibility.back' | t }}">
+                        {% render 'icon' with icon: 'arrow-long', class: 'back-link-icon' %}
+                      </span>
+                      <span class="drawer-menu__link without-link">
+                        <span class="fs-body-300">{{ 'sections.drawer_menu.currency' | t }}</span>
+                      </span>
+                    </li>
+                    {% for country in localization.available_countries %}
+                      <li class="drawer-menu__item localization-item" data-list-item>
+                        <a class="drawer-menu__link drawer-menu__link--cb" href="#" data-item="currency" data-value="{{ country.iso_code }}">
+                          <span class="flag-icon flag-icon-{{ country.iso_code | handleize }}"></span>
+                          <span>{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+                          {% if country.iso_code == localization.country.iso_code %}
+                            {% render 'icon' with icon: 'checkmark', class: 'drawer-menu__checkmark-icon' %}
+                          {% endif %}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {% capture localization_inputs %}
+                  {{ localization_inputs }}
+                  <input type="hidden" name="country_code" id="CurrencySelector" value="{{ localization.country.iso_code }}" data-currency-input />
+                {% endcapture %}
+              {%- endif -%}
+
+              {%- if locale_selector -%}
+                <li class="drawer-menu__item localization-item-trigger" data-list-item>
+                  <a class="drawer-menu__link fs-body-50" href="#" data-item="viewLanguage">
+                    {% render 'icon' with icon: 'globe' %}
+                    <span class="drawer-menu__link--label">{{ form.current_locale.endonym_name | capitalize }}</span>
+                  </a>
+                  <ul class="drawer-menu__list drawer-menu__list--sub drawer-menu__list--language-selector">
+                    <li class="drawer-menu__item drawer-menu__item--heading">
+                      <span class="drawer-menu__item--heading-back-link" data-item="secondaryHeading" aria-label="{{ 'general.accessibility.back' | t }}">
+                        {% render 'icon' with icon: 'arrow-long', class: 'back-link-icon' %}
+                      </span>
+                      <span class="drawer-menu__link without-link">
+                        {% render 'icon' with icon: 'chevron-left' %}
+                        <span class="fs-body-300">{{ 'sections.drawer_menu.language' | t }}</span>
+                      </span>
+                    </li>
+                    {% for locale in form.available_locales %}
+                      <li class="drawer-menu__item  localization-item" data-list-item>
+                        <a class="drawer-menu__link drawer-menu__link--cb" href="#" data-item="locale" data-value="{{ locale.iso_code }}">
+                          <span>{{ locale.endonym_name }}</span>
+                          {% if locale.iso_code == form.current_locale.iso_code %}
+                            {% render 'icon' with icon: 'checkmark', class: 'drawer-menu__checkmark-icon' %}
+                          {% endif %}
+
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </li>
+                {% capture localization_inputs %}
+                  {{ localization_inputs }}
+                  <input type="hidden" name="locale_code" id="LocaleSelector" value="{{ form.current_locale.iso_code }}" data-locale-input />
+                {% endcapture %}
+              {%- endif -%}
+            </ul>
+
+            {{ localization_inputs }}
+          {%- endform -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>

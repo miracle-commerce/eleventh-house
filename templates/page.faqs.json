@@ -1,0 +1,368 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "enable_animation": true,
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "title": "FAQs",
+            "heading_font_class": "fs-heading-1-base"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Below are answers to some of our most popular questions. If you can't find what you're after, have additional questions, or just need some extra love feel free to use the form on our <a href=\"\/pages\/contact\" target=\"_blank\" title=\"Contact\">Contact<\/a> page or email us at <a href=\"mailto:hello@shopeleventhhouse.com\" target=\"_blank\">hello@shopeleventhhouse.com<\/a>. We will respond to all emails within 48 hours!<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "alignment": "center_center",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "166052235078c487c3": {
+      "type": "collapsible-row-list",
+      "blocks": {
+        "16605223509d6fc5af-0": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How do I make a purchase?",
+            "text": "<p>This is an example of a response that you might give. It's good to be as thorough as possible in responses as that has a tendency to improve trust overall.<\/p>"
+          }
+        },
+        "16605223509d6fc5af-1": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How do I know if my order has been confirmed?",
+            "text": "<p>Once your order has been placed, you will receive a confirmation to the phone number and\/or e-mail address supplied at the time of checkout. If for any reason this does not arrive please e-mail us at <a href=\"mailto:hello@shopeleventhhouse.com\" target=\"_blank\">hello@shopeleventhhouse.com<\/a>.<\/p>"
+          }
+        },
+        "16605223509d6fc5af-3": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Can I make changes to my cart after placing my order?",
+            "text": "<p>Unfortunately, once an order has been placed, we are unable to add or remove items.<\/p>"
+          }
+        },
+        "16605223509d6fc5af-2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Can I change my shipping address after my order has been placed?",
+            "text": "<p>Yes, as long as the order has not yet shipped. Please email us at <a href=\"mailto:hello@shopeleventhhouse.com\" target=\"_blank\">hello@shopeleventhhouse.com<\/a> as soon as possible and we will do our best to accommodate your request.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "16605223509d6fc5af-0",
+        "16605223509d6fc5af-1",
+        "16605223509d6fc5af-3",
+        "16605223509d6fc5af-2"
+      ],
+      "settings": {
+        "title": "Orders",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "item_heading_font": "heading",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "166052318968c4c5ab": {
+      "type": "collapsible-row-list",
+      "blocks": {
+        "16605231892ec05f7a-0": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Do you ship internationally?",
+            "text": "<p>We only offer domestic shipping at this time, but are working hard to expand across more countries and will update you as soon new shipping destinations become available. Join our Eleventh House community via our newsletter sign-up in the footer and\/or on social media to stay up-to-date!<\/p>"
+          }
+        },
+        "16605231892ec05f7a-1": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "When will my order be shipped?",
+            "text": "<p>All orders will usually ship within 48 hours of being placed unless you've selected expedited shipping at checkout (times vary by selection). Please note that orders placed after 11:00AM EST on Friday or over the weekend will ship on the following Monday (excluding major holidays).<br\/><br\/>Expedited and Overnight orders placed by 1:00PM EST Monday-Friday will be shipped the same day. Please note that Expedited and Overnight orders placed after 1:00PM EST on a Friday or over the weekend will ship on the following Monday (excluding major holidays). <\/p><p>Shipping times are based on our best estimate. However, delays can occur in transit or due to holds at your local postal service office, which may cause it to take longer for an order to be delivered.<\/p>"
+          }
+        },
+        "16605231892ec05f7a-2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How long will it take to receive my order?",
+            "text": "<p>The overall shipping time once leaving Eleventh House is usually within 3-5 business days depending on the service selected.<\/p><p>Please note that once a package is scanned 'delivered' by the postal service we are no longer responsible for them. Eleventh House is not responsible for delays in shipping or delivery that result from factors outside our control such as inclement weather, acts of God, or any other carrier-related issue(s).<\/p><p>Eleventh House is not responsible for packages that are stolen, missing, or shipped to an old or invalid address provided by the customer. Furthermore, we are not responsible for any incidental or consequential damages incurred during transit.<\/p>"
+          }
+        },
+        "16605231892ec05f7a-3": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "What is your return policy?",
+            "text": "<p>You have <strong>30 days<\/strong> from your order date to request a return. All items must be unworn with the original tags attached. All items are returnable, except for the following:<br\/><br\/>Items marked final sale, gloves and arm warmers, socks and leg warmers, headbands, water bottles, undergarments, hair ties.<\/p><p>Swimwear should be tried on over underwear for sanitary reasons and must have a protective hygiene strip intact.<\/p><p>We reserve the right to return any item that does not comply with our return policy. Please see our <a href=\"\/policies\/refund-policy\" target=\"_blank\" title=\"Refund Policy\">Refund Policy<\/a> for more detail.<\/p>"
+          }
+        },
+        "0b383b73-fc40-44bd-8adf-caa1e9f343f2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Do you offer exchanges?",
+            "text": "<p>We’re so sorry, but we are not able to process exchanges. If you need a different size, color, or item, simply follow our returns process for the item\/items you no longer want and place a new order for the item\/items you do want. Please see our <a href=\"\/policies\/refund-policy\" target=\"_blank\" title=\"Refund Policy\">Refund Policy<\/a> for more detail.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "16605231892ec05f7a-0",
+        "16605231892ec05f7a-1",
+        "16605231892ec05f7a-2",
+        "16605231892ec05f7a-3",
+        "0b383b73-fc40-44bd-8adf-caa1e9f343f2"
+      ],
+      "settings": {
+        "title": "Shipping & Returns",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "item_heading_font": "heading",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "4d5b1d9a-3223-453e-866a-1e1f62ec0a05": {
+      "type": "collapsible-row-list",
+      "blocks": {
+        "template--16369298637029__4d5b1d9a-3223-453e-866a-1e1f62ec0a05-1665710911687763ab-0": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "What is the option to pay in installments on Shop Pay?",
+            "text": "<p>When checking out with Shop Pay, you now have the option to pay now or later. Paying in installments on Shop Pay allows you to split your purchase amount into four equal, biweekly installment payments with 0% APR, or monthly installments with no hidden or late fees*.<\/p><p>*Rates from 0% APR 10-30% APR. Payment options through Shop Pay Installments are subject to an eligibility check and are provided by these lending partners: affirm.com\/lenders. Options depend on your purchase amount, and a down payment may be required. State notices to consumers affirm.com\/licenses.<\/p>"
+          }
+        },
+        "template--16369298637029__4d5b1d9a-3223-453e-866a-1e1f62ec0a05-1665710911687763ab-1": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Which payment methods are accepted if I use the option to pay Installments on Shop Pay?",
+            "text": "<p>The installments option on Shop Pay is available on debit and credit cards.<\/p>"
+          }
+        },
+        "template--16369298637029__4d5b1d9a-3223-453e-866a-1e1f62ec0a05-1665710911687763ab-2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Can I use Shop Pay Installments if I'm an international customer?",
+            "text": "<p>Shop Pay Installments is only available to customers with a United States billing address and phone number. Customers with international billing addresses and phone numbers can't use Shop Pay Installments.<\/p>"
+          }
+        },
+        "template--16369298637029__4d5b1d9a-3223-453e-866a-1e1f62ec0a05-1665710911687763ab-3": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Is there a limit to how much I can spend on a single Shop Pay Installments order?",
+            "text": "<p>Yes, 17,500 USD is the order value limit that applies to purchases using Shop Pay Installments, including discounts, shipping, and taxes.<\/p>"
+          }
+        },
+        "58e70df6-f2de-4346-974b-12f3ba5edf10": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Can I buy gift cards with Shop Pay Installments?",
+            "text": "<p>You can't purchase gift cards using Shop Pay Installments. If you want to purchase gift cards along with Shop Pay Installments eligible products, then you need to place two separate orders.<\/p>"
+          }
+        },
+        "27b51f24-ee2c-4f3f-90ea-a83bc6ebb5e4": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Are there late fees?",
+            "text": "<p>No, there are no late fees if you miss a scheduled payment.<\/p>"
+          }
+        },
+        "c5bab959-46c7-4e44-a9e1-8226cea15783": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "What if I miss an installment payment?",
+            "text": "<p>There are no late fees for customers who miss a scheduled payment. However, partial payments or late payments might impact your credit score, or your eligibility to use Shop Pay Installments in the future. If you have questions about a missed installment payment, then you can <a href=\"https:\/\/shoppay.affirm.com\/help\/s\/contact-us\">contact Affirm support<\/a> for assistance.<\/p>"
+          }
+        },
+        "7f9d5539-ecd2-4c85-b32d-173e5a9c5d07": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "What if I make a return on a purchase made through Installments with Shop Pay?",
+            "text": "<p>After your refund is processed, the refund amount will appear on your payment schedule within 3-10 business days, and your balance will be updated.<\/p><p>If your refund is less than your total purchase balance, then it might not lower your next payment. Instead, you can expect fewer payments, a smaller final payment, or both.<\/p><p>If your refund is more than your purchase balance, then the difference is returned to your original payment method within 3-10 business days.<\/p><p>If your order is made with monthly payments, then the paid interest isn't refunded. Interest is the cost of borrowing, and isn't refundable.<\/p>"
+          }
+        },
+        "aa166584-2353-4bbc-9068-3d24c52523f2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Have more questions?",
+            "text": "<p>For additional information about installment payments using Shop Pay, please visit <a href=\"https:\/\/shoppay.affirm.com\/\">https:\/\/shoppay.affirm.com\/<\/a>.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16369298637029__4d5b1d9a-3223-453e-866a-1e1f62ec0a05-1665710911687763ab-0",
+        "template--16369298637029__4d5b1d9a-3223-453e-866a-1e1f62ec0a05-1665710911687763ab-1",
+        "template--16369298637029__4d5b1d9a-3223-453e-866a-1e1f62ec0a05-1665710911687763ab-2",
+        "template--16369298637029__4d5b1d9a-3223-453e-866a-1e1f62ec0a05-1665710911687763ab-3",
+        "58e70df6-f2de-4346-974b-12f3ba5edf10",
+        "27b51f24-ee2c-4f3f-90ea-a83bc6ebb5e4",
+        "c5bab959-46c7-4e44-a9e1-8226cea15783",
+        "7f9d5539-ecd2-4c85-b32d-173e5a9c5d07",
+        "aa166584-2353-4bbc-9068-3d24c52523f2"
+      ],
+      "settings": {
+        "title": "Shop Pay",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "item_heading_font": "heading",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "16605235418ec4d243": {
+      "type": "collapsible-row-list",
+      "blocks": {
+        "1660523541475b3354-0": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How did Eleventh House get its name?",
+            "text": "<p>Eleventh House refers to the 11th house of the zodiac. Astrology has always been a fascination and because this particular house is the house of friends, community, patrons and good fortune, it seemed only fitting that this be the one that embodies the brand. We are a bit eccentric but always original, dreaming of a better future, and have a soft spot for the underdog.<\/p>"
+          }
+        },
+        "1660523541475b3354-1": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "What makes Eleventh House different?",
+            "text": "<p>We only work with people who are creating products for a better tomorrow. These companies commit wholeheartedly to sustainability, and have a passion for responsible action, courageous change, and best-in-class products. We hope these products fit seamlessly into your life, and better every adventure. If for any reason you are not 100% satisfied, please email us at <a href=\"mailto:hello@shopeleventhhouse.com\">hello@shopeleventhhouse.com<\/a> and we will make every effort to correct the issue.<\/p>"
+          }
+        },
+        "1660523541475b3354-2": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "How do you find the products you carry?",
+            "text": "<p>We spend our time carefully seeking products that fit a few simple criteria: they need to be durable, aesthetically pleasing, and thoughftfully created with an eco-conscious approach. Products that stand the test of time, that will age well, using quality materials and meant to last a lifetime (or two). We believe in supporting the time, love and energy put into a product by it’s creator, people who share our vision, people striving for more responsible consumerism and who care about the world we live in.<\/p>"
+          }
+        },
+        "1660523541475b3354-3": {
+          "type": "item",
+          "settings": {
+            "expand_by_default": false,
+            "icon": "none",
+            "title": "Do you have a physical store location?",
+            "text": "<p>At this time, no, but we can't say the thought hasn't crossed out mind! Join our Eleventh House community via our newsletter sign-up in the footer and\/or on social media to stay up-to-date on what's on the horizon!<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "1660523541475b3354-0",
+        "1660523541475b3354-1",
+        "1660523541475b3354-2",
+        "1660523541475b3354-3"
+      ],
+      "settings": {
+        "title": "Other",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "item_heading_font": "heading",
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "blog-posts": {
+      "type": "blog-posts",
+      "disabled": true,
+      "settings": {
+        "heading": "Helpful articles",
+        "subheading": "",
+        "button_link": "",
+        "link_text": "View all posts",
+        "display_type": "all",
+        "blog": "",
+        "max_articles": 2,
+        "show_tags": true,
+        "show_author": true,
+        "show_date": true,
+        "show_excerpt": true,
+        "show_featured_image": true,
+        "aspect_ratio": "landscape",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich-text",
+    "166052235078c487c3",
+    "166052318968c4c5ab",
+    "4d5b1d9a-3223-453e-866a-1e1f62ec0a05",
+    "16605235418ec4d243",
+    "blog-posts"
+  ]
+}

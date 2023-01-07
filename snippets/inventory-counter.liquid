@@ -1,0 +1,62 @@
+{%- liquid
+  assign inventory_max = block_settings.inventory_max
+  assign low_inventory_threshold = block_settings.low_inventory_threshold
+  assign label = block_settings.label
+  assign label_classes = 'fs-body-100'
+
+  unless show_label
+    assign label_classes =  label_classes | append: ' visually-hidden'
+  endunless
+
+  assign low_inventory_threshold_to_num = low_inventory_threshold | plus: 0
+-%}
+
+<div
+  class="inventory-counter product__block product__block--medium"
+  data-inventory-counter
+  data-low-inventory-threshold="{{ low_inventory_threshold }}"
+  data-stock-countdown-max="{{ inventory_max }}"
+  data-show-status-bar="{{ block_settings.show_status_bar }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="product__label-wrapper">
+    <span class="product__label inventory-counter__label fs-body-100">{{ label }}</span>
+  </div>
+  <span class="inventory-counter__message fs-body-75"></span>
+
+  <span class="inventory-counter__bar">
+    <span class="inventory-counter__bar-progress" style="width: 100%;"></span>
+  </span>
+</div>
+
+<script type="application/json" data-product-inventory-json>
+  {
+    "inventory": {
+      {%- for variant in product.variants -%}
+        {%- if variant.available -%}
+          {%- if variant.inventory_management and variant.inventory_policy == 'deny' and low_inventory_threshold_to_num > 0 -%}
+            {%- if variant.inventory_quantity <= low_inventory_threshold_to_num -%}
+              {%- capture inventory_message -%}{{ 'products.inventory.low_stock' | t : count: variant.inventory_quantity }}{%- endcapture -%}
+            {%- else -%}
+              {%- capture inventory_message -%}{{ 'products.inventory.in_stock' | t : count: variant.inventory_quantity }}{%- endcapture -%}
+            {%- endif -%}
+          {%- else -%}
+            {%- if variant.inventory_policy == 'continue' and variant.inventory_quantity <= 0 and variant.requires_shipping -%}
+              {%- capture inventory_message -%}{{ 'products.inventory.sold_out' | t : count: variant.inventory_quantity }}{%- endcapture -%}
+            {%- else %}
+              {%- capture inventory_message -%}{%- endcapture -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- else -%}
+          {%- capture inventory_message -%}{{ 'products.inventory.sold_out' | t : count: variant.inventory_quantity }}{%- endcapture -%}
+        {%- endif -%}
+        "{{ variant.id }}": {
+          "inventory_management": {{ variant.inventory_management | json }},
+          "inventory_policy": {{ variant.inventory_policy | json }},
+          "inventory_quantity": {{ variant.inventory_quantity | json }},
+          "inventory_message": {{ inventory_message | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    }
+  }
+</script>

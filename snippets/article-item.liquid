@@ -1,0 +1,144 @@
+{%- capture image_sizes -%}
+  (min-width: 720px) calc(calc(50vw - calc(2 * clamp(18px, 3.3vw, 3.3vw)))), calc(100vw - calc(2 * 3.3vw))
+{%- endcapture -%}
+
+{%- liquid
+  assign tag_el = 'span'
+  assign excerpt_truncate_amount = 30
+
+  if show_featured_image == blank
+    assign show_featured_image = false
+  endif
+
+  if is_featured
+    assign excerpt_truncate_amount = 50
+  endif
+
+  if blog
+    assign tag_el = 'a'
+  endif
+
+  assign article_categories = settings.article_categories | downcase
+-%}
+
+{%- capture tag_list -%}
+  {%- if show_tags and blog_article.tags.size > 0 -%}
+    {%- for tag in blog_article.tags -%}
+      {%- assign tag_dc = tag | downcase -%}
+      {%- if article_categories contains tag_dc or article_categories == blank -%}
+        <li class="article-tags__item">
+          <{{ tag_el }}
+            {%- if blog -%}
+              href="{{ blog.url }}/tagged/{{ tag | handleize }}"
+            {%- endif -%}
+            class="article-tags__tag fs-body-50"
+          >
+            {{ tag }}
+          </{{ tag_el }}>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+<div
+  class="
+    article-item
+    {% if blog_article != blank and blog_article.image == blank or show_featured_image != true %}article-item--has-no-image{% endif %}
+    {% if is_featured %}article-item--is-featured{% endif %}
+    animation--article-item
+    hover
+  "
+  data-image="{{ show_featured_image }}"
+>
+  {%- if blog_article != blank -%}
+    {%- if show_featured_image and blog_article.image -%}
+      <a
+        href="{{ blog_article.url }}"
+        class="article-item__image-wrapper"
+        aria-label="{{ blog_article.title }}"
+        {% if featured_article_image_width %}
+          style="--featured-image-width: {{ featured_article_image_width }}%"
+        {% endif %}
+      >
+        {%-
+          render 'image' with
+          wrapper_class: "article-item__image",
+          image: blog_article.image,
+          sizes: image_sizes,
+          aspect_ratio: aspect_ratio,
+          animate: true
+        -%}
+      </a>
+    {%- endif -%}
+
+    <div class="article-item__content">
+      <div class="article-item__content-inner">
+        {%- if tag_list.size > 0 -%}
+          <div class="article-item__tags">
+            <ul class="article-tags">
+              {{ tag_list }}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        <h4 class="article-item__title ff-heading {% if is_featured %}fs-heading-3-base{% else %}fs-heading-4-base{% endif %}">
+          <a href="{{ blog_article.url }}">{{ blog_article.title }}</a>
+        </h4>
+
+        {%- if show_author or show_date -%}
+          <p class="article-item__meta fs-body-75">
+            {%- if show_author -%}
+              <span>
+                {{- 'blogs.article.by' | t }}
+                {{ blog_article.author -}}
+              </span>
+            {%- endif -%}
+
+            {%- if show_date -%}
+              {{ blog_article.published_at | time_tag: format: 'abbreviated_date' }}
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+
+        {%- if show_excerpt and blog_article.excerpt_or_content -%}
+          <div class="article-item__excerpt">
+            <p>{{ blog_article.excerpt_or_content | truncatewords: excerpt_truncate_amount | strip_html }}</p>
+          </div>
+        {%- endif -%}
+
+        {%- assign button_label = 'blogs.article.read' | t -%}
+        {%-
+          render 'button-block' with
+          wrapper_class: "article-item__read-button",
+          link: blog_article.url,
+          label: button_label,
+          button_style: "btn--callout"
+        -%}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="article-item__image-wrapper">
+      {%-
+        render 'image' with
+        wrapper_class: "article-item__image",
+        sizes: image_sizes,
+        aspect_ratio: aspect_ratio,
+        include_placeholder: true
+      -%}
+    </div>
+    <div class="article-item__content">
+      <div class="article-item__content-inner">
+        <h4 class="article-item__title ff-heading fs-heading-5-base">{{ 'homepage.onboarding.blog_title' | t }}</h4>
+        <p class="article-item__meta fs-body-75">
+          <span>
+            {{- 'blogs.article.by' | t }}
+            {{ 'homepage.onboarding.article_author' | t -}}
+          </span>
+          {{ "now" | time_tag: format: 'abbreviated_date' }}
+        </p>
+        <div class="article-item__excerpt">{{ 'homepage.onboarding.article_excerpt' | t }}</div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>

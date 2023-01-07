@@ -1,0 +1,10 @@
+{%- assign largest_percent_off = 0 -%}
+{%- for variant in prod.variants -%}
+  {%- if variant.compare_at_price > variant.price -%}
+    {%- assign variant_percent_off = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price -%}
+    {%- if variant_percent_off > largest_percent_off -%}
+      {%- assign largest_percent_off = variant_percent_off -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{{ largest_percent_off }}

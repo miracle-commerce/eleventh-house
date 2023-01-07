@@ -1,0 +1,72 @@
+{% comment %}
+  within_carousel: bool - will attempt to make iframes more usable within touch slider
+{% endcomment %}
+<div
+  class="
+    media
+    {% if enable_product_lightbox %}media--has-lightbox{% endif %}
+    {% if animate and media.media_type != 'image' %}animation animation--media{% endif %}
+  "
+  data-media-id="{{ media.id }}"
+  data-media-type="{{ media.media_type }}"
+  {% if media.media_type == 'video' %}
+    data-loop="{{ loop_video }}"
+    style="--video-aspect-ratio: {{ media.preview_image.width }} / {{ media.preview_image.height }};"
+  {% endif %}
+  {% if media.media_type != 'image' %}
+    data-interactive
+  {% endif %}
+>
+  {%- if media.media_type == 'image' -%}
+    {%- capture media_atributes -%}
+      href="{{ link }}"
+      {% if enable_product_lightbox %}
+        class="lightbox-image no-transition" data-pswp-src="{{ media.src | image_url }}" data-pswp-width="
+        {{- media.width -}}
+        " data-pswp-height="{{ media.height }}"
+      {% endif %}
+    {%- endcapture -%}
+    <a {{ media_atributes }}>
+      {%
+        render 'image' with
+        image: media,
+        aspect_ratio: aspect_ratio,
+        sizes: sizes,
+        prioritize_loading: prioritize_loading,
+        fallback_alt: fallback_alt,
+        animate: animate
+      %}
+    </a>
+  {%- elsif media.media_type == 'video' -%}
+    {{ media | video_tag: image_size: "1024x" }}
+  {%- elsif media.media_type == 'external_video' -%}
+    {%- liquid
+      if loop_video
+        assign loop_binary = "1"
+      else
+        assign loop_binary = "0"
+      endif
+    -%}
+
+    {% comment %}
+      external_video_tag will include the wrong origin parameter when viewing a shopify preview URL, the replace here is to work around that
+    {% endcomment %}
+    {% assign shop_domain = shop.secure_url | replace: 'https://', '' %}
+    {{ media | external_video_url: playlist: media.external_id, loop: loop_binary | external_video_tag | replace: shop_domain, request.host }}
+    {% if within_carousel %}
+      <div class="external-video-overlay"></div>
+    {% endif %}
+  {%- elsif media.media_type == 'model' -%}
+    {{ media | model_viewer_tag: reveal: 'interaction', toggleable: true }}
+    <a
+      href="#"
+      class="model-poster"
+      style="background-image: url({{ media | image_url: width: 1000 }})"
+      title="{{ 'general.accessibility.view_3d_model' | t }}"
+    >
+      <span class="media-badge model in-poster">
+        {% render 'icon' with icon: '3d-button-control' %}
+      </span>
+    </a>
+  {%- endif -%}
+</div>

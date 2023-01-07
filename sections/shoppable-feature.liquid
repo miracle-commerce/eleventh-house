@@ -1,0 +1,405 @@
+{%- liquid
+  assign show_hotspot_cards = false
+  assign non_image_half = 100 | minus: section.settings.image_size
+  assign non_image_half = non_image_half | divided_by: 100.00
+-%}
+
+{%- assign image_sizes_fraction = non_image_half | times: 0.55 -%}
+{%- capture image_sizes -%}
+  (min-width: 960px) calc(((100vw - (2 * clamp(18px, 3.3vw, 3.3vw))) * {{ image_sizes_fraction }}) - 34px), 160px
+{%- endcapture -%}
+
+{%- capture swiper_content -%}
+  <div class="shoppable-feature__carousel-outer">
+    <div class="shoppable-feature__carousel swiper">
+      <div class="shoppable-feature__carousel-inner swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div
+            class="swiper-slide"
+            {% unless forloop.first %}
+              inert
+            {% endunless %}
+          >
+            {% render 'product-card-mini' with product: block.settings.product_item, index: forloop.index, image_sizes: image_sizes %}
+          </div>
+        {%- else -%}
+          <div
+            class="swiper-slide"
+            {% unless forloop.first %}
+              inert
+            {% endunless %}
+          >
+            {% render 'product-card-mini' with placeholder: true, index: forloop.index, image_sizes: image_sizes %}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <button class="slider-nav-button slider-nav-button-prev" title="{{ 'general.accessibility.previous' | t }}">
+      {% render 'icon' with icon: 'chevron' %}
+    </button>
+    <button class="slider-nav-button slider-nav-button-next" title="{{ 'general.accessibility.next' | t }}">
+      {% render 'icon' with icon: 'chevron' %}
+    </button>
+    <div class="swiper-pagination fs-body-50"></div>
+  </div>
+{%- endcapture %}
+
+{%- capture text_content -%}
+  {%- unless section.settings.heading == blank and section.settings.subheading == blank and section.settings.link_text == blank -%}
+    <div class="shoppable-feature__text-block section-introduction animation--section-introduction">
+      {%- unless section.settings.heading == blank -%}
+        <h2 class="shoppable-feature__heading ff-heading fs-heading-3-base section-introduction__heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h2>
+      {%- endunless -%}
+
+      {%- unless section.settings.subheading == blank -%}
+        <div class="shoppable-feature__subheading lh-subheading fs-body-100 rte section-introduction__subheading">
+          {{ section.settings.subheading }}
+        </div>
+      {%- endunless -%}
+
+      {%- unless section.settings.link_text == blank -%}
+        {%-
+          render 'button-block' with
+          wrapper_class: "shoppable-feature__cta-button section-introduction__button",
+          link: section.settings.link,
+          label: section.settings.link_text,
+          button_style: section.settings.button_style
+        -%}
+      {%- endunless -%}
+    </div>
+  {%- endunless -%}
+{%- endcapture -%}
+<div
+  data-section-id="{{ section.id }}"
+  data-section-type="shoppable"
+  class="
+    shoppable-feature
+    shoppable-feature--image-{{ section.settings.image_position }}
+    section
+    section--divider-{{ section.settings.divider_style }}
+    {{ section.settings.section_padding }}
+    {% if settings.enable_section_animations and section.settings.enable_animation %}
+      animation
+      animation--shoppable-feature
+    {% endif %}
+  "
+  data-show-hotspot-cards="{{ show_hotspot_cards }}"
+  data-has-carousel="true"
+  data-content-position-desktop="{{ section.settings.content_position_desktop }}"
+>
+  <div class="shoppable-feature__wash" data-shoppable-wash></div>
+  {%- render 'mobile-drawer' with class: 'shoppable-feature-mobile-drawer animation--shoppable-feature-mobile-drawer', content: swiper_content -%}
+  <div class="section__inner shoppable-feature__inner">
+    <div class="shoppable-feature__text-block-wrap-external">
+      {{ text_content }}
+    </div>
+    <div class="shoppable-feature__inner-items">
+      <div
+        class="shoppable-feature__image-container shoppable__image-container"
+        style="--desktop-image-width: {{ section.settings.image_size }}%"
+        data-aspect-ratio="{{ section.settings.aspect_ratio }}"
+      >
+        <div class="shoppable-feature__image-container-inner">
+          <div class="shoppable-feature__image-wrapper">
+            {%
+              render 'image' with
+              image: section.settings.image,
+              wrapper_class: 'shoppable-feature__image',
+              aspect_ratio: section.settings.aspect_ratio,
+              sizes: "(min-width: 1500px) 762px, (min-width: 720px) calc(100vw - calc(2 * 3.3vw)), calc(100vw - calc(2 * clamp(18px, 3.3vw, 3.3vw)))",
+              placeholder_name: 'collection-4',
+              include_placeholder: true,
+              animate: true
+            %}
+          </div>
+          {%- for block in section.blocks -%}
+            {%
+              render 'shoppable-item' with
+              block: block,
+              index: forloop.index0,
+              product_item: block.settings.product_item,
+              horizontal_position: block.settings.horizontal_position,
+              vertical_position: block.settings.vertical_position,
+              aspect_ratio: section.settings.aspect_ratio,
+              show_hotspot_cards: show_hotspot_cards,
+            %}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="shoppable-feature__secondary-content">
+        <div class="shoppable-feature__text-block-wrap-internal">
+          {{ text_content }}
+        </div>
+        {{ swiper_content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.shoppable_feature.name",
+  "tag": "section",
+  "templates": [
+    "404",
+    "article",
+    "blog",
+    "cart",
+    "collection",
+    "list-collections",
+    "customers/account",
+    "customers/activate_account",
+    "customers/addresses",
+    "customers/login",
+    "customers/order",
+    "customers/register",
+    "customers/reset_password",
+    "gift_card",
+    "index",
+    "page",
+    "product",
+    "search"
+  ],
+  "settings": [
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "t:sections.shoppable_feature.settings.image.label"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "t:sections.shoppable_feature.settings.image_position.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.shoppable_feature.settings.image_position.option_left"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.shoppable_feature.settings.image_position.option_right"
+        }
+      ]
+    },
+    {
+      "id": "image_size",
+      "type": "range",
+      "label": "t:sections.shoppable_feature.settings.image_size.label",
+      "unit": "%",
+      "min": 50,
+      "max": 65,
+      "step": 1,
+      "default": 55
+    },
+    {
+      "id": "aspect_ratio",
+      "type": "select",
+      "label": "t:shared.settings.aspect_ratio.label",
+      "options": [
+        {
+          "label": "t:shared.settings.aspect_ratio.option_square",
+          "value": "square"
+        },
+        {
+          "label": "t:shared.settings.aspect_ratio.option_landscape_alt",
+          "value": "landscape_alt"
+        },
+        {
+          "label": "t:shared.settings.aspect_ratio.option_portrait_alt",
+          "value": "portrait_alt"
+        },
+        {
+          "label": "t:shared.settings.aspect_ratio.option_natural",
+          "value": "natural"
+        }
+      ],
+      "default": "portrait_alt"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.shoppable_feature.settings.text__header.content"
+    },
+    {
+      "id": "heading",
+      "type": "text",
+      "label": "t:sections.shoppable_feature.settings.heading.label",
+      "default": "Shoppable image - editorial"
+    },
+    {
+      "id": "subheading",
+      "type": "richtext",
+      "label": "t:sections.shoppable_feature.settings.subheading.label",
+      "default": "<p>Use this section to highlight different products within an image with an integrated carousel</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.shoppable_feature.settings.cta_header.content"
+    },
+    {
+      "id": "link",
+      "type": "url",
+      "label": "t:sections.shoppable_feature.settings.link.label"
+    },
+    {
+      "id": "link_text",
+      "type": "text",
+      "label": "t:sections.shoppable_feature.settings.link_text.label",
+      "default": "Shop now"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "t:shared.settings.button_style.label",
+      "default": "btn--callout",
+      "options": [
+        {
+          "value": "btn--primary",
+          "label": "t:shared.settings.button_style.option_solid"
+        },
+        {
+          "value": "btn--secondary",
+          "label": "t:shared.settings.button_style.option_outline"
+        },
+        {
+          "value": "btn--callout",
+          "label": "t:shared.settings.button_style.option_text"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:shared.settings.section_style.header_style.content"
+    },
+    {
+      "id": "enable_animation",
+      "type": "checkbox",
+      "label": "t:shared.settings.section_style.enable_animation.label",
+      "info": "t:shared.settings.section_style.enable_animation.info",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "t:shared.settings.section_style.divider_style.label",
+      "default": "none",
+      "options": [
+        {
+          "label": "t:shared.settings.section_style.divider_style.option_none",
+          "value": "none"
+        },
+        {
+          "label": "t:shared.settings.section_style.divider_style.option_solid",
+          "value": "solid"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "t:shared.settings.section_style.section_padding.label",
+      "default": "section--vertical-padding-top-bottom",
+      "options": [
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_none",
+          "value": "section--vertical-padding-none"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_both",
+          "value": "section--vertical-padding-top-bottom"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_top",
+          "value": "section--vertical-padding-top-only"
+        },
+        {
+          "label": "t:shared.settings.section_style.section_padding.option_bottom",
+          "value": "section--vertical-padding-bottom-only"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "content_position_desktop",
+      "label": "t:sections.shoppable_feature.settings.content_position_desktop.label",
+      "default": "inside",
+      "info": "t:sections.shoppable_feature.settings.content_position_desktop.info",
+      "options": [
+        {
+          "label": "t:sections.shoppable_feature.settings.content_position_desktop.option_inside",
+          "value": "inside"
+        },
+        {
+          "label": "t:sections.shoppable_feature.settings.content_position_desktop.option_outside",
+          "value": "outside"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "t:sections.shoppable_feature.blocks.hotspot.name",
+      "limit": 6,
+      "settings": [
+        {
+          "id": "product_item",
+          "type": "product",
+          "label": "t:sections.shoppable_feature.blocks.hotspot.settings.product_item.label"
+        },
+        {
+          "id": "horizontal_position",
+          "type": "range",
+          "label": "t:sections.shoppable_feature.blocks.hotspot.settings.horizontal_position.label",
+          "unit": "%",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "id": "vertical_position",
+          "type": "range",
+          "label": "t:sections.shoppable_feature.blocks.hotspot.settings.vertical_position.label",
+          "unit": "%",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.shoppable_feature.presets.name",
+      "blocks": [
+        {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 35,
+            "vertical_position": 65
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 80,
+            "vertical_position": 60
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 60,
+            "vertical_position": 45
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

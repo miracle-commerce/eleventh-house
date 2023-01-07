@@ -1,0 +1,27 @@
+<div
+  class="meganav__nav{% if meganav_settings.show_column_borders %} with-column-dividers{% endif %}"
+  data-column-count="{{ meganav_settings.column_count }}"
+>
+  <ul class="meganav__list-parent" depth="0">
+    {% for link in link.links %}
+      <li class="{% if link.links.size > 0 %} has-children{% endif %}" depth="0">
+        <h4>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </h4>
+        {% if link.links %}
+          <ul depth="1">
+            {% for link in link.links %}
+              <li>
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% assign dividers_needed = meganav_settings.column_count | minus: 1 %}
+  {%- for i in (1..dividers_needed) -%}
+    <span class="meganav__column-rule" data-index="{{ forloop.index }}"></span>
+  {%- endfor -%}
+</div>

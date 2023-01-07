@@ -1,0 +1,12 @@
+{%- liquid
+  assign swatch_options = settings.swatch_options | downcase | split: ', '
+  assign swatch_option_count = 0
+
+  for option in product.options_with_values
+    assign option_name = option.name | downcase
+    if swatch_options contains option_name
+      assign swatch_option_count = swatch_option_count | plus : 1
+    endif
+  endfor
+-%}
+{{ swatch_option_count }}

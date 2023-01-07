@@ -1,0 +1,167 @@
+{% comment %}
+pass in :
+
+* prod (product but avoiding collision with globally scoped product)
+
+{% endcomment %}
+{%- liquid
+  assign show_multiple_images = false
+  if settings.product_listing_show_second_image_on_hover and prod.media.size > 1
+    assign show_multiple_images = true
+  endif
+
+  assign current_variant = prod.selected_or_first_available_variant
+
+  assign sizes = "(max-width: 720px) calc((90vw - 12px) / 2), (max-width: 1400px) calc((93.4vw - (12px * 3)) / 4), 304px"
+  assign has_hover_swatches = false
+-%}
+
+
+{% if settings.enable_product_card_swatches %}
+  {% capture first_swatchified_option %}{%- render "get-first-swatchified-option" with prod: prod -%}{%- endcapture -%}
+
+  {% capture displayed_swatch_count %}{% render "get-variant-count-for-option" with prod: prod, option_name: first_swatchified_option %}{% endcapture %}
+  {% assign displayed_swatch_count = displayed_swatch_count | plus: 0 %}
+
+  {% if displayed_swatch_count != 0 %}
+    {% assign has_hover_swatches = true %}
+  {% endif %}
+{% endif %}
+
+<div class="
+    product-item
+    {% if has_hover_swatches %} product-item--with-hover-swatches{% endif %}
+    animation
+    animation--item
+    {% if has_grid_reveal %}animation--item-initial{% endif %}
+  "
+  style="
+    --z-index-item: {{ forloop.index }};
+  "
+>
+  <div class="product-item__inner">
+    <div class="product-item__media{% if show_multiple_images %} product-item__media--multiple-images{% endif %}">
+      <a class="product-item__image-link" href="{{ prod.url }}" aria-label="{{ prod.title }}">
+        {%- if show_multiple_images -%}
+          {% render 'image' with
+            image: prod.media[0].preview_image,
+            wrapper_class: 'product-item__image product-item__image--one',
+            aspect_ratio: settings.product_listing_aspect_ratio,
+            object_fit: settings.product_listing_media_fit
+            include_placeholder: true,
+            sizes: sizes
+            src_set_type: "grid"
+          %}
+          {% render 'image' with
+            image: prod.media[1].preview_image,
+            wrapper_class: 'product-item__image product-item__image--two',
+            aspect_ratio: settings.product_listing_aspect_ratio,
+            object_fit: settings.product_listing_media_fit
+            include_placeholder: true,
+            sizes: sizes,
+            no_lazy_load: true,
+            src_set_type: "grid"
+          %}
+        {%- else -%}
+          {% render 'image' with
+            image: prod.featured_media,
+            wrapper_class: 'product-item__image',
+            aspect_ratio: settings.product_listing_aspect_ratio,
+            object_fit: settings.product_listing_media_fit,
+            include_placeholder: true
+            include_placeholder: true,
+            sizes: sizes
+            src_set_type: "grid"
+          %}
+        {%- endif -%}
+      </a>
+      {% unless placeholder %}
+        {%- render 'product-badges'
+          with prod: prod,
+          show_sale_badge: settings.product_listing_show_sale_badge,
+          show_custom_badges: settings.product_listing_show_custom_badges,
+          show_sold_out_badge: settings.product_listing_show_sold_out_badge
+        -%}
+      {% endunless %}
+      <div class="product-item__hover-action-wrap">
+        {% if settings.enable_quick_view %}
+          <button class="btn btn--tertiary btn--x-small show-product-quickview" tabindex="0" href="{{ prod.url }}">{{ 'products.product.quick_view' | t }}</button>
+        {% endif %}
+      </div>
+      {% if settings.enable_quick_view %}
+        <button class="product-item__hoverless-quick-view-button btn btn--rounded show-product-quickview" tabindex="0" href="{{ prod.url }}" title="{{ 'products.product.quick_view' | t }}">
+          {% render 'icon' with icon: 'quick-buy' %}
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="product-item__meta">
+      <div class="product-item__text ta-c ">
+        <h4 class="ff-body product-item__product-title fs-product-card-title">
+          {%- if placeholder -%}
+            {{ 'homepage.onboarding.product_title' | t }}
+          {%- else -%}
+            <a href="{{ prod.url }}">{{ prod.title }}</a>
+          {%- endif -%}
+        </h4>
+
+        {% if settings.product_listing_show_vendor and prod.vendor %}
+          <h5 class="ff-body fs-body-60 product-item__product-vendor">
+            {{ prod.vendor }}
+          </h5>
+        {% endif %}
+
+        <p class="product-item__price">
+
+          {% if placeholder %}
+            {{ 9999 | money }}
+
+          {% elsif prod.compare_at_price > prod.price %}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s class="t-subdued">{{ prod.compare_at_price | money }}</s>
+
+            {% if prod.price_varies %}
+              {%- assign sale_price = prod.price | money -%}
+              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+              <span class="sale" data-price>{{ prod.price | money }}<span>
+            {% endif %}
+
+          {% else %}
+            {% if prod.price_varies %}
+              {%- assign price = prod.price | money -%}
+              {{ 'products.product.from_lowest_price_html' | t: lowest_price: price }}
+            {% else %}
+              <span class="product-item__price">{{ prod.price | money }}</span>
+            {% endif %}
+
+          {% endif %}
+
+          {% if settings.product_listing_show_discount %}
+            <span class="displayed-discount fs-body-50">
+              {%- render "get-display-discount"
+                with prod: prod,
+                format: settings.product_listing_discount_format -%}
+            </span>
+          {% endif %}
+
+          {% render 'unit-price' item: current_variant %}
+        </p>
+
+        {% if has_hover_swatches %}
+          <h5 class="ff-body fs-body-50 product-item__swatch-count">
+            {{ 'products.product.swatch_count' | t : count: displayed_swatch_count }}
+          </h5>
+        {% endif %}
+      </div>
+
+      {%- if has_hover_swatches -%}
+        <div class="product-item__variant-info">
+          {%- render 'product-item-swatches' with prod: prod, option_name: first_swatchified_option -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+    <div class="product-item__hover-container"></div>
+  </div>
+</div>

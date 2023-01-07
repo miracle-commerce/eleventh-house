@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "settings": {
+        "display_type": "all",
+        "collection_list": [
+
+        ],
+        "columns": "3",
+        "mobile_columns": "2",
+        "rows": "4",
+        "collection_listing_aspect_ratio": "square",
+        "label_style": "overlay",
+        "overlay_title_background_style": "gradient",
+        "overlay_text_color": "#f8f4ed",
+        "overlay_title_background": "#282828",
+        "enable_animation": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

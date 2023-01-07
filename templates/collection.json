@@ -1,0 +1,184 @@
+{
+  "sections": {
+    "16628332910942c0cb": {
+      "type": "image-hero",
+      "disabled": true,
+      "blocks": {
+        "1662833291a436dfe1-0": {
+          "type": "accent",
+          "disabled": true,
+          "settings": {
+            "accent": "Accent"
+          }
+        },
+        "1662833291a436dfe1-1": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "title": "Image hero",
+            "heading_font_class": "fs-heading-display-2"
+          }
+        },
+        "1662833291a436dfe1-2": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Use these sections to promote a particular feature with editorial photography.<\/p>",
+            "text_font_class": "fs-body-100"
+          }
+        }
+      },
+      "block_order": [
+        "1662833291a436dfe1-0",
+        "1662833291a436dfe1-1",
+        "1662833291a436dfe1-2"
+      ],
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 50,
+        "mobile_height": 100,
+        "image": "shopify:\/\/shop_images\/thin-plant-stems-in-sun.jpg",
+        "focal_point": "center",
+        "mobile_focal_point": "center",
+        "media_link": "",
+        "text_position": "center_center",
+        "text_color": "#f8f4ed",
+        "button_background_color": "#f8f4ed",
+        "button_text_color": "#282828",
+        "color_overlay": "#282828",
+        "color_overlay_gradient": "linear-gradient(180deg, rgba(40, 40, 40, 1) 3%, rgba(255, 255, 255, 1) 100%)",
+        "overlay_opacity": 100,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "image_aspect": "custom",
+        "desktop_height": 50,
+        "mobile_height": 100,
+        "focal_point": "top",
+        "text_position": "center_flex-end",
+        "text_color": "#f8f4ed",
+        "color_overlay": "#aaaaaa",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 100,
+        "enable_animation": true,
+        "section_padding": "section--vertical-padding-none"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "columns": "4",
+        "rows": "4",
+        "show_item_count": true,
+        "show_sort": true,
+        "show_filters": true,
+        "enable_sticky_filter_bar": true,
+        "collapse_filter_bar": false,
+        "collapse_filter_groups_mobile": true,
+        "show_swatch_filters": true,
+        "show_chip_filters": true,
+        "chip_layout": "3col",
+        "pagination": "paginated",
+        "enable_animation": true,
+        "divider_style": "solid"
+      }
+    },
+    "1662854943cf09ba79": {
+      "type": "multi-column",
+      "blocks": {
+        "ad595b30-f131-4199-a9eb-b5a3e87c459b": {
+          "type": "icon_column",
+          "settings": {
+            "icon": "package-open",
+            "icon_width": 50,
+            "icon_width_mobile": 50,
+            "accent": "",
+            "heading": "Buy Now, Pay Later",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>Pay in 4 easy installments with 0% interest and no extra charges through Shop Pay<\/p>",
+            "text_font_class": "fs-body-75",
+            "text_max_width": 85,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "88525619-2335-4ca9-bd5d-2db8f5f63783": {
+          "type": "icon_column",
+          "settings": {
+            "icon": "heart",
+            "icon_width": 50,
+            "icon_width_mobile": 50,
+            "accent": "",
+            "heading": "Free Shipping",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>On all orders totaling $150 or more before tax, discount automatically applied at checkout<\/p>",
+            "text_font_class": "fs-body-75",
+            "text_max_width": 85,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "49ffc561-46d4-494f-95cd-f62eb2a33064": {
+          "type": "icon_column",
+          "settings": {
+            "icon": "recycle-symbol",
+            "icon_width": 50,
+            "icon_width_mobile": 50,
+            "accent": "",
+            "heading": "Green Packaging",
+            "heading_font_class": "fs-heading-4-base",
+            "text": "<p>All packages are mindfully packed with eco-friendly materials in fully recylable packaging<\/p>",
+            "text_font_class": "fs-body-75",
+            "text_max_width": 85,
+            "link": "",
+            "link_text": "",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "ad595b30-f131-4199-a9eb-b5a3e87c459b",
+        "88525619-2335-4ca9-bd5d-2db8f5f63783",
+        "49ffc561-46d4-494f-95cd-f62eb2a33064"
+      ],
+      "settings": {
+        "title": "",
+        "subheading": "",
+        "heading_font_class": "fs-heading-3-base",
+        "heading_alignment": "left",
+        "content_vertical_alignment": "top",
+        "content_background_padding": "medium",
+        "columns": "3",
+        "column_spacing": 28,
+        "row_spacing": 28,
+        "column_alignment": "center",
+        "columns_mobile": "1",
+        "column_spacing_mobile": 20,
+        "row_spacing_mobile": 20,
+        "column_alignment_mobile": "center",
+        "background_behind_columns": false,
+        "background_color": "",
+        "text_color": "#282828",
+        "button_background_color": "#282828",
+        "button_text_color": "#f8f4ed",
+        "enable_animation": true,
+        "divider_style": "solid",
+        "section_padding": "section--vertical-padding-top-bottom"
+      }
+    }
+  },
+  "order": [
+    "16628332910942c0cb",
+    "banner",
+    "product-grid",
+    "1662854943cf09ba79"
+  ]
+}

@@ -1,0 +1,67 @@
+{% if product.media.size > 1 %}
+  <div
+    class="product-thumbnails"
+    data-product-thumbnails
+    data-scroll-container
+    data-at-start="true"
+    data-at-end="false"
+    data-axis="vertical"
+  >
+    <button
+      class="scroll-button"
+      data-position="start"
+      data-direction="backwards"
+      title="{{ 'general.accessibility.up' | t }}"
+    >
+      {% render 'icon' with icon: 'chevron' %}
+    </button>
+    <div class="product-thumbnails__viewport" data-scroll-container-viewport>
+      <div class="scroll-sentinal scroll-sentinal--start" data-position="start"></div>
+      <ul class="product-thumbnails__items">
+        {% for media in product.media %}
+          <li class="product-thumbnails__item">
+            <button
+              type="button"
+              class="product-thumbnails__item-link{% if media.id == featured_media.id %} active{% endif %}"
+              data-thumbnail-id="{{ media.id }}"
+              data-product-thumbnail
+              aria-label="{{ 'general.accessibility.image_thumbail' | t: number: forloop.index }}"
+            >
+              {%
+                render 'image' with
+                image: media.preview_image,
+                id: media.id
+                wrapper_class: 'product-thumbnails__item-image',
+                aspect_ratio: aspect_ratio
+              %}
+
+              {% case media.media_type %}
+                {% when 'video' %}
+                  <div class="product-thumbnails__item-badge">
+                    {% render 'icon' with icon: 'play-badge' %}
+                  </div>
+                {% when 'external_video' %}
+                  <div class="product-thumbnails__item-badge">
+                    {% render 'icon' with icon: 'play-badge' %}
+                  </div>
+                {% when 'model' %}
+                  <div class="product-thumbnails__item-badge">
+                    {% render 'icon' with icon: '3d-badge' %}
+                  </div>
+              {% endcase %}
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="scroll-sentinal scroll-sentinal--end" data-position="end"></div>
+    </div>
+    <button
+      class="scroll-button"
+      data-position="end"
+      data-direction="forwards"
+      title="{{ 'general.accessibility.down' | t }}"
+    >
+      {% render 'icon' with icon: 'chevron' %}
+    </button>
+  </div>
+{% endif %}

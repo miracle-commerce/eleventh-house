@@ -1,0 +1,109 @@
+{%- liquid
+  assign overlay_opacity = meganav_settings.overlay_opacity | divided_by: 100.0
+  assign text_position = meganav_settings.text_position | split: "_"
+  assign horizontal_position = text_position | first
+  assign vertical_position = text_position | last
+-%}
+
+{%- capture meganav_primary -%}
+  <div class="meganav__primary">
+    {% render 'meganav-nav' with meganav_settings: meganav_settings, link: link %}
+  </div>
+{%- endcapture -%}
+
+{%- capture meganav_secondary -%}
+  {%- if meganav_settings.show_promo -%}
+    <div class="meganav__secondary">
+      <div
+        {{ wrapping_attributes }}
+        class="meganav-promo"
+        style="
+          --text-horizontal-position: {{ horizontal_position }};
+          --text-vertical-position: {{ vertical_position }};
+          --min-promo-height: {{ meganav_settings.promo_height }}px;
+        "
+      >
+        {%- if meganav_settings.link != blank -%}
+          <a href="{{ meganav_settings.link }}" class="meganav__promo-image-link">
+        {%- endif -%}
+        {%- render 'image' with
+          wrapper_class: "meganav__promo-image",
+          image: meganav_settings.image,
+          sizes_px: meganav_settings.promo_width,
+          focal_point: meganav_settings.focal_point,
+          include_placeholder: true,
+          aspect_ratio: "externally_set"
+        -%}
+        {%- if meganav_settings.link != blank -%}
+          </a>
+        {%- endif -%}
+
+        <div class="meganav__secondary-promo-overlay"></div>
+
+        <div class="meganav__secondary-promo-text">
+          {% unless meganav_settings.promo_text == blank %}
+            <h3 class="ff-heading fs-heading-4-base meganav__secondary-promo-text-heading">{{ meganav_settings.promo_text }}</h3>
+          {% endunless %}
+          {% if meganav_settings.link and meganav_settings.link != blank %}
+            {%- render 'button-block' with
+              wrapper_class: "meganav__secondary-promo-text-button",
+              label: meganav_settings.link_text,
+              link: meganav_settings.link,
+              button_style: 'btn--secondary',
+              is_overlay: true,
+              is_x_small: true,
+              allow_linkless: true,
+            -%}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+{%- endcapture -%}
+
+
+<div
+  class="
+    meganav
+    {% if meganav_settings.show_promo %}
+      meganav--has-promo
+      meganav--promo-position-{{ meganav_settings.secondary_position }}
+    {% endif %}
+    {% if settings.enable_section_animations %}
+      animation
+      animation--dropdown
+    {% endif %}
+  "
+  data-submenu data-hidden="true"
+  data-menu-handle="{{ menu }}"
+  data-meganav-type={{ meganav_type }}
+  {% unless meganav_type == 'full_width_meganav' %}data-align-to-trigger="true"{% endunless %}
+  style="
+  --column-count: {{ meganav_settings.column_count }};
+  --columns-width: {{ meganav_settings.columns_width }}px;
+  {% unless meganav_type == 'full_width_meganav' %}--columns-width: {{ meganav_settings.columns_width }}px;{% endunless %}
+  --secondary-width: {{ meganav_settings.promo_width }}px;
+  --color-promo-text: {{ meganav_settings.text_color }};
+  --color-text-overlay-button: {{ meganav_settings.text_color }};
+  --color-background-overlay-button: {{ meganav_settings.text_color }};
+  --color-background-overlay-outline-button-alpha:
+{{ meganav_settings.text_color | color_modify: 'alpha', 0.1 }};
+  --overlay-background: {{ meganav_settings.color_overlay }};
+  {% if meganav_settings.color_overlay_gradient != blank %}
+    --overlay-background-gradient: {{ meganav_settings.color_overlay_gradient }};
+  {% endif %}
+  --overlay-opacity: {{ overlay_opacity }};
+  "
+{{ shopify_attributes }}
+>
+  <div class="meganav__inner">
+    {% if meganav_settings.show_promo and meganav_settings.secondary_position == 'left' %}
+      {{ meganav_secondary }}
+    {% endif %}
+    {{ meganav_primary }}
+    {% if meganav_settings.show_promo and meganav_settings.secondary_position == 'right' %}
+      {{ meganav_secondary }}
+    {% endif %}
+  </div>
+</div>

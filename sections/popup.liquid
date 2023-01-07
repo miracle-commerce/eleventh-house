@@ -1,0 +1,355 @@
+{%- assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.00 -%}
+
+{%- if section.settings.enable_popup -%}
+  <section
+    class="popup"
+    data-section-id="{{ section.id }}"
+    data-section-type="popup"
+    data-timeout="10000"
+    style="
+      --color-text: {{ section.settings.text_color }};
+      --color-text-meta: {{ section.settings.text_color | color_modify: 'alpha', 0.6 }};
+      --color-text-input: {{ section.settings.text_color }};
+      --color-background: {{ section.settings.background_color }};
+      --overlay-background: {{ section.settings.color_overlay }};
+      --overlay-opacity: {{ overlay_opacity }};
+      {% if section.settings.color_overlay_gradient != blank %}
+        --overlay-background-gradient: {{ section.settings.color_overlay_gradient }};
+      {% endif %}
+    "
+  >
+    <div class="popup__wash" data-overlay></div>
+    <div class="popup__bar">
+      {%- if section.settings.image != blank -%}
+        {%-
+          render 'image' with
+          wrapper_class: "popup__image",
+          image: section.settings.image,
+          focal_point: section.settings.focal_point,
+          sizes: '100vw'
+        -%}
+      {%- endif -%}
+
+      <div class="popup__bar-overlay"></div>
+
+      <button
+        type="button"
+        data-close
+        class="popup__close"
+        aria-label="{{ 'general.accessibility.close_modal' | t }}"
+      >
+        {% render 'icon-button' with small: true, icon: 'close' %}
+      </button>
+
+      <div class="popup__content">
+        <div class="popup__blocks section-blocks">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'heading' -%}
+                {%- unless block.settings.title == blank -%}
+                  <h2 class="popup__text-container-heading ff-heading {{ block.settings.heading_font_class }} section-blocks__heading">
+                    {{ block.settings.title }}
+                  </h2>
+                {%- endunless -%}
+              {%- when 'subheading' -%}
+                {%- unless block.settings.subheading == blank -%}
+                  <h2 class="popup__text-container-subheading ff-heading lh-subheading {{ block.settings.subheading_font_class }} section-blocks__subheading">
+                    {{ block.settings.subheading }}
+                  </h2>
+                {%- endunless -%}
+              {%- when 'text' -%}
+                {%- unless block.settings.text == blank -%}
+                  <div class="popup__text-container-text rte ff-body {{ block.settings.text_font_class }} section-blocks__text">
+                    {{ block.settings.text }}
+                  </div>
+                {%- endunless -%}
+              {%- when 'image' -%}
+                {%-
+                  render 'image-block' with
+                  shopify_attributes: block.shopify_attributes,
+                  wrapper_class: 'popup__text-container-image section-blocks__image section-blocks__image',
+                  image: block.settings.image,
+                  width: block.settings.image_size,
+                  mobile_width: block.settings.image_size_mobile,
+                  break_to_mobile_at: '720',
+                  align: 'center'
+                -%}
+              {%- when 'button' -%}
+                {%-
+                  render 'button-block' with
+                  wrapper_class: "image-with-text__text-container-button section-blocks__button",
+                  link: block.settings.link,
+                  label: block.settings.link_text,
+                  button_style: block.settings.button_style,
+                  is_overlay: true,
+                  button_alignment: 'center',
+                  buttons_can_inline: true,
+                  forloop: forloop
+                -%}
+              {%- when 'newsletter_signup' -%}
+                <div class="popup__form">
+                  {% render 'newsletter-form' with id: 'popup' %}
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "t:sections.popup.name",
+    "settings": [
+      {
+        "id": "enable_popup",
+        "type": "checkbox",
+        "label": "t:sections.popup.settings.enable_popup.label",
+        "info": "t:sections.popup.settings.enable_popup.info",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "t:sections.popup.settings.background__header.content"
+      },
+      {
+        "id": "image",
+        "type": "image_picker",
+        "label": "t:sections.popup.settings.image.label"
+      },
+      {
+        "id": "focal_point",
+        "type": "select",
+        "label": "t:shared.settings.focal_point.label",
+        "options": [{"label":"t:shared.settings.focal_point.option_center","value":"center"},{"label":"t:shared.settings.focal_point.option_top","value":"top"},{"label":"t:shared.settings.focal_point.option_bottom","value":"bottom"},{"label":"t:shared.settings.focal_point.option_left","value":"left"},{"label":"t:shared.settings.focal_point.option_right","value":"right"}],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "t:shared.settings.header_color.content"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "t:shared.settings.text_color.label",
+        "default": "#FFFFFF"
+      },
+      {
+        "id": "background_color",
+        "type": "color",
+        "label": "t:sections.popup.settings.background_color.label",
+        "info": "t:sections.popup.settings.background_color.info",
+        "default": "#C51C26"
+      },
+      {
+        "id": "color_overlay",
+        "type": "color",
+        "label": "t:shared.settings.color_overlay.label",
+        "default": "#000"
+      },
+      {
+        "id": "color_overlay_gradient",
+        "type": "color_background",
+        "label": "t:shared.settings.color_overlay_gradient.label"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "t:shared.settings.overlay_opacity.label",
+        "unit": "%",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 0
+      }
+    ],
+    "blocks": [
+      {
+        "type": "heading",
+        "name": "t:sections.popup.blocks.heading.name",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "t:sections.popup.blocks.heading.settings.title.label",
+            "default": "Subscribe"
+          },
+          {
+            "type": "select",
+            "id": "heading_font_class",
+            "label": "t:shared.settings.heading_font_class.label",
+            "default": "fs-heading-display-3",
+            "options": [
+              {
+                "value": "fs-heading-1-base",
+                "label": "t:shared.settings.heading_font_class.option_small"
+              },
+              {
+                "value": "fs-heading-display-3",
+                "label": "t:shared.settings.heading_font_class.option_medium"
+              },
+              {
+                "value": "fs-heading-display-2",
+                "label": "t:shared.settings.heading_font_class.option_large"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "subheading",
+        "name": "t:sections.popup.blocks.subheading.name",
+        "settings": [
+          {
+            "id": "subheading",
+            "type": "text",
+            "label": "t:sections.popup.blocks.subheading.settings.text.label",
+            "default": "Sign up and get 10% off your first order"
+          },
+          {
+            "type": "select",
+            "id": "subheading_font_class",
+            "label": "t:shared.settings.subheading_font_class.label",
+            "default": "fs-heading-5-base",
+            "options": [
+              {
+                "value": "fs-heading-6-base",
+                "label": "t:shared.settings.subheading_font_class.option_small"
+              },
+              {
+                "value": "fs-heading-5-base",
+                "label": "t:shared.settings.subheading_font_class.option_medium"
+              },
+              {
+                "value": "fs-heading-4-base",
+                "label": "t:shared.settings.subheading_font_class.option_large"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "t:sections.popup.blocks.text.name",
+        "settings": [
+          {
+            "id": "text",
+            "type": "richtext",
+            "default": "<p>We only send emails once or twice a month and only about good things.</p>",
+            "label": "t:sections.popup.blocks.text.settings.text.label"
+          },
+          {
+            "type": "select",
+            "id": "text_font_class",
+            "label": "t:shared.settings.text_font_class.label",
+            "default": "fs-body-100",
+            "options": [
+              {
+                "value": "fs-body-75",
+                "label": "t:shared.settings.text_font_class.option_small"
+              },
+              {
+                "value": "fs-body-100",
+                "label": "t:shared.settings.text_font_class.option_regular"
+              },
+              {
+                "value": "fs-body-200",
+                "label": "t:shared.settings.text_font_class.option_large"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "t:shared.section_blocks.image.name",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "t:shared.section_blocks.image.settings.image.label"
+          },
+          {
+            "id": "image_size",
+            "type": "range",
+            "min": 50,
+            "max": 750,
+            "step": 10,
+            "unit": "px",
+            "label": "t:shared.section_blocks.image.settings.image_size.label",
+            "default": 200
+          },
+          {
+            "id": "image_size_mobile",
+            "type": "range",
+            "min": 50,
+            "max": 350,
+            "step": 10,
+            "unit": "px",
+            "label": "t:shared.section_blocks.image.settings.image_size_mobile.label",
+            "default": 200
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "name": "t:sections.image_with_text.blocks.button.name",
+        "limit": 2,
+        "settings": [
+          {
+            "id": "link",
+            "type": "url",
+            "label": "t:shared.settings.button_link.label"
+          },
+          {
+            "id": "link_text",
+            "type": "text",
+            "label": "t:shared.settings.button_link_text.label",
+            "default": "Read more"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "t:shared.settings.button_style.label",
+            "options": [
+              {
+                "value": "btn--primary",
+                "label": "t:shared.settings.button_style.option_solid"
+              },
+              {
+                "value": "btn--secondary",
+                "label": "t:shared.settings.button_style.option_outline"
+              },
+              {
+                "value": "btn--callout",
+                "label": "t:shared.settings.button_style.option_text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "newsletter_signup",
+        "name": "t:sections.popup.blocks.newsletter_signup.name",
+        "limit": 1
+      }
+    ],
+    "default": {
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "newsletter_signup"
+        }
+      ]
+    }
+  }
+{% endschema %}

@@ -1,0 +1,48 @@
+{% comment %}
+  pass in :
+
+  * prod (product but avoiding collision with globally scoped product)
+  * option_name - option to display as swatch (https://fluorescent.slack.com/archives/C02TP2RQXT2/p1652135541914079?thread_ts=1652135120.919689&cid=C02TP2RQXT2)
+  * max_shown (optional)
+{% endcomment %}
+
+{%- liquid
+  assign file_extension = 'png'
+  assign swatch_options = settings.swatch_options | downcase | split: ', '
+  assign max_items = 5
+  assign option_name = option_name | downcase | strip_newlines
+-%}
+
+{%- unless prod.has_only_default_variant -%}
+  <div class="product-swatches-options">
+    {%- for product_option in prod.options_with_values -%}
+      {% assign product_option_name = product_option.name | downcase %}
+
+      {% if product_option_name == option_name %}
+        {%- liquid
+          assign overflows = false
+
+          if product_option.values.size > max_items
+            assign overflows = true
+            assign overflow_amount = product_option.values.size | minus: max_items
+          endif
+        -%}
+
+        <ul class="product-swatches-options__list{% if swatch_options contains product_option_name %} product-item-options__list--swatch{% endif %} ff-body fs-body-50">
+          {%- for value in product_option.values -%}
+            {% if forloop.index <= max_items %}
+              <li
+                class="product-swatches-options__item product-swatches-options__item--swatch"
+                data-swatch-shape="{{ settings.swatch_shape }}"
+                style="background-color: {{ value | downcase | replace: ' ', '' }}; background-image: url({{ value | handle | append: '.' | append: file_extension | file_url }})"
+              ></li>
+            {% endif %}
+          {%- endfor -%}
+          {% if overflows %}
+            <li class="product-swatches-options__item-overflow-note fs-body-25">+{{ overflow_amount }} more</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    {%- endfor -%}
+  </div>
+{%- endunless -%}

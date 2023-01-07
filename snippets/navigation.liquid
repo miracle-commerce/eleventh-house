@@ -1,0 +1,107 @@
+{% liquid
+  assign can_show_children = true
+
+  if no_children
+    assign can_show_children = false
+  endif
+%}
+
+<ul class="header__links-list {% if no_children %}fs-body-50{% else %}fs-navigation-base{% endif %}">
+  {% for link in menu %}
+    {%- liquid
+      if link.links.size > 0 and can_show_children
+        assign has_children = true
+      endif
+    -%}
+    {% assign show_meganav = false %}
+    {% if blocks.size > 0 %}
+      {% for block in blocks %}
+        {% assign meganav_trigger_handle = block.settings.dropdown_parent_link | handle | strip %}
+        {% if link.handle == meganav_trigger_handle and has_children %}
+          {% assign show_meganav = true %}
+          {% assign meganav_settings = block.settings %}
+          {% assign meganav_type = block.type %}
+          {% assign meganav_handle = meganav_trigger_handle %}
+          {% assign meganav_shopify_attributes = block.shopify_attributes %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    <li
+      {% if has_children and can_show_children %}
+        data-submenu-parent
+      {% endif %}
+    >
+      {%- if has_children and can_show_children -%}
+        {%- liquid
+          assign child_is_active = false
+          for link in link.links
+            if link.active
+              assign child_is_active = true
+              break
+            elsif link.links.size > 0
+              for link in link.links
+                if link.active
+                  assign child_is_active = true
+                  break
+                endif
+              endfor
+            endif
+          endfor
+        -%}
+
+        <button
+          type="button"
+          class="navigation__submenu-trigger fs-navigation-base no-transition{% if child_is_active %} active{% endif %}"
+          data-link
+          data-parent
+          {% if show_meganav %}
+            data-meganav-trigger
+            data-meganav-type="{{ meganav_type }}"
+            data-meganav-handle="{{ meganav_handle }}"
+          {% else %}
+            data-dropdown-trigger
+          {% endif %}
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <span class="link-hover">
+            {{ link.title }}
+          </span>
+          <span class="header__links-icon">
+            {% render 'icon' with icon: 'chevron-small' %}
+          </span>
+        </button>
+
+        {%- if has_children and can_show_children -%}
+          {%- if show_meganav -%}
+            {%-
+              render 'meganav-standard-with-promo'
+              with menu: link.handle,
+              meganav_settings: meganav_settings,
+              link: link,
+              shopify_attributes: meganav_shopify_attributes,
+              meganav_type: meganav_type
+            -%}
+          {%- else -%}
+            {%- render 'navigation-submenu' with menu: link.links, depth: 1 -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- assign has_children = false -%}
+      {%- else -%}
+        <a
+          href="{{ link.url }}"
+          class="{% if link.active %}active{% endif %}"
+          data-link
+          {% if link.active %}
+            aria-current="page"
+          {% endif %}
+        >
+          <span class="link-hover">
+            {{ link.title }}
+          </span>
+        </a>
+      {%- endif -%}
+    </li>
+  {% endfor %}
+</ul>

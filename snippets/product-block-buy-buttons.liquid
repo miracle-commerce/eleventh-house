@@ -1,0 +1,29 @@
+<div
+  class="product__quantity-error product__block product__block--medium hidden"
+  data-quantity-error
+  data-fallback-error-message="{{ 'products.product.quantity_error' | t }}"
+>
+  {{ 'products.product.quantity_error' | t }}
+</div>
+
+{%
+  render 'product-form' with
+  block: block,
+  product: product,
+  current_variant: current_variant,
+  show_dynamic_checkout: block.settings.show_dynamic_checkout,
+  is_quick: is_quick
+%}
+
+{%- unless is_quick -%}
+  {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+    <div class="product__policies rte" data-product-policies>
+      {%- if shop.taxes_included -%}
+        {{ 'products.product.include_taxes' | t }}
+      {%- endif -%}
+      {%- if shop.shipping_policy.body != blank -%}
+        {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endunless -%}

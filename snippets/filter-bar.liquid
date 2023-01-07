@@ -1,0 +1,353 @@
+{%- liquid
+  assign swatch_options = settings.swatch_options | downcase | split: ', '
+  assign chip_options = settings.chip_options | downcase | split: ', '
+  assign filters_valid = false
+  if results.filters != empty and show_filters
+    assign filters_valid = true
+  endif
+
+  assign active_filter_count = 0
+  for filter in results.filters
+    for active_value in filter.active_values
+      assign active_filter_count = active_filter_count | plus: 1
+    endfor
+  endfor
+
+  assign results_count = 0
+  if results.products_count != blank
+    assign results_count = results.products_count
+  elsif results.results_count != blank
+    assign results_count = results.results_count
+  endif
+
+  if results.products_count >= 5000 or results.results_count >= 5000
+    assign filters_valid = false
+    assign show_sort = false
+  endif
+
+  assign filter_bar_enabled = false
+  if show_item_count or filters_valid or show_sort
+    assign filter_bar_enabled = true
+  endif
+-%}
+
+<form
+  class="
+    filter-bar
+    {% unless filter_bar_enabled %}filter-bar--disabled{% endunless %}
+    {% if enable_sticky_filter_bar %}filter-bar--sticky{% endif %}
+    {% if active_filter_count > 0 %}filters-active{% endif %}
+    animation--filter-bar
+  "
+  data-filter-form
+  data-filter-bar
+>
+  {%- if search.terms -%}
+    <input
+      type="hidden"
+      name="q"
+      id="SearchFilters--FilterBar"
+      value="{{ search.terms | escape }}"
+    >
+  {%- endif -%}
+
+  {%- if filter_bar_enabled -%}
+    <div class="filter-bar__inner">
+      {%- if filters_valid -%}
+        <button
+          type="button"
+          class="filter-bar__button filter-bar__button--filters"
+          data-dropdown-toggle="filter-bar-filters"
+          aria-expanded="{% if collapse_filter_bar == false or active_filter_count > 0 %}true{% else %}false{% endif %}"
+          aria-controls="filter-bar-filters"
+        >
+          {% render 'icon' with icon: 'filter' %}
+          {{ 'filters.title' | t }}
+
+          {%- if active_filter_count > 0 -%}
+            <span class="filter-bar__button-count" data-active-filter-count>{{ active_filter_count }}</span>
+          {%- endif -%}
+
+          {% render 'icon' with icon: 'chevron-small' %}
+        </button>
+      {%- endif -%}
+
+      {%- if show_item_count -%}
+        <p class="filter-bar__results-count fs-body-75" data-results-count>
+          {% render 'results-count' with results_count: results_count %}
+        </p>
+      {%- endif -%}
+
+      {%- if show_sort -%}
+        <div class="filter-bar__sort-group" data-filter-group>
+          {%- liquid
+            assign sort_by = results.sort_by | default: results.default_sort_by
+            for option in results.sort_options
+              if option.value == sort_by
+                assign sort_by = option.name
+              endif
+            endfor
+          -%}
+
+          <button
+            type="button"
+            class="filter-bar__button filter-bar__button--sort"
+            data-filter-group-label
+            data-dropdown-toggle="filter-bar-sort"
+            aria-expanded="false"
+            aria-controls="filter-bar-sort"
+          >
+            <span data-sort-label>{{ 'filters.sort_title' | t }}: {{ sort_by }}</span>
+            {% render 'icon' with icon: 'chevron-small' %}
+          </button>
+
+          <div
+            id="filter-bar-sort"
+            class="filter-group__values"
+            data-dropdown="filter-bar-sort"
+            aria-hidden="true"
+          >
+            <ul class="filter-group__list filter-group__list--sort">
+              {%- for option in results.sort_options -%}
+                {%- liquid
+                  assign is_active = false
+                  if results.sort_by != blank
+                    if option.value == results.sort_by
+                      assign is_active = true
+                    endif
+                  elsif option.value == collection.default_sort_by
+                    assign is_active = true
+                  endif
+                -%}
+                <li class="filter-item">
+                  <label data-sort for="filter-{{ option.name | handleize }}" class="filter-item__content">
+                    <input
+                      type="radio"
+                      name="sort_by"
+                      data-sort-item-input
+                      {% if is_active %}
+                        checked
+                      {% endif %}
+                      value="{{ option.value }}"
+                      data-value-escaped="{{ option.value | url_escape }}"
+                      id="filter-{{ option.name | escape | handleize }}"
+                      class="filter-item__radio visually-hidden"
+                    >
+
+                    <div class="filter-item__content-inner">
+                      <div class="filter-input__input">
+                        <div class="indicator"></div>
+                      </div>
+                      <span class="filter-item__label">{{ option.name }}</span>
+                    </div>
+                  </label>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if filters_valid -%}
+      <div
+        id="filter-bar-filters"
+        class="filter-bar__filters"
+        data-filter-bar-filters
+        data-dropdown="filter-bar-filters"
+        aria-hidden="{% if collapse_filter_bar == false or active_filter_count > 0 %}false{% else %}true{% endif %}"
+        style="display: {% if collapse_filter_bar == false or active_filter_count > 0 %}block{% else %}none{% endif %}"
+      >
+        <div class="filter-bar__filters-inner" data-filter-bar-filters-inner>
+          {%- for filter in results.filters -%}
+            {%- liquid
+              assign group_active_filters = blank
+              if filter.active_values
+                assign group_active_filters = filter.active_values | map: 'label' | join: ', '
+              endif
+
+              assign max_price_amount = filter.range_max | money | strip_html | escape
+
+              assign group_active_count = 0
+
+              if filter.type == 'list' or filter.type == 'boolean'
+                for active_value in filter.active_values
+                  assign group_active_count = group_active_count | plus: 1
+                endfor
+              endif
+
+              assign price_range_changed = false
+              if filter.type == 'price_range'
+                if filter.max_value.value or  filter.min_value.value
+                  assign price_range_changed = true
+                endif
+              endif
+            -%}
+
+            <div class="filter-group" data-filter-group>
+              <button
+                type="button"
+                class="filter-group__label"
+                data-filter-group-label
+                data-dropdown-toggle="{{ filter.label | url_escape }}"
+                aria-expanded="false"
+                aria-controls="{{ filter.label | handle }}"
+              >
+                {{ filter.label }}
+
+                {%- if filter.type == 'list' or filter.type == 'boolean' -%}
+                  {%- if group_active_count > 0 -%}
+                    <span class="filter-group__label-count" data-group-active-count>{{ group_active_count }}</span>
+                  {%- endif -%}
+                {%- elsif filter.type == 'price_range' -%}
+                  {%- if filter.min_value.value > 0 or filter.max_value.value < filter.range_max -%}
+                    <span class="filter-group__label-count" data-group-active-count>
+                      {%- render 'currency-symbol' -%}
+                    </span>
+                  {%- endif -%}
+                {%- endif -%}
+
+                {% render 'icon' with icon: 'chevron-small' %}
+              </button>
+              <div
+                id="{{ filter.label | handle }}"
+                class="filter-group__values"
+                data-filter-type="{{ filter.type }}"
+                data-dropdown="{{ filter.label | url_escape }}"
+                data-filter-group-values
+                aria-hidden="true"
+              >
+                <div class="filter-group__values-header" data-group-values-header="{{ filter.label | url_escape }}">
+                  <span class="filter-group__values-active-values fs-body-50">
+                    {%- case filter.type -%}
+                      {%- when 'boolean' or 'list' -%}
+                        {%- if group_active_count > 0 -%}
+                          {{ group_active_filters }}
+                        {%- else -%}
+                          {{ 'filters.zero_selected' | t }}
+                        {%- endif -%}
+                      {%- when 'price_range' -%}
+                        {{ "filters.max_price" | t: price: max_price_amount }}
+                    {%- endcase -%}
+                  </span>
+
+                  <button
+                    type="button"
+                    class="btn btn--text-link fs-body-50 filter-group__reset{% if price_range_changed or group_active_count > 0 %} active{% endif %}"
+                    data-filter-group-reset
+                  >
+                    {{ 'filters.clear' | t }}
+                  </button>
+                </div>
+                {%- case filter.type -%}
+                  {%- when 'boolean' or 'list' -%}
+                    {%- liquid
+                      assign group_name = filter.label | handleize
+                      assign list_modifiers = ''
+                      if swatch_options contains group_name and show_swatch_filters == true
+                        assign list_modifiers = list_modifiers | append: ' has-swatch'
+                      elsif chip_options contains group_name and show_chip_filters == true
+                        assign list_modifiers = list_modifiers | append: ' filter-group__list--chips'
+                      endif
+                    -%}
+
+                    <ul
+                      class="filter-group__list {{ list_modifiers }}"
+                      {% if chip_options contains group_name and show_chip_filters == true %}
+                        data-layout="{{ chip_layout }}"
+                      {% endif %}
+                    >
+                      {%- for filter_value in filter.values -%}
+                        {%- if swatch_options contains group_name and show_swatch_filters == true -%}
+                          {%
+                            render 'filter-item' with
+                            type: 'swatch',
+                            filter_value: filter_value,
+                            scope: 'top-bar'
+                          %}
+                        {%- elsif chip_options contains group_name and show_chip_filters == true -%}
+                          {%
+                            render 'filter-item' with
+                            type: 'chip',
+                            filter_value: filter_value,
+                            scope: 'top-bar'
+                          %}
+                        {%- else -%}
+                          {%
+                            render 'filter-item' with
+                            type: 'checkbox',
+                            filter_value: filter_value,
+                            scope: 'top-bar'
+                          %}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  {%- when 'price_range' -%}
+                    <div class="filter-drawer__price-range" data-price-range>
+                      <div class="filter-drawer__price-range-input-wrapper">
+                        <div class="filter-drawer__price-range-input">
+                          <span class="filter-drawer__price-range-currency">{{ cart.currency.symbol }}</span>
+                          <input
+                            data-min-range-input
+                            data-range-input
+                            class="input"
+                            name="{{ filter.min_value.param_name }}"
+                            id="filter-bar-{{ filter.label | escape }}-{{ filter.min_value.param_name | escape }}"
+                            {%- if filter.min_value.value -%}
+                              value="{{ filter.min_value.value | divided_by: 100 }}"
+                            {%- endif -%}
+                            type="number"
+                            placeholder="0"
+                            min="0"
+                            max="{{ filter.range_max | divided_by: 100 | ceil }}"
+                          >
+                          <label
+                            class="filter-drawer__price-range-label visually-hidden"
+                            for="filter-bar-{{ filter.label | escape }}-{{ filter.min_value.param_name | escape }}"
+                          >
+                            {{- 'filters.from' | t -}}
+                          </label>
+                        </div>
+                        <span class="filter-drawer__price-range-separator">&ndash;</span>
+                        <div class="filter-drawer__price-range-input">
+                          <span class="filter-drawer__price-range-currency">{{ cart.currency.symbol }}</span>
+                          <input
+                            data-max-range-input
+                            data-range-input
+                            class="input"
+                            name="{{ filter.max_value.param_name }}"
+                            id="filter-bar-{{ filter.label | escape }}-{{ filter.max_value.param_name | escape }}"
+                            {%- if filter.max_value.value -%}
+                              value="{{ filter.max_value.value | divided_by: 100 }}"
+                            {%- endif -%}
+                            type="number"
+                            placeholder="{{ filter.range_max | divided_by: 100 | ceil }}"
+                            min="0"
+                            max="{{ filter.range_max | divided_by: 100 | ceil }}"
+                          >
+                          <label
+                            class="filter-drawer__price-range-label visually-hidden"
+                            for="filter-bar-{{ filter.label | escape }}-{{ filter.max_value.param_name | escape }}"
+                          >
+                            {{- 'filters.to' | t -}}
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="filter-drawer__slider" data-range-slider></div>
+                    </div>
+                {%- endcase -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="filter-bar__active-filters">
+      {%- render 'active-filters' with results: results, show_swatch_filters: show_swatch_filters -%}
+    </div>
+  {%- endif -%}
+</form>
+
+<div class="filter-bar__wash"></div>

@@ -1,0 +1,67 @@
+{%- liquid
+  if alignment == blank
+    assign alignment = "center-above"
+  endif
+
+  assign alignment_values = alignment | split: "-"
+  assign horizontal_alignment = alignment_values | first
+  assign vertical_alignment = alignment_values | last
+
+  if share_text == blank
+    assign share_text = 'general.social.share' | t
+  endif
+-%}
+<div class="
+    social-share
+    social-sharing--align-horizontal-{{ horizontal_alignment }}
+    social-sharing--align-vertical-{{ vertical_alignment }}
+  ">
+  <button
+    type="button"
+    class="btn btn--small social-share__button"
+    aria-expanded="false"
+    aria-controls="social-sharing--{{ title | handle }}"
+  >
+    {%- render 'icon' with icon: 'share' -%}
+    {{ share_text }}
+  </button>
+
+  <div
+    id="social-sharing--{{ title | handle }}"
+    class="social-sharing__popup"
+    aria-hidden="true"
+  >
+    <div class="social-share__input-wrapper">
+      <input
+        type="text"
+        class="social-share__input"
+        value="{{ url }}"
+        readonly
+      >
+
+      <button
+        type="button"
+        class="social-share__copy-url"
+        aria-label="{{ 'general.social.copy_link' | t }}"
+        data-url="{{ url }}"
+        data-error-message="{{ 'general.social.link_copy_error' | t }}"
+        data-success-message="{{ 'general.social.link_copied' | t }}"
+      >
+        {%- render 'icon' with icon: 'copy' -%}
+      </button>
+
+      <div class="social-share__success-message social-share__success-message--hidden" role="alert">
+        {{ 'general.social.link_copied' | t }}
+      </div>
+    </div>
+
+    <div class="social-share__icons">
+      {%
+        render 'share-icons' with
+        url: url,
+        title: title,
+        image: image
+      %}
+    </div>
+  </div>
+</div>

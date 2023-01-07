@@ -1,0 +1,41 @@
+<div
+  class="product__block product__block-callouts-mini product__callouts-mini product__block--medium"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="product__callouts-mini-items"
+    data-with-box="{{ block_settings.add_box }}"
+    data-with-dividers="{{ block_settings.add_dividers }}"
+  >
+    {%
+      render 'product-block-callouts-mini-item' with
+      text: block_settings.text_1,
+      icon: block_settings.icon_1
+    %}
+    {%
+      render 'product-block-callouts-mini-item' with
+      text: block_settings.text_2,
+      icon: block_settings.icon_2
+    %}
+    {%
+      render 'product-block-callouts-mini-item' with
+      text: block_settings.text_3,
+      icon: block_settings.icon_3
+    %}
+    {%
+      render 'product-block-callouts-mini-item' with
+      text: block_settings.text_4,
+      icon: block_settings.icon_4
+    %}
+    {%
+      render 'product-block-callouts-mini-item' with
+      text: block_settings.text_5,
+      icon: block_settings.icon_5
+    %}
+    {%
+      render 'product-block-callouts-mini-item' with
+      text: block_settings.text_6,
+      icon: block_settings.icon_6
+    %}
+  </div>
+</div>

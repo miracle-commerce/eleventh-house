@@ -1,0 +1,41 @@
+{%- liquid
+  assign sizes = "(max-width: 720px) calc((90vw - 12px) / 2), (max-width: 1400px) calc((93.4vw - (12px * 3)) / 4), 304px"
+
+  if columns == 4
+    assign sizes = "(max-width: 720px) calc((90vw - 12px) / 2), (max-width: 1400px) calc((93.4vw - (12px * 3)) / 4), 304px"
+  elsif columns == 5
+    assign sizes = "(max-width: 720px) calc((90vw - 12px) / 2), (max-width: 1400px) calc((93.4vw - (12px * 3)) / 4), 304px"
+  endif
+-%}
+
+<a
+  href="{{ item.url }}"
+  class="
+    search-item
+    search-item--{{ item.object_type }}
+    {% if item.image != blank %}search-item--has-image{% endif %}
+    animation--item
+    {% if has_grid_reveal %}animation--item-initial{% endif %}
+  "
+>
+  {%- if item.image != blank -%}
+    <div class="search-item__image-wrapper">
+      {%
+        render 'image' with
+        image: item.image,
+        wrapper_class: 'search-item__image',
+        aspect_ratio: 'landscape_alt',
+        sizes: sizes
+      %}
+    </div>
+  {%- endif -%}
+
+  <div class="search-item__meta">
+    <h4 class="search-item__title ff-heading fs-heading-5-base fs-heading-4-base-ns">{{ item.title }}</h4>
+    <span class="search-item__link btn btn--callout"
+      ><span>{{ 'search.read_now' | t }}</span></span
+    >
+  </div>
+
+  <div class="search-item__type fs-body-75">{{ item.object_type | capitalize }}</div>
+</a>

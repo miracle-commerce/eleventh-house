@@ -1,0 +1,35 @@
+{%- case font_size -%}
+  {%- when 'small' -%}
+    {%- assign size_class = "fs-heading-4-base" -%}
+  {%- when 'medium' -%}
+    {%- assign size_class = "fs-heading-3-base" -%}
+  {%- when 'large' -%}
+    {%- assign size_class = "fs-heading-2-base" -%}
+{%- endcase -%}
+
+<div
+  class="quote__item slider-slide swiper-slide animation--item"
+  {{ block.shopify_attributes }}
+  data-index="{{ forloop.index0 }}"
+  data-slide
+>
+  <div class="quote__item-inner">
+    {%- unless pagination_style == "logos" and has_multiple_blocks -%}
+      <div class="quote__item-logo-wrapper">
+        {%- render 'quote-item-logo' with logo: logo, class: "quote__item-logo" -%}
+      </div>
+    {%- endunless -%}
+
+    {%- unless quote == blank -%}
+      <h4 class="quote__item-text ff-{{ font_choice }} {{ size_class }}">
+        <span>{{ quote }}</span>
+      </h4>
+    {%- endunless -%}
+
+    {%- unless author == blank -%}
+      <div class="quote__item-author ff-body fs-body-75 fs-body-100-ns">
+        &ndash;&ensp;<span>{{ author }}</span>
+      </div>
+    {%- endunless -%}
+  </div>
+</div>

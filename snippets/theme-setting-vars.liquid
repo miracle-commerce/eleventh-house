@@ -1,0 +1,259 @@
+{%- liquid
+  assign font_heading = settings.font_heading
+  assign font_body = settings.font_body
+  assign font_logo = settings.font_logo
+
+  assign font_heading_light = font_heading | font_modify: 'weight', '-300'
+  assign font_body_bold = font_body | font_modify: 'weight', '+300'
+  assign font_body_italic = font_body | font_modify: 'style', 'italic'
+  assign font_body_bold_italic = font_body_bold | font_modify: 'style', 'italic'
+
+  assign heading_text_transform = 'none'
+  if settings.capitalize_headings
+    assign heading_text_transform = 'uppercase'
+  endif
+
+  assign logo_text_transform = 'none'
+  if settings.capitalize_logo
+    assign logo_text_transform = 'uppercase'
+  endif
+
+  assign navigation_text_transform = 'none'
+  if settings.capitalize_navigation
+    assign navigation_text_transform = 'uppercase'
+  endif
+
+  assign product_listing_title_text_transform = 'none'
+  if settings.product_listing_title_uppercase
+    assign product_listing_title_text_transform = 'uppercase'
+  endif
+
+  assign product_badge_text_transform = 'none'
+  if settings.uppercase_badges
+    assign product_badge_text_transform = 'uppercase'
+  endif
+
+  assign button_text_transform = 'none'
+  if settings.capitalize_buttons
+    assign button_text_transform = 'uppercase'
+  endif
+
+  assign brightness_background = settings.color_background_body | color_brightness
+  if brightness_background > 127
+    assign color_background_meta = settings.color_background_body | color_darken: 4
+  else
+    assign color_background_meta = settings.color_background_body | color_lighten: 4
+  endif
+
+  assign brightness_primary_button = settings.color_background_button | color_brightness
+  if brightness_primary_button > 60
+    assign color_background_button_hover = settings.color_background_button | color_darken: 20
+  else
+    assign color_background_button_hover = settings.color_background_button | color_lighten: 20
+  endif
+-%}
+
+<style>
+  {{ font_logo | font_face: font_display: 'swap' }}
+  {{ font_heading | font_face: font_display: 'swap' }}
+  {{ font_heading_light | font_face: font_display: 'swap' }}
+  {{ font_body | font_face: font_display: 'swap' }}
+  {{ font_body_bold | font_face: font_display: 'swap' }}
+  {{ font_body_italic | font_face: font_display: 'swap' }}
+  {{ font_body_bold_italic | font_face: font_display: 'swap' }}
+
+  :root {
+    --color-text: {{ settings.color_text }};
+    --color-text-8-percent: {{ settings.color_text | color_modify: 'alpha', 0.08 }};  {% comment %}very specific... can we avoid?{% endcomment %}
+    --color-text-alpha: {{ settings.color_text | color_modify: 'alpha', 0.35 }};
+    --color-text-meta: {{ settings.color_text | color_modify: 'alpha', 0.6 }};
+    --color-text-link: {{ settings.color_text_link }};
+    --color-text-error: #D02F2E;
+    --color-text-success: #478947;
+
+    --color-background: {{ settings.color_background_body }};
+    --color-background-semi-transparent-80: {{ settings.color_background_body | color_modify: 'alpha', 0.8 }};
+    --color-background-semi-transparent-90: {{ settings.color_background_body | color_modify: 'alpha', 0.9 }};
+
+    --color-background-transparent: {{ settings.color_background_body | color_modify: 'alpha', 0 }};
+    --color-border: {{ settings.color_border }};
+    --color-border-meta: {{ settings.color_border | color_modify: 'alpha', 0.6 }};
+    --color-overlay: rgba(0, 0, 0, 0.7);
+
+    --color-background-meta: {{ color_background_meta }};
+    --color-background-darker-meta: {{ color_background_meta | color_darken: 5 }};
+    --color-background-placeholder: {{  color_background_meta | color_darken: 5 }};
+    --color-background-placeholder-lighter: {{ color_background_meta | color_darken: 2 }};
+    --color-foreground-placeholder: {{ settings.color_text | color_modify: 'alpha', 0.4 }};
+
+    --color-border-input: {{ settings.color_border }};
+    --color-border-input-alpha: {{ settings.color_border | color_modify: 'alpha', 0.25 }};
+    --color-text-input: {{ settings.color_text }};
+    --color-text-input-alpha: {{ settings.color_text | color_modify: 'alpha', 0.04 }};
+
+    --color-text-button: {{ settings.color_text_button }};
+
+    --color-background-button: {{ settings.color_background_button }};
+    --color-background-button-alpha: {{ settings.color_background_button | color_modify: 'alpha', 0.6 }};
+    --color-background-outline-button-alpha: {{ settings.color_background_button | color_modify: 'alpha', 0.1 }};
+    --color-background-button-hover: {{ color_background_button_hover }};
+
+    --color-icon: {{ settings.color_text | color_modify: 'alpha', 0.4 }};
+    --color-icon-darker: {{ settings.color_text | color_modify: 'alpha', 0.6 }};
+
+    --color-text-sale-badge: {{ settings.color_text_sale_badge }};
+    --color-background-sold-badge: {{ settings.color_background_sold_badge }};
+    --color-text-sold-badge: {{ settings.color_text_sold_badge }};
+
+    --color-text-header: {{ settings.color_header_text }};
+    --color-text-header-half-transparent: {{ settings.color_header_text | color_modify: 'alpha', 0.5 }};
+
+    --color-background-header: {{ settings.color_header_bg }};
+    --color-background-header-transparent: {{ settings.color_header_bg | color_modify: 'alpha', 0 }};
+    --color-icon-header: {{ settings.color_header_text }};
+    --color-shadow-header: rgba(0, 0, 0, 0.15);
+
+    --color-background-footer: {{ settings.color_background_footer }};
+    --color-text-footer: {{ settings.color_text_footer }};
+    --color-text-footer-subdued: {{ settings.color_text_footer | color_modify: 'alpha', 0.7 }};
+
+    --color-products-sale-price: {{ settings.color_products_sale_price }};
+    --color-products-rating-star: {{ settings.color_products_rating_star }};
+
+    --color-products-stock-good: {{ settings.color_products_stock_good }};
+    --color-products-stock-medium: {{ settings.color_products_stock_medium }};
+    --color-products-stock-bad: {{ settings.color_products_stock_bad }};
+
+    --font-logo: {{ font_logo.family }}, {{ font_logo.fallback_families }};
+    --font-logo-weight: {{ font_logo.weight }};
+    --font-logo-style: {{ font_logo.style }};
+    --logo-text-transform: {{ logo_text_transform }};
+    --logo-letter-spacing: {{ settings.logo_letter_spacing | times: 0.001 | append: 'em' }};
+
+    --font-heading: {{ font_heading.family }}, {{ font_heading.fallback_families }};
+    --font-heading-weight: {{ font_heading.weight }};
+    --font-heading-style: {{ font_heading.style }};
+    --font-heading-text-transform: {{ heading_text_transform }};
+    --font-heading-base-letter-spacing: {{ settings.heading_letter_spacing | times: 0.001 | append: 'em' }};
+    --font-heading-base-size: {{ settings.heading_base_size | append: 'px' }};
+
+    --font-body: {{ font_body.family }}, {{ font_body.fallback_families }};
+    --font-body-weight: {{ font_body.weight }};
+    --font-body-style: {{ font_body.style }};
+    --font-body-italic: {{ font_body_italic.style | default: 'italic' }};
+    --font-body-bold-weight: {{ font_body_bold.weight | default: 'bold' }};
+    --font-body-base-letter-spacing: {{ settings.body_letter_spacing | times: 0.001 | append: 'em' }};
+    --font-body-base-size: {{ settings.body_base_size | append: 'px' }};
+
+    /* Typography */
+    --line-height-heading: 1.1;
+    --line-height-subheading: 1.33;
+    --line-height-body: 1.5;
+
+    --logo-font-size: {% render 'font-size-clamp' with multiplier: 1, desktop_size: settings.logo_base_size, mobile_scale: settings.logo_mobile_base_scale %};
+
+    --font-size-navigation-base: {{ settings.navigation_base_size | append: 'px' }};
+    --font-navigation-base-letter-spacing: {{ settings.navigation_letter_spacing | times: 0.001 | append: 'em' }};
+    --font-navigation-base-text-transform: {{ navigation_text_transform }};
+
+    --font-size-heading-display-1: {% render 'font-size-clamp' with multiplier: 1.5, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-heading-display-2: {% render 'font-size-clamp' with multiplier: 1.333, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-heading-display-3: {% render 'font-size-clamp' with multiplier: 1.1666, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-heading-1-base: {% render 'font-size-clamp' with multiplier: 1, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-heading-2-base: {% render 'font-size-clamp' with multiplier: 0.875, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-heading-3-base: {% render 'font-size-clamp' with multiplier: 0.75, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-heading-4-base: {% render 'font-size-clamp' with multiplier: 0.583, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-heading-5-base: {% render 'font-size-clamp' with multiplier: 0.5, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-heading-6-base: {% render 'font-size-clamp' with multiplier: 0.416, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+    --font-size-body-400: {% render 'font-size-clamp' with multiplier: 1.666, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-350: {% render 'font-size-clamp' with multiplier: 1.555, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-300: {% render 'font-size-clamp' with multiplier: 1.444, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-250: {% render 'font-size-clamp' with multiplier: 1.333, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-200: {% render 'font-size-clamp' with multiplier: 1.222, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-150: {% render 'font-size-clamp' with multiplier: 1.111, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-100: {% render 'font-size-clamp' with multiplier: 1, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-75: {% render 'font-size-clamp' with multiplier: 0.888, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-60: {% render 'font-size-clamp' with multiplier: 0.8222, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-50: {% render 'font-size-clamp' with multiplier: 0.777, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-25: {% render 'font-size-clamp' with multiplier: 0.722, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    --font-size-body-20: {% render 'font-size-clamp' with multiplier: 0.666, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+
+    /* Buttons */
+    {% if settings.capitalize_buttons %}
+      --button-padding-multiplier: 1;
+      --font-size-button: var(--font-size-body-50);
+      --font-size-button-x-small: var(--font-size-body-25);
+    {% else %}
+      --button-padding-multiplier: 0.7;
+      --font-size-button: var(--font-size-body-100);
+      --font-size-button-x-small: var(--font-size-body-50);
+    {% endif %}
+
+    --font-button-text-transform: {{ button_text_transform }};
+    --button-letter-spacing: {{ settings.buttons_letter_spacing | times: 0.001 | append: 'em' }};
+    --line-height-button: 1.45;
+
+    /* Product badges */
+    {% if settings.uppercase_badges %}
+      --font-size-product-badge: var(--font-size-body-20);
+    {% else %}
+      --font-size-product-badge: var(--font-size-body-25);
+    {% endif %}
+
+    --font-product-badge-text-transform: {{ product_badge_text_transform }};
+
+    /* Product listing titles */
+    {% if settings.product_listing_title_uppercase %}
+      --font-size-listing-title: var(--font-size-body-60);
+    {% else %}
+      --font-size-listing-title: var(--font-size-body-100);
+    {% endif %}
+
+    --font-product-listing-title-text-transform: {{ product_listing_title_text_transform }};
+    --font-product-listing-title-base-letter-spacing: {{ settings.product_listing_title_letter_spacing | times: 0.001 | append: 'em' }};
+
+    /* Shopify pay specific */
+    --payment-terms-background-color: {{ color_background_meta }};
+  }
+
+  @supports not (font-size: clamp(10px, 3.3vw, 20px)) {
+    :root {
+      --logo-font-size: {% render 'font-size-clamp-fallback' with multiplier: 1, desktop_size: settings.logo_base_size, mobile_scale: settings.logo_mobile_base_scale %};
+      --font-size-heading-display-1: {% render 'font-size-clamp-fallback' with multiplier: 1.5, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-heading-display-2: {% render 'font-size-clamp-fallback' with multiplier: 1.333, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-heading-display-3: {% render 'font-size-clamp-fallback' with multiplier: 1.1666, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-heading-1-base: {% render 'font-size-clamp-fallback' with multiplier: 1, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-heading-2-base: {% render 'font-size-clamp-fallback' with multiplier: 0.875, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-heading-3-base: {% render 'font-size-clamp-fallback' with multiplier: 0.75, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-heading-4-base: {% render 'font-size-clamp-fallback' with multiplier: 0.583, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-heading-5-base: {% render 'font-size-clamp-fallback' with multiplier: 0.5, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-heading-6-base: {% render 'font-size-clamp-fallback' with multiplier: 0.416, desktop_size: settings.heading_base_size, mobile_scale: settings.heading_mobile_base_scale %};
+      --font-size-body-400: {% render 'font-size-clamp-fallback' with multiplier: 1.666, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-350: {% render 'font-size-clamp-fallback' with multiplier: 1.555, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-300: {% render 'font-size-clamp-fallback' with multiplier: 1.444, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-250: {% render 'font-size-clamp-fallback' with multiplier: 1.333, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-200: {% render 'font-size-clamp-fallback' with multiplier: 1.222, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-150: {% render 'font-size-clamp-fallback' with multiplier: 1.111, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-100: {% render 'font-size-clamp-fallback' with multiplier: 1, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-75: {% render 'font-size-clamp-fallback' with multiplier: 0.888, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-60: {% render 'font-size-clamp-fallback' with multiplier: 0.8222, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-50: {% render 'font-size-clamp-fallback' with multiplier: 0.777, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-25: {% render 'font-size-clamp-fallback' with multiplier: 0.722, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+      --font-size-body-20: {% render 'font-size-clamp-fallback' with multiplier: 0.666, desktop_size: settings.body_base_size, mobile_scale: settings.body_mobile_base_scale %};
+    }
+  }
+
+  {%- for index in (1..4) -%}
+    {%- capture tagNameSettingsKey -%}custom_product_badge_group_{{ index }}_tag_names{%- endcapture -%}
+    {%- capture colorSettingsKey -%}custom_product_badge_group_{{ index }}_color{%- endcapture -%}
+    {%- unless settings[tagNameSettingsKey] == blank -%}
+      {%- assign tags = settings[tagNameSettingsKey] | downcase | split: ", " -%}
+      {%- for tag in tags -%}
+        .product-badge[data-handle="{{ tag | downcase | handleize }}"]{%- if forloop.last != true -%},{%- endif -%}
+      {%- endfor -%}
+      {
+        color: {{ settings[colorSettingsKey] }};
+      }
+    {% endunless %}
+  {%- endfor -%}
+</style>

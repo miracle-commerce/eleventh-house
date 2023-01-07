@@ -1,0 +1,7 @@
+{%- if results_count == 1 -%}
+  {{ 'filters.one_result_html' | t: value: results_count }}
+{%- elsif results_count > 1 -%}
+  {{ 'filters.many_results_html' | t: value: results_count }}
+{%- else -%}
+  {{ 'filters.no_results' | t }}
+{%- endif -%}

@@ -1,0 +1,48 @@
+<div
+  class="
+    countdown-timer
+    countdown-timer--{{ size }}
+  "
+  data-countdown-timer
+>
+  <script type="application/json" data-timer-settings>
+    {
+      "year": {{ year | json }},
+      "month": {{ month | json }},
+      "day": {{ day | json }},
+      "hour": {{ hour | json }},
+      "minute": {{ minute | json }},
+      "hideTimerOnComplete": {{ hide_timer_on_complete | json }}
+    }
+  </script>
+
+  <div class="countdown-timer__inner">
+    <div class="countdown-timer__item">
+      <div class="countdown-timmer__amount ff-heading" data-days>0</div>
+      <div class="countdown-timer__type fs-accent">{{ 'sections.countdown_timer.days' | t }}</div>
+    </div>
+    <div class="countdown-timer__item">
+      <div class="countdown-timmer__amount ff-heading" data-hours>0</div>
+      <div class="countdown-timer__type fs-accent">{{ 'sections.countdown_timer.hours' | t }}</div>
+    </div>
+    <div class="countdown-timer__item">
+      <div class="countdown-timmer__amount ff-heading" data-minutes>0</div>
+      <div class="countdown-timer__type fs-accent">{{ 'sections.countdown_timer.minutes' | t }}</div>
+    </div>
+    <div class="countdown-timer__item">
+      <div class="countdown-timmer__amount ff-heading" data-seconds>0</div>
+      <div class="countdown-timer__type fs-accent">{{ 'sections.countdown_timer.seconds' | t }}</div>
+    </div>
+  </div>
+
+  {%- if timer_complete_message -%}
+    <div class="
+        countdown-timer__message
+        section-blocks__text
+        rte
+        {% if size == 'small' %}fs-body-75{% endif %}
+      ">
+      {{ timer_complete_message }}
+    </div>
+  {%- endif -%}
+</div>
