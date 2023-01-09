@@ -131,14 +131,14 @@ Pass in:
         {%- endif -%}
 
       {%- when 'accordion' -%}
-        {% unless block.settings.content == blank and block.settings.image == nil and block.settings.content_page == blank %}
+        {% if block.settings.content != blank or block.settings.image or block.settings.content_page != blank %}
           {%- render 'product-block-accordion' with
             block: block,
             block_settings: block.settings
             heading: block.settings.heading,
             content: block.settings.content,
           -%}
-        {% endunless %}
+        {% endif %}
 
       {%- when 'information_popup' -%}
         {%- assign popup_modal_page = pages[block.settings.popup_page] -%}
