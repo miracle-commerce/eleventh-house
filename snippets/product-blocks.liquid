@@ -131,12 +131,14 @@ Pass in:
         {%- endif -%}
 
       {%- when 'accordion' -%}
-        {%- render 'product-block-accordion' with
-          block: block,
-          block_settings: block.settings
-          heading: block.settings.heading,
-          content: block.settings.content,
-        -%}
+        {% unless block.settings.content == blank and block.settings.image == nil and block.settings.content_page == blank %}
+          {%- render 'product-block-accordion' with
+            block: block,
+            block_settings: block.settings
+            heading: block.settings.heading,
+            content: block.settings.content,
+          -%}
+        {% endunless %}
 
       {%- when 'information_popup' -%}
         {%- assign popup_modal_page = pages[block.settings.popup_page] -%}
@@ -150,6 +152,18 @@ Pass in:
             text: block.settings.popup_text
           %}
         {%- endif -%}
+      
+      {%- when 'feature_accordion_group' -%}
+        {%- assign feature_namespace = block.settings.metafield_namespace -%}
+        {%- for feature_metafield in product.metafields[feature_namespace] -%}
+          {%- assign feature_metafield_key = feature_metafield[0] -%}
+          {%- assign feature_metafield_value = feature_metafield[1] -%}
+          {%- assign feature_metafield_index = 'product-feature-' |append: forloop.index -%}
+          {%- assign feature_metafield_heading = feature_metafield_key | replace: '_', ' ' -%}
+          {%- if feature_metafield_value != blank -%}
+            {% render 'product-block-feature-accordion', heading: feature_metafield_heading, content: feature_metafield_value, feature_metafield_index: feature_metafield_index, classes: 'product-feature-accordion-item' %}
+          {%- endif -%}
+        {%- endfor -%}
     {%- endcase -%}
   {% endif %}
 {%- endfor -%}

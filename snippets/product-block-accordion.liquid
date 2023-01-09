@@ -39,6 +39,9 @@
       id="accordion-content-{{ block.id }}"
     >
       {{ content }}
+      {% if block_settings.image %}
+        {{block_settings.image |image_url:width:420 | image_tag}}
+      {% endif %}
     </div>
   </div>
 </div>
