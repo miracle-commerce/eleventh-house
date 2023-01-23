@@ -73,6 +73,7 @@
         "blocks": {
           "announcement-bar-0": {
             "type": "announcement",
+            "disabled": true,
             "settings": {
               "title": "<p>FREE SHIPPING ON ALL ORDERS OVER $150 & FREE RETURNS<\/p>",
               "title_mobile": "",
@@ -81,6 +82,7 @@
           },
           "fd24d238-6eef-4f39-918d-3d2458c8bfc4": {
             "type": "announcement",
+            "disabled": true,
             "settings": {
               "title": "<p>SHOP PAY IS HERE! NOW PAY IN 4 EASY INSTALLMENTS <\/p>",
               "title_mobile": "",
@@ -104,6 +106,7 @@
         "blocks": {
           "128bb530-49f9-440d-8bee-12eff320b9f3": {
             "type": "full_width_meganav",
+            "disabled": true,
             "settings": {
               "dropdown_parent_link": "",
               "column_count": 3,
@@ -125,6 +128,7 @@
           },
           "c4636010-a86d-4ad7-9118-77e19b973170": {
             "type": "compact_meganav",
+            "disabled": true,
             "settings": {
               "dropdown_parent_link": "Dresses",
               "columns_width": 270,
@@ -291,7 +295,7 @@
           "ee1d2a40-b66e-4dd2-9e6e-b780f5f49e73"
         ],
         "settings": {
-          "enable_popup": true,
+          "enable_popup": false,
           "focal_point": "center",
           "text_color": "#f8f4ed",
           "background_color": "#183f41",

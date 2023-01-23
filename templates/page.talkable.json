@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "talkable-campaign",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

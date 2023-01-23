@@ -95,7 +95,7 @@
       "message": "Message",
       "name": "Name",
       "phone": "Phone",
-      "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
+      "post_success": "Thanks for submitting! We'll be in touch soon.",
       "recaptcha_terms_html": "This site is protected by reCAPTCHA and the Google <a href='https:\/\/policies.google.com\/privacy'>Privacy Policy<\/a> and <a href='https:\/\/policies.google.com\/terms'>Terms of Service<\/a> apply.",
       "submit": "Submit"
     }
@@ -278,7 +278,7 @@
       "tags": "Tagged \"{{ tags }}\""
     },
     "newsletter_form": {
-      "confirmation": "Thank you - please check your email to confirm your subscription!",
+      "confirmation": "Thanks for signing up - we're stoked to have you!",
       "email_placeholder": "Your email",
       "submit": "Subscribe"
     },

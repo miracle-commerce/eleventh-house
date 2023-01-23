@@ -45,34 +45,32 @@
         },
         "55c9b61a-021c-4db1-b87c-7111fe5a8ee0": {
           "type": "accordion",
-          "disabled": true,
           "settings": {
             "expand_by_default": false,
             "column_placement": "right",
             "heading": "Features",
-            "content": "",
+            "content": "<p>{{ product.metafields.custom.features | metafield_tag }}<\/p>",
             "page_for_content": ""
           }
         },
         "5ce3a84a-a376-4161-b40a-edb0d6c9a09e": {
           "type": "accordion",
-          "disabled": true,
           "settings": {
             "expand_by_default": false,
             "column_placement": "right",
             "heading": "Fabric & Care",
-            "content": "",
+            "content": "<p>{{ product.metafields.custom.fabric_care | metafield_tag }}<\/p>",
             "page_for_content": ""
           }
         },
         "b6a7ffd1-1fd7-4e9b-a2e7-0844fb978fd7": {
           "type": "accordion",
-          "disabled": true,
           "settings": {
             "expand_by_default": false,
             "column_placement": "right",
             "heading": "Fit",
-            "content": "",
+            "content": "<p>{{ product.metafields.custom.fit | metafield_tag }}<\/p>",
+            "image": "{{ product.metafields.feature.size_chart.value }}",
             "page_for_content": ""
           }
         },

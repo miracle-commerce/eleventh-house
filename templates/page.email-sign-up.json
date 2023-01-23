@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "enable_animation": true,
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    },
+    "9f1b3e40-9902-4394-88d9-595df99de65f": {
+      "type": "contact-form",
+      "blocks": {
+        "template--16692573831397__9f1b3e40-9902-4394-88d9-595df99de65f-167439049911b7eef4-0": {
+          "type": "text",
+          "settings": {
+            "title": "Name",
+            "required": false,
+            "width": "half"
+          }
+        },
+        "template--16692573831397__9f1b3e40-9902-4394-88d9-595df99de65f-167439049911b7eef4-1": {
+          "type": "email",
+          "settings": {
+            "title": "Email",
+            "width": "half"
+          }
+        },
+        "template--16692573831397__9f1b3e40-9902-4394-88d9-595df99de65f-167439049911b7eef4-2": {
+          "type": "telephone",
+          "disabled": true,
+          "settings": {
+            "title": "Phone",
+            "required": false,
+            "width": "full"
+          }
+        },
+        "template--16692573831397__9f1b3e40-9902-4394-88d9-595df99de65f-167439049911b7eef4-3": {
+          "type": "text_area",
+          "disabled": true,
+          "settings": {
+            "title": "Message",
+            "placeholder": "Your message",
+            "required": false,
+            "height": 180,
+            "width": "full"
+          }
+        }
+      },
+      "block_order": [
+        "template--16692573831397__9f1b3e40-9902-4394-88d9-595df99de65f-167439049911b7eef4-0",
+        "template--16692573831397__9f1b3e40-9902-4394-88d9-595df99de65f-167439049911b7eef4-1",
+        "template--16692573831397__9f1b3e40-9902-4394-88d9-595df99de65f-167439049911b7eef4-2",
+        "template--16692573831397__9f1b3e40-9902-4394-88d9-595df99de65f-167439049911b7eef4-3"
+      ],
+      "settings": {
+        "alignment": "left_left",
+        "heading": "Get On The List",
+        "heading_font_class": "fs-heading-3-base",
+        "text": "",
+        "show_recaptcha_terms": true,
+        "enable_animation": true,
+        "divider_style": "none",
+        "section_padding": "section--vertical-padding-top-bottom",
+        "content_width": "custom",
+        "custom_content_width": 700
+      }
+    }
+  },
+  "order": [
+    "main",
+    "9f1b3e40-9902-4394-88d9-595df99de65f"
+  ]
+}
