@@ -202,7 +202,7 @@
         "fac873fc-4a2f-45ad-b0ea-cdaeb205f46a": {
           "type": "text",
           "settings": {
-            "text": "<p>There’s no denying it, we love clothes. But the global fashion industry has some big obstacles to overcome including but not limited to: pollution, waste, and human rights abuses. Like you, we care for our planet, people, and animals, and believe that we have a real opportunity to make major strides simply by making better choices. Choosing and rewarding responsible brands means we’re voting for the change we want to see.<\/p><p>We know sifting through all the noise out there is difficult, time consuming, and confusing to say the least. Eco-conscious, sustainable, ethical, greenwashing, what does it all mean? That’s where we come in. We’ve carefully vetted every brand and curated a collection of considered products so you can shop with confidence, knowing anything you purchase here is building a better future.<\/p>",
+            "text": "<p>There’s no denying it, we love clothes. But the global fashion industry has some big obstacles to overcome including but not limited to: pollution, waste, and human rights abuses. Like you, we care for our planet, people, and animals, and believe that we have a real opportunity to make major strides simply by making better choices. Choosing and rewarding responsible brands means we’re voting for the change we want to see.<\/p><p>We know sifting through all the noise out there is difficult, time consuming, and confusing to say the least. Eco-conscious, sustainable, ethical, greenwashing, what does it all mean? That’s where we come in. We’ve carefully vetted every brand and curated a collection of considered products so you can shop with confidence, knowing anything you purchase here is building a better future.<\/p><p>Click below to discover more about what it takes to become an official Eleventh House brand.<\/p>",
             "text_font_class": "fs-body-100"
           }
         },
@@ -216,10 +216,9 @@
         },
         "166130511786bd5d1f-2": {
           "type": "button",
-          "disabled": true,
           "settings": {
-            "link": "",
-            "link_text": "Read more",
+            "link": "shopify:\/\/blogs\/journal\/ethically-sourced",
+            "link_text": "Brand Criteria",
             "button_style": "btn--primary"
           }
         }
@@ -642,22 +641,22 @@
         "166268648183b83750-1": {
           "type": "heading",
           "settings": {
-            "title": "Brand Criteria",
+            "title": "Good On You",
             "heading_font_class": "fs-heading-display-2"
           }
         },
         "166268648183b83750-2": {
           "type": "text",
           "settings": {
-            "text": "<p>Discover what it takes to be an Eleventh House brand.<\/p>",
+            "text": "<p>Adventure-seeking fashion lovers unite - check out our feature at GoodOnYou.eco<\/p>",
             "text_font_class": "fs-body-100"
           }
         },
         "532d014d-30aa-4f51-96d2-a66a5d9d8661": {
           "type": "button",
           "settings": {
-            "link": "shopify:\/\/blogs\/journal\/ethically-sourced",
-            "link_text": "Learn more",
+            "link": "https:\/\/goodonyou.eco\/adventure-ready-with-eleventh-house\/",
+            "link_text": "Read more",
             "button_style": "btn--primary"
           }
         }

@@ -1,12 +1,126 @@
 {
   "sections": {
+    "a25f251f-93e1-4e5a-b961-0e7d22b7f498": {
+      "type": "slideshow",
+      "disabled": true,
+      "blocks": {
+        "template--16369298243813__a25f251f-93e1-4e5a-b961-0e7d22b7f498-167461397143bf5f9e-0": {
+          "type": "slide",
+          "settings": {
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "media_link": "",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Slideshow",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "<p>Use this section to make a bold statement<\/p>",
+            "text_font_class": "fs-body-100",
+            "link_1": "",
+            "link_text_1": "Read more",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "Read more",
+            "button_style_2": "btn--primary",
+            "text_color": "#FFFFFF",
+            "button_background_color": "#FFFFFF",
+            "button_text_color": "#000000",
+            "color_overlay": "#000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 40
+          }
+        },
+        "template--16369298243813__a25f251f-93e1-4e5a-b961-0e7d22b7f498-167461397143bf5f9e-1": {
+          "type": "slide",
+          "settings": {
+            "focal_point": "center",
+            "mobile_focal_point": "center",
+            "media_link": "",
+            "text_position": "center_center",
+            "accent": "",
+            "title": "Slideshow",
+            "heading_font_class": "fs-heading-display-2",
+            "subheading": "",
+            "subheading_font_class": "fs-heading-5-base",
+            "text": "<p>Use this section to make a bold statement<\/p>",
+            "text_font_class": "fs-body-100",
+            "link_1": "",
+            "link_text_1": "Read more",
+            "button_style_1": "btn--primary",
+            "link_2": "",
+            "link_text_2": "Read more",
+            "button_style_2": "btn--primary",
+            "text_color": "#FFFFFF",
+            "button_background_color": "#FFFFFF",
+            "button_text_color": "#000000",
+            "color_overlay": "#000",
+            "color_overlay_gradient": "",
+            "overlay_opacity": 40
+          }
+        }
+      },
+      "block_order": [
+        "template--16369298243813__a25f251f-93e1-4e5a-b961-0e7d22b7f498-167461397143bf5f9e-0",
+        "template--16369298243813__a25f251f-93e1-4e5a-b961-0e7d22b7f498-167461397143bf5f9e-1"
+      ],
+      "settings": {
+        "image_aspect": "custom",
+        "desktop_height": 100,
+        "mobile_height": 100,
+        "enable_autoplay": true,
+        "duration_autoplay": 6,
+        "navigation_alignment": "center",
+        "navigation_color_foreground": "#fff",
+        "navigation_color_background": "",
+        "navigation_background_opacity": 100,
+        "enable_animation": true,
+        "section_padding": "none"
+      }
+    },
     "main": {
       "type": "main-blog",
       "settings": {
+        "show_tag_nav": true,
+        "article_per_page": 12,
+        "show_tags": false,
+        "show_author": true,
+        "show_date": true,
+        "show_excerpt": true,
+        "show_featured_image": true,
+        "aspect_ratio": "landscape",
+        "enable_animation": true
+      }
+    },
+    "d4d987df-d76a-4bc5-99c1-cf0b11e2d33c": {
+      "type": "promotion-bar",
+      "settings": {
+        "min_height": 200,
+        "min_height_mobile": 60,
+        "heading": "Get the best of Eleventh House",
+        "text": "<p>We deliver the most sustainable new products, inspirational stories, gear guides, and more to your inbox every month. <\/p>",
+        "link": "shopify:\/\/pages\/get-notified",
+        "link_text": "Sign Me Up",
+        "button_style": "btn--secondary",
+        "focal_point": "center",
+        "mobile_focal_point": "center",
+        "text_color": "#FFFFFF",
+        "button_background_color": "#FFFFFF",
+        "button_text_color": "#000000",
+        "background_color": "#C51C26",
+        "color_overlay": "#000",
+        "color_overlay_gradient": "",
+        "overlay_opacity": 0,
+        "enable_animation": true,
+        "full_width": false,
+        "section_padding": "section--vertical-padding-top-bottom"
       }
     }
   },
   "order": [
-    "main"
+    "a25f251f-93e1-4e5a-b961-0e7d22b7f498",
+    "main",
+    "d4d987df-d76a-4bc5-99c1-cf0b11e2d33c"
   ]
 }
