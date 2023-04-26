@@ -84,7 +84,18 @@
 
     {% render 'theme-setup' %}
     {% render 'theme-setting-vars' %}
+    <!-- Add Critical CSS -->
+    {% case template.name %}
+      {% when 'index' %}
+        {% render 'critical-css-home' %}
+      {% when 'collection' %}
+        {% render 'critical-css-collection' %}
+      {% when 'product' %}
+        {% render 'critical-css-product' %}
+    {% endcase %}
+    <!--  End Critical CSS -->
     {%- render 'theme-globals' -%}
+
 
     {% comment %}{{ content_for_header }}{% endcomment %}
     {{ content_for_header | replace : ' href=', ' data-href=' | replace : "addEventListener('load'", "addEventListener('wnw_load'" | replace : "document.addEventListener('DOMContentLoaded", "document.addEventListener('DOMContentLoaded2" | replace : 'defer="defer" src=', 'type="lazyload2" defer="defer" data-src=' }}
