@@ -82,7 +82,11 @@
     {% render 'theme-setting-vars' %}
     {%- render 'theme-globals' -%}
 
-    {{ content_for_header }}
+    {% comment %}{{ content_for_header }}{% endcomment %}
+{{ content_for_header | replace : ' href=', ' data-href=' | replace : "addEventListener('load'", "addEventListener('wnw_load'" | replace : "document.addEventListener('DOMContentLoaded", "document.addEventListener('DOMContentLoaded2" | replace : 'defer="defer" src=', 'type="lazyload2" defer="defer" data-src=' }}
+  {% comment %} <script>var trekkie=[];trekkie.integrations=!0;</script> {% endcomment %}
+
+
   {% render "rafp-render" %} <!-- roartheme: FontPicker app -->
  {% include 'talkable-partial' %}
 </head>
@@ -120,5 +124,6 @@
 
     {{ '//www.youtube.com/iframe_api' | script_tag }}
     {{ '//cdn.shopify.com/shopifycloud/shopify-plyr/v1.0/shopify-plyr.css' | stylesheet_tag }}
+    {% render 'optimization-js' %}
   </body>
 </html>
