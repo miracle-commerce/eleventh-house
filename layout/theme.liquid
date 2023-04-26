@@ -33,14 +33,14 @@
     <script id='em_product_metafields' type='application/json'>
         {{ shop.metafields.email-sealapps-app.effective-time | json }}
     </script><!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2R6E4SFKXV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2R6E4SFKXV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-2R6E4SFKXV');
-</script>
+      gtag('config', 'G-2R6E4SFKXV');
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -78,18 +78,22 @@
 
     {% render 'social-meta-tags' %}
 
+    {% if template.name == 'index' %}
+      <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0652/7945/9557/files/Brand_Stock_Photos-17.jpg">
+    {% endif %}
+
     {% render 'theme-setup' %}
     {% render 'theme-setting-vars' %}
     {%- render 'theme-globals' -%}
 
     {% comment %}{{ content_for_header }}{% endcomment %}
-{{ content_for_header | replace : ' href=', ' data-href=' | replace : "addEventListener('load'", "addEventListener('wnw_load'" | replace : "document.addEventListener('DOMContentLoaded", "document.addEventListener('DOMContentLoaded2" | replace : 'defer="defer" src=', 'type="lazyload2" defer="defer" data-src=' }}
-  {% comment %} <script>var trekkie=[];trekkie.integrations=!0;</script> {% endcomment %}
+    {{ content_for_header | replace : ' href=', ' data-href=' | replace : "addEventListener('load'", "addEventListener('wnw_load'" | replace : "document.addEventListener('DOMContentLoaded", "document.addEventListener('DOMContentLoaded2" | replace : 'defer="defer" src=', 'type="lazyload2" defer="defer" data-src=' }}
+    {% comment %} <script>var trekkie=[];trekkie.integrations=!0;</script> {% endcomment %}
 
 
-  {% render "rafp-render" %} <!-- roartheme: FontPicker app -->
- {% include 'talkable-partial' %}
-</head>
+    {% render "rafp-render" %} <!-- roartheme: FontPicker app -->
+    {% include 'talkable-partial' %}
+  </head>
 
   <body class="template-{{ request.page_type | handle }}">
     <div class="page">

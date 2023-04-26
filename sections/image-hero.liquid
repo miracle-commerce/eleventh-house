@@ -60,7 +60,8 @@
           focal_point: section.settings.mobile_focal_point,
           placeholder_name: "lifestyle-2",
           animate: true,
-          src_set_type: "full-width"
+          src_set_type: "full-width",
+          prioritize_loading: section.settings.prioritize_loading
         -%}
       {%- endif -%}
 
@@ -74,7 +75,8 @@
         placeholder_natural_fallback_ratio: placeholder_aspect_ratio,
         placeholder_name: "lifestyle-2",
         animate: true,
-        src_set_type: "full-width"
+        src_set_type: "full-width",
+        prioritize_loading: section.settings.prioritize_loading
       -%}
     </div>
     <div class="image-hero__overlay"></div>
@@ -169,6 +171,12 @@
     "tag": "section",
     "class": "shopify-section--full-width",
     "settings": [
+      {
+        "type":"checkbox",
+        "id":"prioritize_loading",
+        "label":"Prioritize Loading",
+        "default": true
+      },
       {
         "type": "radio",
         "id": "image_aspect",
